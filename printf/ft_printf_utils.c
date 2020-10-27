@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/27 21:45:10 by ukwon            ###   ########.fr       */
+/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/27 20:58:13 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			main(void)
+void			reset_flag(t_flag *flag)
 {
-	int i, j;
-	char *str;
-
-	str = "hello?";
-	i = 10;
-	j = 20;
-	printf("   printf -> : [%-*d] [%-12d] \n", 6, 6, i);
-	ft_printf("ft_printf -> : [%-*d] [%-12d] \n"0, 6, 6, i);
-	return (0);
+	flag->width = 0;
+	flag->fill_zero = 0;
+	flag->left = 0;
+	flag->p_width = 0;
+	flag->precision = 0;
 }
