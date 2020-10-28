@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   is_set.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 18:07:16 by ukwon            ###   ########.fr       */
+/*   Created: 2020/03/17 00:39:22 by mihykim           #+#    #+#             */
+/*   Updated: 2020/03/17 00:39:32 by mihykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void			reset_flag(t_flag *flag)
+int		is_set(char c, char *set)
 {
-	flag->width = 0;
-	flag->zero = 0;
-	flag->left = 0;
-	flag->p_width = 0;
-	flag->precision = 0;
-	flag->check = 0;
+	int i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

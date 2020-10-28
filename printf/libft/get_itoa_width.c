@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   get_itoa_width.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 18:07:16 by ukwon            ###   ########.fr       */
+/*   Created: 2020/03/17 00:37:55 by mihykim           #+#    #+#             */
+/*   Updated: 2020/04/17 23:25:49 by mihykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void			reset_flag(t_flag *flag)
+int		get_itoa_width(long n)
 {
-	flag->width = 0;
-	flag->zero = 0;
-	flag->left = 0;
-	flag->p_width = 0;
-	flag->precision = 0;
-	flag->check = 0;
+	int		i;
+
+	i = n < 1 ? 1 : 0;
+	n = n < 0 ? -n : n;
+	while (n != 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }
+
+/*
+** line 15 : change from 'int' to 'long' to pass test 640 with long numbers
+*/

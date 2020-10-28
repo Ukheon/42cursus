@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   get_atouni_width.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 18:07:16 by ukwon            ###   ########.fr       */
+/*   Created: 2020/03/22 16:17:03 by mihykim           #+#    #+#             */
+/*   Updated: 2020/03/22 17:34:14 by mihykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void			reset_flag(t_flag *flag)
+int	get_atouni_width(wchar_t wc)
 {
-	flag->width = 0;
-	flag->zero = 0;
-	flag->left = 0;
-	flag->p_width = 0;
-	flag->precision = 0;
-	flag->check = 0;
+	if (wc < 0x80)
+		return (1);
+	else if (wc < 0x800)
+		return (2);
+	else if (wc < 0x10000)
+		return (3);
+	else
+		return (4);
 }

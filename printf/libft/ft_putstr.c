@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 18:07:16 by ukwon            ###   ########.fr       */
+/*   Created: 2020/03/17 00:42:28 by mihykim           #+#    #+#             */
+/*   Updated: 2020/03/17 00:42:35 by mihykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void			reset_flag(t_flag *flag)
+int		ft_putstr(char *s)
 {
-	flag->width = 0;
-	flag->zero = 0;
-	flag->left = 0;
-	flag->p_width = 0;
-	flag->precision = 0;
-	flag->check = 0;
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar(s[i]);
+		i++;
+	}
+	return (i);
 }

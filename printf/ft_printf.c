@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/27 21:26:13 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/28 19:44:21 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,45 +22,30 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-void			get_d(t_flag *flag, va_list ap)
-{
-	int save;
-	int i;
-
-	save = va_arg(ap, int);
-	if (flag->left == 1)
-	{
-		ft_putstr_fd((ft_itoa(save)), 1);
-		i = flag->width - ft_strlen(ft_itoa(save));
-		while (i--)
-			write(1, " ", 1);
-	}
-	else if (flag->fill_zero == 1)
-	{
-		i = flag->width - ft_strlen(ft_itoa(save));
-		while (i--)
-			write(1, "0", 1);
-		ft_putstr_fd((ft_itoa(save)), 1);
-	}
-	else
-		ft_putstr_fd((ft_itoa(save)), 1);
-}
-
 int				check_flag(char format, t_flag *flag, va_list ap)
 {
-	if (format == '-')
-		flag->left = 1;
-	else if (format == '*' && flag->precision == 1)
-		flag->p_width = va_arg(ap, int);
-	else if (format == '*' && (flag->left == 1 || flag->fill_zero == 1))
-		flag->width = va_arg(ap, int);
+	if (format == '0' && flag->check == 0 && flag->zero == 0)
+		flag->zero = 1;
+	else if (flag->precision && format >= '0' && format <= '9')
+		flag->p_width = (flag->p_width * 10) + (format - '0');
+	else if (format >= '0' && format <= '9')
+	{
+		flag->width = (flag->width * 10) + (format - '0');
+		flag->check = 1;
+	}
+	else if (format == '*')
+	{
+		if (flag->precision == 1)
+			flag->p_width = va_arg(ap, int);
+		else
+			flag->width = va_arg(ap, int);
+	}
 	else if (format == '.')
 		flag->precision = 1;
-	else if ((flag->left == 1 || flag->fill_zero == 1) &&\
-		(format >= '0' && format <= '9'))
-		flag->width = (flag->width * 10) + (format - 48);
-	else if (format == '0')
-		flag->fill_zero = 1;
+	else if (format >= '0' && format <= '9')
+		flag->width = (flag->width * 10) + (format - '0');
+	else if (format == '-')
+		flag->left = 1;
 	else
 		return (0);
 	return (1);
@@ -104,7 +89,6 @@ int				ft_printf(const char *format, ...)
 		else
 		{
 			write(1, &(*format), 1);
-			res++;
 		}
 		format++;
 	}

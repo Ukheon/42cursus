@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 18:07:16 by ukwon            ###   ########.fr       */
+/*   Created: 2020/03/17 00:40:07 by mihykim           #+#    #+#             */
+/*   Updated: 2020/03/17 00:40:16 by mihykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void			reset_flag(t_flag *flag)
+char	*ft_strchr(const char *s, int c)
 {
-	flag->width = 0;
-	flag->zero = 0;
-	flag->left = 0;
-	flag->p_width = 0;
-	flag->precision = 0;
-	flag->check = 0;
+	int i;
+
+	if (s == 0)
+		return (0);
+	i = 0;
+	if (c == 0)
+		return ((char *)s + ft_strlen(s));
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		i++;
+	}
+	return (0);
 }
