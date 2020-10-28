@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 20:05:37 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/28 21:00:19 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,23 @@ void			get_d(t_flag *flag, va_list ap)
 				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
 		}
+		else if (flag->p_width)
+		{
+			p_i = flag->p_width > ft_strlen(ft_itoa(p)) ? \
+			(flag->p_width) - ft_strlen(ft_itoa(p)) : ft_strlen(ft_itoa(p)) + 1;
+			i = flag->width - (ft_strlen(ft_itoa(p)) + p_i);
+			while (i-- > 0)
+				write(1, " ", 1);
+			while (p_i-- > 0)
+				write(1, "0", 1);
+			ft_putstr_fd((ft_itoa(p)), 1);
+		}
 		else
 		{
 			p_i = flag->p_width > ft_strlen(ft_itoa(p)) ? \
 			(flag->p_width) - ft_strlen(ft_itoa(p)) : 0;
 			i = flag->width - (ft_strlen(ft_itoa(p)) + p_i);
 			while (i-- > 0)
-				write(1, " ", 1);
-			while (p_i-- > 0)
 				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
 		}
@@ -78,15 +87,18 @@ void			get_d(t_flag *flag, va_list ap)
 		}
 		else
 		{
-			i = flag->p_width - ft_strlen(ft_itoa(p));
+			p_i = flag->p_width - ft_strlen(ft_itoa(p));
+			i = flag->width - ft_strlen(ft_itoa(p)) - p_i;
 			while (i-- > 0)
 				write(1, " ", 1);
+			while (p_i-- > 0)
+				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
 		}
 	}
 	else
 	{
-		i = flag->p_width - ft_strlen(ft_itoa(p));
+		i = flag->width - ft_strlen(ft_itoa(p));
 		while (i-- > 0)
 			write(1, " ", 1);
 		ft_putstr_fd((ft_itoa(p)), 1);
