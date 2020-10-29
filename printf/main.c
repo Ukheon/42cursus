@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 20:49:31 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 21:36:51 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int			main(void)
 {
 	char *s = "hello world";
 
-	printf("   printf -> [%-10.20s]\n",s);
-	// ft_printf("ft_printf -> [%-123.c]\n",c);
+	printf("   printf -> [%15.14s]\n",s);
+	ft_printf("ft_printf -> [%15.14s]\n",s);
 }

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:52:31 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 19:29:37 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 20:58:08 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char			*ft_itoa(int n)
 	return (res);
 }
 
-static char			*ft_strdup(const char *s1)
+char			*ft_strdup(const char *s1)
 {
 	int		i;
 	char	*res;

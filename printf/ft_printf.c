@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 17:58:37 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 20:57:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				ft_printf(const char *format, ...)
 				get_d(&flag, ap);
 			else if (*format == 'c')
 				get_c(&flag, ap);
-			else if (*format == 'c')
+			else if (*format == 's')
 				get_s(&flag, ap);
 		}
 		else
