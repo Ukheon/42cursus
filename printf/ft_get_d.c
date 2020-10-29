@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 21:00:19 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 17:02:24 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,58 +19,111 @@ void			get_d(t_flag *flag, va_list ap)
 	int	p_i;
 
 	p = va_arg(ap, int);
+	flag->result += ft_strlen(ft_itoa(p));
 	if (p < 0)
 	{
 		p *= -1;
 		get_md(flag, p);
 		return ;
 	}
-	if (flag->left)
+	if (flag->precision && p == 0 && flag->p_width <= 0)
 	{
-		if (flag->width <= flag->p_width)
-		{
-			i = flag->p_width - ft_strlen(ft_itoa(p));
-			while (i-- > 0)
-				write(1, "0", 1);
+		i = flag->width;
+		flag->result += i > 0 ? i : 0;
+		while (i-- > 0)
+			write(1, " ", 1);
+		if (flag->p_width < 0)
 			ft_putstr_fd((ft_itoa(p)), 1);
+	}
+	else if (flag->left)
+	{
+		if (flag->width && flag->p_width)
+		{
+			if (flag->width <= flag->p_width)
+			{
+				p_i = flag->p_width - ft_strlen(ft_itoa(p));
+				flag->result += p_i > 0 ? p_i : 0;
+				while (p_i-- > 0)
+					write(1, "0", 1);
+				ft_putstr_fd((ft_itoa(p)), 1);
+			}
+			else if (flag->p_width < ft_strlen(ft_itoa(p)))
+			{
+				i = flag->width - ft_strlen(ft_itoa(p));
+				ft_putstr_fd((ft_itoa(p)), 1);
+				flag->result += i > 0 ? i : 0;
+				while (i-- > 0)
+					write(1, " ", 1);
+			}
+			else
+			{
+				p_i = flag->p_width - ft_strlen(ft_itoa(p));
+				i = flag->width - flag->p_width;
+				flag->result += p_i > 0 ? p_i : 0;
+				while (p_i-- > 0)
+					write(1, "0", 1);
+				ft_putstr_fd((ft_itoa(p)), 1);
+				flag->result += i > 0 ? i : 0;
+				while (i-- > 0)
+					write(1, " ", 1);
+			}
+		}
+		else if (flag->width)
+		{
+			i = flag->width - ft_strlen(ft_itoa(p));
+			ft_putstr_fd((ft_itoa(p)), 1);
+			flag->result += i > 0 ? i : 0;
+			while (i-- > 0)
+				write(1, " ", 1);
 		}
 		else
 		{
-			p_i = flag->p_width > ft_strlen(ft_itoa(p)) ? \
-			(flag->p_width) - ft_strlen(ft_itoa(p)) : 0;
-			i = flag->width - (ft_strlen(ft_itoa(p)) + p_i);
+			p_i = flag->p_width - ft_strlen(ft_itoa(p));
+			flag->result += p_i > 0 ? p_i : 0;
 			while (p_i-- > 0)
 				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
-			while (i-- > 0)
-				write(1, " ", 1);
 		}
 	}
 	else if (flag->zero)
 	{
-		if (flag->width <= flag->p_width)
+		if (flag->width && flag->p_width)
 		{
-			p_i = flag->p_width - ft_strlen(ft_itoa(p));
-			while (p_i-- > 0)
-				write(1, "0", 1);
-			ft_putstr_fd((ft_itoa(p)), 1);
-		}
-		else if (flag->p_width)
-		{
-			p_i = flag->p_width > ft_strlen(ft_itoa(p)) ? \
-			(flag->p_width) - ft_strlen(ft_itoa(p)) : ft_strlen(ft_itoa(p)) + 1;
-			i = flag->width - (ft_strlen(ft_itoa(p)) + p_i);
-			while (i-- > 0)
-				write(1, " ", 1);
-			while (p_i-- > 0)
-				write(1, "0", 1);
-			ft_putstr_fd((ft_itoa(p)), 1);
+			if (flag->width <= flag->p_width)
+			{
+				p_i = flag->p_width - ft_strlen(ft_itoa(p));
+				flag->result += p_i > 0 ? p_i : 0;
+				while (p_i-- > 0)
+					write(1, "0", 1);
+				ft_putstr_fd((ft_itoa(p)), 1);
+			}
+			else if (flag->p_width < ft_strlen(ft_itoa(p)))
+			{
+				i = flag->width - ft_strlen(ft_itoa(p));
+				flag->result += i > 0 ? i : 0;
+				while (i-- > 0)
+					write(1, " ", 1);
+				ft_putstr_fd((ft_itoa(p)), 1);
+			}
+			else
+			{
+				p_i = flag->p_width - ft_strlen(ft_itoa(p));
+				i = flag->width - flag->p_width;
+				flag->result += i > 0 ? i : 0;
+				while (i-- > 0)
+					write(1, " ", 1);
+				flag->result += p_i > 0 ? p_i : 0;
+				while (p_i-- > 0)
+					write(1, "0", 1);
+				ft_putstr_fd((ft_itoa(p)), 1);
+			}
 		}
 		else
 		{
-			p_i = flag->p_width > ft_strlen(ft_itoa(p)) ? \
-			(flag->p_width) - ft_strlen(ft_itoa(p)) : 0;
-			i = flag->width - (ft_strlen(ft_itoa(p)) + p_i);
+			i = flag->width - ft_strlen(ft_itoa(p));
+			p_i = flag->p_width - ft_strlen(ft_itoa(p));
+			i = i > p_i ? i : p_i;
+			flag->result += i > 0 ? i : 0;
 			while (i-- > 0)
 				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
@@ -81,16 +134,27 @@ void			get_d(t_flag *flag, va_list ap)
 		if (flag->width <= flag->p_width)
 		{
 			p_i = flag->p_width - ft_strlen(ft_itoa(p));
+			flag->result += p_i > 0 ? p_i : 0;
 			while (p_i-- > 0)
 				write(1, "0", 1);
+			ft_putstr_fd((ft_itoa(p)), 1);
+		}
+		else if (flag->p_width < ft_strlen(ft_itoa(p)))
+		{
+			i = flag->width - ft_strlen(ft_itoa(p));
+			flag->result += i > 0 ? i : 0;
+			while (i-- > 0)
+				write(1, " ", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
 		}
 		else
 		{
 			p_i = flag->p_width - ft_strlen(ft_itoa(p));
-			i = flag->width - ft_strlen(ft_itoa(p)) - p_i;
+			i = flag->width - flag->p_width;
+			flag->result += i > 0 ? i : 0;
 			while (i-- > 0)
 				write(1, " ", 1);
+			flag->result += p_i > 0 ? p_i : 0;
 			while (p_i-- > 0)
 				write(1, "0", 1);
 			ft_putstr_fd((ft_itoa(p)), 1);
@@ -99,6 +163,7 @@ void			get_d(t_flag *flag, va_list ap)
 	else
 	{
 		i = flag->width - ft_strlen(ft_itoa(p));
+		flag->result += i > 0 ? i : 0;
 		while (i-- > 0)
 			write(1, " ", 1);
 		ft_putstr_fd((ft_itoa(p)), 1);

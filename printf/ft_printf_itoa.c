@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:52:31 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/27 15:56:41 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 19:29:37 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,51 @@ char			*ft_itoa(int n)
 		return (0);
 	res = putstr(res, n, len - 1);
 	res[len + check] = '\0';
+	return (res);
+}
+
+static char			*ft_strdup(const char *s1)
+{
+	int		i;
+	char	*res;
+	char	*str;
+
+	str = (char *)s1;
+	i = 0;
+	while (str[i])
+		i++;
+	if (!(res = (char *)malloc(sizeof(char) * i + 1)))
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+char			*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char			*res;
+	int				i;
+	char			*str;
+	int				s_len;
+
+	if (!s)
+		return (NULL);
+	s_len = 0;
+	str = (char *)s;
+	while (str[s_len])
+		s_len++;
+	if ((int)start > (int)ft_strlen(str))
+		return (ft_strdup(""));
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	i = 0;
+	while (len--)
+		res[i++] = s[start++];
+	res[i] = '\0';
 	return (res);
 }

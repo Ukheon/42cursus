@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/28 19:44:21 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/29 17:58:37 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,31 @@ int				ft_printf(const char *format, ...)
 
 	res = 0;
 	va_start(ap, format);
+	flag.result = 0;
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
+			if (*format == '%')
+			{
+				write(1, &(*format), 1);
+				flag.result++;
+			}
 			ft_start(&format, ap, &flag);
 			if (*format == 'd')
 				get_d(&flag, ap);
-			else if (*format == 's')
-				ft_putstr_fd(va_arg(ap, char*), 1);
+			else if (*format == 'c')
+				get_c(&flag, ap);
+			else if (*format == 'c')
+				get_s(&flag, ap);
 		}
 		else
 		{
 			write(1, &(*format), 1);
+			flag.result++;
 		}
 		format++;
 	}
-	return (res);
+	return (flag.result);
 }

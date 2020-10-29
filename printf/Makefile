@@ -10,6 +10,7 @@ SRCS		= ./ft_printf.c \
 			  ./ft_printf_itoa.c \
 			  ./ft_printf_s.c \
 			  ./ft_printf_utils.c \
+			  ./ft_get_c.c
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .
