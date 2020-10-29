@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 20:57:50 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 02:17:25 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ int				ft_printf(const char *format, ...)
 {
 	va_list ap;
 	t_flag	flag;
-	int		res;
 
-	res = 0;
 	va_start(ap, format);
 	flag.result = 0;
 	while (*format)
@@ -87,7 +85,7 @@ int				ft_printf(const char *format, ...)
 				flag.result++;
 			}
 			ft_start(&format, ap, &flag);
-			if (*format == 'd')
+			if (*format == 'd' || *format == 'i')
 				get_d(&flag, ap);
 			else if (*format == 'c')
 				get_c(&flag, ap);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_c.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 21:36:49 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 00:23:48 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void			get_s(t_flag *flag, va_list ap)
 			if (flag->width <= flag->p_width)
 			{
 				p_i = flag->p_width;
-				i = flag->width - ft_strlen(str);
+				i = ft_strlen(str) > p_i ? flag->width - p_i : \
+					flag->width - ft_strlen(str);
 				str = ft_substr(str, 0, p_i);
 				while (i-- > 0)
 					write(1, " ", 1);
@@ -90,7 +91,13 @@ void			get_s(t_flag *flag, va_list ap)
 			}
 			else
 			{
-
+				p_i = flag->p_width;
+				i = ft_strlen(str) > p_i ? flag->width - p_i : \
+					flag->width - ft_strlen(str);
+				while (i-- > 0)
+					write(1, " ", 1);
+				str = ft_substr(str, 0, p_i);
+				ft_putstr_fd(str, 1);
 			}
 		}
 		else
