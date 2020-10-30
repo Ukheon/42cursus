@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 18:53:09 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 19:01:42 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,16 @@ void			null_s(t_flag *flag)
 
 	if (flag->left)
 	{
-		if (flag->p_width)
+		if (flag->precision)
 		{
-			if (flag->width <= flag->p_width)
+			if (flag->p_width == 0)
+			{
+
+				i = flag->width;
+				while (i-- > 0)
+					write(1, " ", 1);
+			}
+			else if (flag->width <= flag->p_width)
 			{
 				p_i = flag->p_width > 6 ? 6 : flag->p_width;
 				write(1, "(null)", p_i);
@@ -56,7 +63,7 @@ void			null_s(t_flag *flag)
 			}
 			else
 			{
-				p_i = flag->p_width;
+				p_i = flag->p_width > 6 ? 6 : flag->p_width;
 				write(1, "(null)", p_i);
 				i = flag->width - p_i;
 				while (i-- > 0)

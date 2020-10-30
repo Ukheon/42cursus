@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 18:53:09 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 19:05:21 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int			main(void)
 {
 	char *s;
 
-	printf("   printf -> [%3.s]\n", "hi row");
-	ft_printf("ft_printf -> [%3.s]\n", "hi row");
+	printf("   printf -> [%-3.0d]\n", 123);
+	printf("   printf -> [%-3.d]\n", 123);
+	printf("   printf -> [%-3.*d]\n", -2, 123);
+	printf("   printf -> [%-3.3d]\n", 123);
+	printf("   printf -> [%-3.2d]\n", 123);
+	ft_printf("ft_printf -> [%-3.d]\n", 123);
 }
