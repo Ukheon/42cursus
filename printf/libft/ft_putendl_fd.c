@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_itoa_base_width.c                              :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:38:12 by mihykim           #+#    #+#             */
-/*   Updated: 2020/04/12 01:50:39 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/12 15:16:47 by ukheon            #+#    #+#             */
+/*   Updated: 2020/10/14 14:35:24 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		get_itoa_base_width(long n, long size)
+void			ft_putendl_fd(char const *s, int fd)
 {
 	int			i;
-	long long	long_n;
+	char		*str;
 
-	i = n < 1 ? 1 : 0;
-	n = n < 0 ? -n : n;
-	long_n = n < 0 ? -(long long)n : (long long)n;
-	while (long_n != 0)
+	if (!s)
+		return ;
+	str = (char *)s;
+	i = 0;
+	if (fd < 0)
+		return ;
+	while (str[i])
 	{
-		long_n = long_n / size;
+		ft_putchar_fd(str[i], fd);
 		i++;
 	}
-	return (i);
+	ft_putchar_fd('\n', fd);
 }
-
-/*
-** get return value except '-' sign to meet 'prcs' requiremnet
-*/

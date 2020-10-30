@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   min.c                                              :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:39:22 by mihykim           #+#    #+#             */
-/*   Updated: 2020/04/10 01:34:27 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/13 16:51:11 by ukheon            #+#    #+#             */
+/*   Updated: 2020/10/13 18:56:52 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	min(int a, int b)
+void			ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (a > b)
-		return (b);
-	else
-		return (a);
+	t_list *lstnew;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	lstnew = ft_lstlast(*lst);
+	lstnew->next = new;
+	new->next = NULL;
 }

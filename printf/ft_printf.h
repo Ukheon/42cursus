@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:42:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 20:49:30 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 18:45:51 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,18 @@ typedef struct	s_flag
 	int			result;
 }				t_flag;
 
-char			*ft_strdup(const char *s1);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
+// char			*ft_strdup(const char *s1);
+// char			*ft_substr(char const *s, unsigned int start, size_t len);
 void			get_s(t_flag *flag, va_list ap);
 void			get_c(t_flag *flag, va_list ap);
 void			get_md(t_flag *flag, int p);
 void			get_d(t_flag *flag, va_list ap);
 int				ft_printf(const char *format, ...);
-char			*ft_itoa(int n);
-void			ft_putstr_fd(char const *s, int fd);
-void			ft_putchar_fd(char c, int fd);
-int				ft_strlen(char *str);
+void			null_s(t_flag *flag);
+// char			*ft_itoa(int n);
+// void			ft_putstr_fd(char const *s, int fd);
+// void			ft_putchar_fd(char c, int fd);
+// int				ft_strlen(char *str);
 void			reset_flag(t_flag *flag);
 
 #endif

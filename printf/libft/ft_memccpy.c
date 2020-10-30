@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstrch.c                                      :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:40:29 by mihykim           #+#    #+#             */
-/*   Updated: 2020/03/17 00:40:39 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/07 04:39:19 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/08 02:30:22 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstrhr(const char *s, char *set)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	int i;
-	int j;
+	int				i;
+	unsigned char	*de;
+	unsigned char	*sr;
 
-	if (s == 0)
-		return (0);
+	de = (unsigned char *)dst;
+	sr = (unsigned char *)src;
 	i = 0;
-	if (set == 0)
-		return ((char *)s + ft_strlen(s));
-	while (s[i])
+	while (i < (int)n)
 	{
-		j = 0;
-		while (set[j])
+		de[i] = sr[i];
+		if (sr[i] == (unsigned char)c)
 		{
-			if (s[i] == set[j])
-				return ((char *)s + i);
-			j++;
+			i++;
+			return (&de[i]);
 		}
 		i++;
 	}

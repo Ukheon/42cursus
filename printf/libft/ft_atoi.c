@@ -3,33 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:34:37 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/23 23:40:33 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 17:43:04 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/30 14:25:31 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(char *str)
+static int		ft_whitespace(char str)
 {
-	int atoi;
-	int sign;
+	if ((str >= 9 && str <= 13) || str == ' ' || str == '\0')
+		return (1);
+	return (0);
+}
+
+int				ft_atoi(const char *str)
+{
+	long long int		num;
+	int					i;
+	int					sign;
 
 	sign = 1;
-	while (*str == '-' || *str == '+')
+	i = 0;
+	num = 0;
+	while (str[i] && ft_whitespace(str[i]) == 1)
+		i++;
+	if ((str[i] == '-') || (str[i] == '+'))
 	{
-		sign = (*str == '-') ? -sign : sign;
-		str++;
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
-	atoi = 0;
-	if (!is_set(*str, DIGIT))
-		return (0);
-	while (*str >= '0' && *str <= '9')
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
-		atoi = atoi * 10 + (*str - '0');
-		str++;
+		num = num * 10 + str[i] - '0';
+		i++;
+		if ((num * sign) <= -2147483649)
+			return (0);
+		else if ((num * sign) >= 2147483648)
+			return (-1);
 	}
-	return (atoi * sign);
+	return (num * sign);
 }

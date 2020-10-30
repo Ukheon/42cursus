@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 03:57:13 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/08 02:01:59 by ukwon            ###   ########.fr       */
+/*   Created: 2020/10/10 20:15:59 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/10 20:41:24 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char			*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t			i;
-	unsigned char	*de;
-	unsigned char	*sr;
+	size_t		l_len;
+	size_t		b_len;
+	size_t		size;
 
-	if (!dest && !src)
+	b_len = ft_strlen((char *)big);
+	l_len = ft_strlen((char *)little);
+	if (b_len < l_len || len < l_len)
 		return (0);
-	de = (unsigned char *)dest;
-	sr = (unsigned char *)src;
-	i = 0;
-	while (i < n)
+	size = b_len > len ? len : b_len;
+	while (size-- >= l_len)
 	{
-		de[i] = sr[i];
-		i++;
+		if (ft_memcmp(big, little, l_len) == 0)
+			return ((char *)big);
+		big++;
 	}
-	return (de);
+	return (0);
 }

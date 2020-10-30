@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_itoa_width.c                                   :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:37:55 by mihykim           #+#    #+#             */
-/*   Updated: 2020/04/17 23:25:49 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/13 21:12:22 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/13 21:14:23 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		get_itoa_width(long n)
+void			ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int		i;
-
-	i = n < 1 ? 1 : 0;
-	n = n < 0 ? -n : n;
-	while (n != 0)
+	if (!lst)
+		return ;
+	while (lst)
 	{
-		n = n / 10;
-		i++;
+		(*f)(lst->content);
+		lst = lst->next;
 	}
-	return (i);
 }
-
-/*
-** line 15 : change from 'int' to 'long' to pass test 640 with long numbers
-*/

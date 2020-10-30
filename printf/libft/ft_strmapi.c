@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoa.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 14:58:52 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/27 22:23:00 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/12 14:40:40 by ukheon            #+#    #+#             */
+/*   Updated: 2020/10/13 19:18:21 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_ulltoa(unsigned long long n)
+char			*ft_strmapi(char *s, char (*f)(unsigned int, char))
 {
-	unsigned long long	div;
-	int					len;
 	char				*res;
+	unsigned int		i;
 
-	div = n;
-	len = (n == 0) ? 1 : 0;
-	while (div != 0)
-	{
-		div = div / 10;
-		len++;
-	}
-	if (!(res = malloc(sizeof(char) * (len + 1))))
+	i = 0;
+	if (s == 0 || f == 0)
 		return (0);
-	res[len] = '\0';
-	res[0] = '0';
-	while (n != 0)
+	if (!(res = (char *)malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (0);
+	while (s[i])
 	{
-		len--;
-		res[len] = (n % 10) + '0';
-		n = n / 10;
+		res[i] = f(i, s[i]);
+		i++;
 	}
+	res[i] = '\0';
 	return (res);
 }

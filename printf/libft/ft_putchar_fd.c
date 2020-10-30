@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_set.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:39:22 by mihykim           #+#    #+#             */
-/*   Updated: 2020/03/17 00:39:32 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/13 19:09:02 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/14 14:35:27 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		is_set(char c, char *set)
+void			ft_putchar_fd(char c, int fd)
 {
-	int i;
+	unsigned char	c1;
 
-	i = 0;
-	while (set[i])
-	{
-		if (c == set[i])
-			return (1);
-		i++;
-	}
-	return (0);
+	c1 = (unsigned char)c;
+	if (fd < 0)
+		return ;
+	write(fd, &c1, 1);
 }

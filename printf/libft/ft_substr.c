@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 03:57:13 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/08 02:01:59 by ukwon            ###   ########.fr       */
+/*   Created: 2020/10/11 15:51:03 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/13 21:45:00 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char			*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	unsigned char	*de;
-	unsigned char	*sr;
+	char			*res;
+	int				i;
+	char			*str;
+	int				s_len;
 
-	if (!dest && !src)
+	if (!s)
+		return (NULL);
+	s_len = 0;
+	str = (char *)s;
+	while (str[s_len])
+		s_len++;
+	if ((int)start > (int)ft_strlen(str))
+		return (ft_strdup(""));
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
 		return (0);
-	de = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
-	{
-		de[i] = sr[i];
-		i++;
-	}
-	return (de);
+	while (len--)
+		res[i++] = s[start++];
+	res[i] = '\0';
+	return (res);
 }

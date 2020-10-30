@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 02:17:25 by ukheon           ###   ########.fr       */
+/*   Updated: 2020/10/30 14:52:03 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_strlen(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "libft/libft.h"
 
 int				check_flag(char format, t_flag *flag, va_list ap)
 {

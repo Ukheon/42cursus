@@ -6,11 +6,12 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/29 17:40:59 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/10/30 14:53:20 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 void			get_md(t_flag *flag, int p)
 {

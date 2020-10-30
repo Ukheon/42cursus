@@ -3,30 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/26 05:36:31 by mihykim           #+#    #+#             */
-/*   Updated: 2020/04/03 22:00:49 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/07 01:35:43 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/07 23:17:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-** - Writes 'len' bytes of value 'c'(converted to unsigned char) to 'b'.
-** - Returns its first argument.
-** - SIZE_T : unsigned type of the result of "sizeof"
-*/
-
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *ptr, int value, size_t num)
 {
-	size_t i;
+	int				i;
+	unsigned char	*res;
 
+	res = (unsigned char *)ptr;
 	i = 0;
-	while (i < len)
+	while (i < (int)num)
 	{
-		((unsigned char *)b)[i] = c;
+		res[i] = value;
 		i++;
 	}
-	return (b);
+	return (res);
 }

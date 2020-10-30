@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_n.c                                     :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:42:11 by mihykim           #+#    #+#             */
-/*   Updated: 2020/03/17 00:42:20 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 18:24:50 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/10 18:25:32 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar_n(char c, int n)
+int				ft_isdigit(int c)
 {
-	int		i;
-
-	i = 0;
-	while (i < n)
-		i += ft_putchar(c);
-	return (n);
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:40:48 by mihykim           #+#    #+#             */
-/*   Updated: 2020/03/17 00:40:57 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 18:26:01 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/10 18:27:22 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *s1, int size)
+int				ft_isascii(int c)
 {
-	char	*dup;
-	int		i;
-
-	dup = (char *)malloc(sizeof(char) * (size + 1));
-	if (dup == 0)
-		return (0);
-	i = 0;
-	while (i < size)
-	{
-		dup[i] = s1[i];
-		i++;
-	}
-	dup[size] = 0;
-	return (dup);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

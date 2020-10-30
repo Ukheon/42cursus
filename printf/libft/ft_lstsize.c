@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   max.c                                              :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:39:22 by mihykim           #+#    #+#             */
-/*   Updated: 2020/04/10 01:34:56 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/13 16:12:20 by ukheon            #+#    #+#             */
+/*   Updated: 2020/10/13 19:02:17 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	max(int a, int b)
+int				ft_lstsize(t_list *lst)
 {
-	if (a > b)
-		return (a);
-	else
-		return (b);
+	t_list	*new;
+	int		len;
+
+	if (!lst)
+		return (0);
+	len = 0;
+	new = lst;
+	while (new)
+	{
+		new = new->next;
+		len++;
+	}
+	return (len);
 }

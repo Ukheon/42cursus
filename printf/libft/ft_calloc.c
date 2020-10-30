@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/23 23:15:59 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/24 21:51:45 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 19:44:45 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/11 20:03:13 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+void			*ft_calloc(size_t num1, size_t num2)
 {
-	unsigned int	i;
-	char			*res;
+	void	*res;
 
-	i = 0;
-	while (i < n)
+	if (num1 == 0 && num2 == 0)
 	{
-		if (src[i] != '\0')
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		else
-		{
-			while (i < n)
-			{
-				dest[i] = '\0';
-				i++;
-			}
-		}
+		if (!(res = (void *)malloc(sizeof(void) * 1)))
+			return (0);
+		ft_bzero(res, (num1 * num2));
+		return (res);
 	}
-	res = dest;
+	if (!(res = (void *)malloc(num2 * num1)))
+		return (0);
+	ft_bzero(res, (num1 * num2));
 	return (res);
 }

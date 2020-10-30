@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_atouni_width.c                                 :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/22 16:17:03 by mihykim           #+#    #+#             */
-/*   Updated: 2020/03/22 17:34:14 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 18:21:40 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/12 21:18:56 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	get_atouni_width(wchar_t wc)
+int				ft_isalpha(int c)
 {
-	if (wc < 0x80)
+	if (c >= 65 && c <= 90)
 		return (1);
-	else if (wc < 0x800)
+	else if (c >= 97 && c <= 122)
 		return (2);
-	else if (wc < 0x10000)
-		return (3);
-	else
-		return (4);
+	return (0);
 }

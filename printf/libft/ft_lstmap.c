@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/11 16:19:41 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/12 18:31:04 by ukheon           ###   ########.fr       */
+/*   Created: 2020/10/13 21:15:09 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/14 02:05:06 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strjoin(char const *s1, char const *s2)
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char		*res;
-	int			s1_len;
-	int			s2_len;
+	t_list	*head;
+	t_list	*new;
 
-	if (!s1 && !s2)
+	if (!lst)
 		return (0);
-	else if (!s1 || !s2)
-		return (!(s1) ? ft_strdup(s2) : ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (!(res = (char *)malloc(sizeof(char) * s1_len + s2_len + 1)))
+	if (!(head = ft_lstnew((*f)(lst->content))))
 		return (0);
-	ft_strlcpy(res, s1, s1_len + 1);
-	ft_strlcat(res + s1_len, s2, s2_len + 1);
-	return (res);
+	lst = lst->next;
+	new = lst;
+	while (lst)
+	{
+		if (!(new = ft_lstnew((*f)(lst->content))))
+		{
+			ft_lstclear(&new, del);
+			return (0);
+		}
+		ft_lstadd_back(&head, new);
+		lst = lst->next;
+	}
+	return (head);
 }

@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 03:57:13 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/08 02:01:59 by ukwon            ###   ########.fr       */
+/*   Created: 2020/10/08 04:02:53 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/12 19:34:50 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+size_t			ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t			i;
-	unsigned char	*de;
-	unsigned char	*sr;
+	size_t			len;
 
-	if (!dest && !src)
+	len = 0;
+	if (dst == 0 && src == 0)
 		return (0);
-	de = (unsigned char *)dest;
-	sr = (unsigned char *)src;
-	i = 0;
-	while (i < n)
+	if (size == 0)
 	{
-		de[i] = sr[i];
-		i++;
+		while (src[len])
+			len++;
+		return (len);
 	}
-	return (de);
+	i = 0;
+	while (size - 1 > 0 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+		size--;
+	}
+	dst[i] = '\0';
+	while (src[len])
+		len++;
+	return (len);
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/23 23:15:37 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/23 23:15:50 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 19:19:49 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/14 03:20:53 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcpy(char *dest, char *src)
+int				ft_toupper(int c)
 {
-	int i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = src[i];
-	return (dest);
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }

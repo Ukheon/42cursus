@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 03:57:13 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/08 02:01:59 by ukwon            ###   ########.fr       */
+/*   Created: 2020/10/10 19:50:56 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/10 19:51:06 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int				ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t			i;
-	unsigned char	*de;
-	unsigned char	*sr;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	int				i;
 
-	if (!dest && !src)
-		return (0);
-	de = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (n > 0 && (str1[i] != '\0' || str2[i] != '\0'))
 	{
-		de[i] = sr[i];
+		if (str1[i] != str2[i])
+		{
+			return (int)(str1[i] - str2[i]);
+		}
 		i++;
+		n--;
 	}
-	return (de);
+	if (n == 0)
+		return (0);
+	return (int)(str1[i] - str2[i]);
 }

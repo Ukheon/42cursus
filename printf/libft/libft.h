@@ -3,72 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 00:21:33 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/28 17:54:13 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/08 03:40:50 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/30 14:56:23 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-# include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
-# include <wchar.h>
+# include <stdint.h>
+# include <stdlib.h>
 
-# define DIGIT "0123456789"
+int				ft_isalnum(int c);
+int				ft_strlen(const char *str);
+int				ft_atoi(const char *str);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t			ft_strlcat(char *dst, const char *src, size_t size);
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
+void			ft_bzero(void *s, size_t n);
+char			*ft_strdup(const char *s1);
+char			*ft_strnstr(const char *big, \
+					const char *little, size_t len);
+void			*ft_calloc(size_t num1, size_t num2);
+int				ft_isalpha(int c);
+int				ft_isdigit(int c);
+int				ft_isascii(int c);
+int				ft_isprint(int c);
+int				ft_toupper(int c);
+int				ft_tolower(int c);
+void			*ft_memset(void *b, int c, size_t len);
+void			*ft_memcpy(void *dst, const void *src, size_t n);
+void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void			*ft_memmove(void *dst, const void *src, size_t len);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strrchr(const char *s, int c);
+int				ft_memcmp(const void *s1, const void *s2, size_t n);
+void			*ft_memchr(const void *s, int c, size_t n);
+char			*ft_itoa(int n);
+char			*ft_strmapi(char *s, char (*f)(unsigned int, char));
+void			ft_putchar_fd(char c, int fd);
+void			ft_putstr_fd(char const *s, int fd);
+void			ft_putendl_fd(char const *s, int fd);
+void			ft_putnbr_fd(int n, int fd);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strtrim(char const *s1, char const *set);
+char			**ft_split(char const *s, char c);
 
-# define TRUE 1
-# define FALSE 0
+typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
-/*
-*****************************   HANDLE ASCII/UNI   *****************************
-*/
-
-int		ft_atoi(char *str);
-int		get_itoa_width(long n);
-int		get_itoa_base_width(long n, long size);
-char	*ft_itoa(int n);
-char	*ft_lltoa(long long n);
-char	*ft_itoa_base(unsigned int n, const char *base);
-char	*ft_lltoa_base(long long n, const char *base);
-char	*ft_uitoa(unsigned int n);
-char	*ft_ulltoa(unsigned long long n);
-int		get_atouni_width(wint_t i);
-char	*ft_atouni(wint_t w);
-
-/*
-*****************************   HANDLE STRING   *******************************
-*/
-
-int		is_set(char c, char *set);
-char	*ft_strcpy(char *dest, char *src);
-char	*ft_strncpy(char *dest, char *src, unsigned int n);
-int		ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strstrhr(const char *s, char *set);
-char	*ft_strndup(const char *s1, int size);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_memset(void *arr, int c, size_t len);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-
-/*
-*****************************   HELP WRITING   ********************************
-*/
-
-int		ft_putchar(char c);
-int		ft_putchar_n(char c, int n);
-int		ft_putstr(char *s);
-int		ft_putstr_n(char *s, int n);
-void	ft_putnbr_base(long n, char *base);
-
-/*
-*****************************   HELP OPERATING   ******************************
-*/
-
-int		max(int a, int b);
-int		min(int a, int b);
-
+t_list			*ft_lstnew(void *content);
+int				ft_lstsize(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
+void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_front(t_list **lst, t_list *new);
+void			ft_lstdelone(t_list *lst, void (*del)(void*));
+void			ft_lstclear(t_list **lst, void (*del)(void*));
+void			ft_lstiter(t_list *lst, void (*f)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
+				void (*del)(void *));
 #endif

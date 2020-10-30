@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_n.c                                      :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihykim <mihykim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/23 23:02:54 by mihykim           #+#    #+#             */
-/*   Updated: 2020/05/24 00:04:39 by mihykim          ###   ########.fr       */
+/*   Created: 2020/10/10 18:28:38 by ukwon             #+#    #+#             */
+/*   Updated: 2020/10/14 03:21:02 by ukheon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putstr_n(char *s, int n)
+int				ft_isprint(int c)
 {
-	int		i;
-
-	i = 0;
-	while (i < n)
-	{
-		ft_putchar(s[i]);
-		i++;
-	}
-	return (i);
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
 }
