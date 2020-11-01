@@ -5,16 +5,16 @@ LIBFT		= libft
 LIBFT_LIB	= libft.a
 
 SRCS		= ./ft_printf.c \
-			  ./ft_get_d.c \
+			  ./ft_get_c.c \
+			  ./ft_get_p.c \
 			  ./ft_get_md.c \
 			  ./ft_printf_utils.c \
-			  ./ft_get_c.c \
-			  ./ft_itoa_base_upper.c \
-			  ./ft_itoa_base_lower.c \
-			  ./ft_get_upper.c \
-			  ./ft_get_lower.c \
-			  ./ft_get_p.c \
-			  ./ft_get_u.c
+			  ./ft_get_d.c \
+			  ./ft_get_d_left.c \
+			  ./ft_get_d_zero.c \
+			  ./ft_get_x.c \
+			  ./ft_get_x_left.c \
+			  ./ft_get_x_zero.c \
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .

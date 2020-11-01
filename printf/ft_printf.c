@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 19:29:55 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:25:55 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ void			find_spec(const char **format, va_list ap, t_flag *flag)
 		get_c(flag, ap);
 	else if (**format == 's')
 		get_s(flag, ap);
-	else if (**format == 'x')
-		get_lower(flag, ap);
-	else if (**format == 'X')
-		get_upper(flag, ap);
+	else if (**format == 'x' || **format == 'X')
+	{
+		if (**format == 'X')
+			flag->x_check = 1;
+		get_x(flag, ap);
+	}
 	else if (**format == 'p')
 		get_p(flag, ap);
 }

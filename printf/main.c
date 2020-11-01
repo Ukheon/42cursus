@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 19:29:50 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:13:37 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int			main(void)
 {
 	int i;
 	// char *str;
-	// int result1;
-	// int result2;
+	int result1;
+	int result2;
 
 	i = -123;
-	printf("[%X]\n",-123);
-	ft_printf("[%X]\n",-123);
+	result1 = printf("[%X]qwe\n",1234);
+	result2 = ft_printf("[%X]qwe\n",1234);
+	// printf("\n%d\n%d\n",result1, result2);
 	// printf("      printf -> :[%*.5d] [%5.10d] [%8.6d] [%-5.10d] [%-8.5d] [%-*.*d] [%d] [%08.15d] [%010.6d]\n",-5, i, i, i, i,8, 10 , 8, i,i,i,i);
 	// ft_printf("   ft_printf -> :[%*.5d] [%5.10d] [%8.6d] [%-5.10d] [%-8.5d] [%-*.*d] [%d] [%08.15d] [%010.6d]\n",-5, i, i, i, i, 8, 10 , 8, i,i,i,i);
 	// printf("      printf -> :[%-6d] [%-.15d] [%05.8d] [%0.3d] [%010d] [%-*.*d] [%.7d] [%6d]\n",i, i, i, i,8, 10 , 8, i,i,i);

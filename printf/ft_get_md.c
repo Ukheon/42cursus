@@ -6,18 +6,15 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 18:59:22 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:04:07 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void			get_md(t_flag *flag, long long int p)
+void			get_md(t_flag *flag, long long int p, int i, int p_i)
 {
-	int i;
-	int	p_i;
-
 	if (flag->left)
 	{
 		if (flag->width && flag->p_width)
