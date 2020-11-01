@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 19:04:47 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 16:44:15 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 int				check_flag(char format, t_flag *flag, va_list ap)
 {
+	int chk;
+
+	chk = 0;
 	if (format == '0' && flag->check == 0 && flag->zero == 0)
 		flag->zero = 1;
 	else if (flag->precision && format >= '0' && format <= '9')
@@ -27,9 +30,23 @@ int				check_flag(char format, t_flag *flag, va_list ap)
 	else if (format == '*')
 	{
 		if (flag->precision == 1)
-			flag->p_width = va_arg(ap, int);
+			if ((chk = va_arg(ap, int)) < 0)
+			{
+				flag->p_width = chk;
+				flag->left = 1;
+			}
+			else
+				flag->p_width = chk;
 		else
-			flag->width = va_arg(ap, int);
+		{
+			if ((chk = va_arg(ap, int)) < 0)
+			{
+				flag->width = chk;
+				flag->left = 1;
+			}
+			else
+				flag->width = chk;
+		}
 	}
 	else if (format == '.')
 		flag->precision = 1;
@@ -76,12 +93,14 @@ int				ft_printf(const char *format, ...)
 				flag.result++;
 			}
 			ft_start(&format, ap, &flag);
-			if (*format == 'd' || *format == 'i')
+			if (*format == 'd' || *format == 'i' || *format == 'u')
 				get_d(&flag, ap);
 			else if (*format == 'c')
 				get_c(&flag, ap);
 			else if (*format == 's')
 				get_s(&flag, ap);
+			else if (*format == 'x')
+				get_x(&flag, ap);
 		}
 		else
 		{

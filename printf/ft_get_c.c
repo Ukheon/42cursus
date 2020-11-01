@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 19:01:42 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 15:23:30 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ void			null_s(t_flag *flag)
 
 	if (flag->left)
 	{
-		if (flag->precision)
+		if (flag->p_width < 0)
+			write(1, "(null)", 6);
+		else if (flag->precision)
 		{
 			if (flag->p_width == 0)
 			{
-
 				i = flag->width;
 				while (i-- > 0)
 					write(1, " ", 1);
@@ -123,7 +124,14 @@ void			get_s(t_flag *flag, va_list ap)
 	}
 	if (flag->left)
 	{
-		if (flag->precision)
+		if (flag->p_width < 0)
+		{
+			i = flag->width - ft_strlen(str);
+			ft_putstr_fd(str, 1);
+			while (i-- > 0)
+				write(1, " ", 1);
+		}
+		else if (flag->precision)
 		{
 			if (flag->p_width == 0)
 			{
