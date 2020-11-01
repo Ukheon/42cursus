@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_d.c                                         :+:      :+:    :+:   */
+/*   ft_get_u.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 19:00:15 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 18:37:53 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void			get_d(t_flag *flag, va_list ap)
+void			get_u(t_flag *flag, va_list ap)
 {
 	long long int	p;
 	int				i;
 	int				p_i;
 
-	p = (long long int)va_arg(ap, int);
+	p = va_arg(ap, long long int);
 	flag->result += ft_strlen(ft_itoa(p));
 	if (p < 0)
 	{

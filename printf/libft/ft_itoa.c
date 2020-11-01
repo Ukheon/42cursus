@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 14:38:40 by ukheon            #+#    #+#             */
-/*   Updated: 2020/10/13 17:12:34 by ukheon           ###   ########.fr       */
+/*   Updated: 2020/11/01 17:36:21 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*putstr(char *res, int n, int len)
+static char		*putstr(char *res, long long int n, int len)
 {
 	long long int	swap;
 
@@ -37,12 +37,12 @@ static char		*putstr(char *res, int n, int len)
 	return (res);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long int n)
 {
-	char	*res;
-	int		save_n;
-	int		len;
-	int		check;
+	char				*res;
+	long long int		save_n;
+	int					len;
+	int					check;
 
 	check = 0;
 	len = 0;

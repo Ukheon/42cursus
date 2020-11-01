@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:42:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/30 18:45:51 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/01 19:10:46 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ typedef struct	s_flag
 	int			result;
 }				t_flag;
 
-// char			*ft_strdup(const char *s1);
-// char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_itoa_base_X(long long int value, int base);
+char			*ft_itoa_base(long long int value, int base);
+void			null_s(t_flag *flag);
 void			get_s(t_flag *flag, va_list ap);
+void			get_per(t_flag *flag);
+void			get_u(t_flag *flag, va_list ap);
+void			get_p(t_flag *flag, va_list ap);
 void			get_c(t_flag *flag, va_list ap);
-void			get_md(t_flag *flag, int p);
+void			get_lower(t_flag *flag, va_list ap);
+void			get_upper(t_flag *flag, va_list ap);
+void			get_md(t_flag *flag, long long int p);
 void			get_d(t_flag *flag, va_list ap);
 int				ft_printf(const char *format, ...);
-void			null_s(t_flag *flag);
-// char			*ft_itoa(int n);
-// void			ft_putstr_fd(char const *s, int fd);
-// void			ft_putchar_fd(char c, int fd);
-// int				ft_strlen(char *str);
 void			reset_flag(t_flag *flag);
 
 #endif
