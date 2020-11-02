@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 21:30:48 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 17:00:18 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			x_last_check(t_flag *flag, long long int p, int i)
 	flag->result += i > 0 ? i : 0;
 	while (i-- > 0)
 		write(1, " ", 1);
+	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
 	if (flag->x_check == 0)
 		ft_putstr_fd((ft_itoa_base_lower(p, 16)), 1);
 	else

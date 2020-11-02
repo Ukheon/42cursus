@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 21:25:55 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 16:25:30 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void			find_star(t_flag *flag, va_list ap)
 
 int				check_flag(char format, t_flag *flag, va_list ap)
 {
-	if (format == '0' && flag->check == 0 && flag->zero == 0)
+	if (format == '0' && flag->check == 0 && flag->zero == 0 && \
+		flag->precision == 0)
 		flag->zero = 1;
 	else if (flag->precision && format >= '0' && format <= '9')
 		flag->p_width = (flag->p_width * 10) + (format - '0');

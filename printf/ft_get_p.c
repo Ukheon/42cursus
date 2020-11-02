@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 21:32:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 17:21:38 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void			get_p(t_flag *flag, va_list ap)
 		else if (flag->p_width < ft_strlen(ft_itoa_base_lower(p, 16)))
 		{
 			i = flag->width - ft_strlen(ft_itoa_base_lower(p, 16)) - 2;
-			flag->result += i > 0 ? i : 0;
+			flag->result += i > 0 ? i + 2 : 0 + 2;
 			while (i-- > 0)
 				write(1, " ", 1);
 			write(1, "0x", 2);
@@ -168,7 +168,7 @@ void			get_p(t_flag *flag, va_list ap)
 		{
 			p_i = flag->p_width - ft_strlen(ft_itoa_base_lower(p, 16)) - 2;
 			i = flag->width - flag->p_width - 2;
-			flag->result += i > 0 ? i : 0;
+			flag->result += i > 0 ? i + 2: 0 + 2;
 			while (i-- > 0)
 				write(1, " ", 1);
 			flag->result += p_i > 0 ? p_i : 0;
@@ -181,7 +181,7 @@ void			get_p(t_flag *flag, va_list ap)
 	else
 	{
 		i = flag->width - ft_strlen(ft_itoa_base_lower(p, 16)) - 2;
-		flag->result += i > 0 ? i : 0;
+		flag->result += i > 0 ? i + 2 : 0 + 2;
 		while (i-- > 0)
 			write(1, " ", 1);
 		write(1, "0x", 2);

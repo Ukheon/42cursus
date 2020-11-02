@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:47:00 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 21:57:48 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 16:55:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			x_zero_check_four(t_flag *flag, long long int p, int i, int p_i)
 	p_i = flag->p_width - ft_strlen(ft_itoa_base_lower(p, 16));
 	i = i > p_i ? i : p_i;
 	flag->result += i > 0 ? i : 0;
+	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
 	while (i-- > 0)
 		write(1, "0", 1);
 	if (flag->x_check == 0)
@@ -35,6 +36,7 @@ void			x_zero_check_thr(t_flag *flag, long long int p, int i, int p_i)
 	while (i-- > 0)
 		write(1, " ", 1);
 	flag->result += p_i > 0 ? p_i : 0;
+	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
 	while (p_i-- > 0)
 		write(1, "0", 1);
 	if (flag->x_check == 0)
@@ -46,6 +48,7 @@ void			x_zero_check_thr(t_flag *flag, long long int p, int i, int p_i)
 void			x_zero_check_two(t_flag *flag, long long int p, int p_i)
 {
 	p_i = flag->p_width - ft_strlen(ft_itoa_base_lower(p, 16));
+	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
 	flag->result += p_i > 0 ? p_i : 0;
 	while (p_i-- > 0)
 		write(1, "0", 1);
@@ -63,6 +66,7 @@ void			x_zero_check(t_flag *flag, long long int p, int i, int p_i)
 			x_zero_check_two(flag, p, p_i);
 		else if (flag->p_width < ft_strlen(ft_itoa_base_lower(p, 16)))
 		{
+			flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
 			i = flag->width - ft_strlen(ft_itoa_base_lower(p, 16));
 			flag->result += i > 0 ? i : 0;
 			while (i-- > 0)
