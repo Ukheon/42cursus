@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 16:25:30 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 20:30:56 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ void			find_star(t_flag *flag, va_list ap)
 
 	chk = 0;
 	if (flag->precision == 1)
+	{
 		if ((chk = va_arg(ap, int)) < 0)
-		{
-			flag->p_width = chk;
-			flag->left = 1;
-		}
+			flag->precision = 0;
 		else
 			flag->p_width = chk;
+	}
 	else
 	{
 		if ((chk = va_arg(ap, int)) < 0)

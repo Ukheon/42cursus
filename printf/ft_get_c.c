@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 16:29:35 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 21:47:32 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void			get_s(t_flag *flag, va_list ap)
 		if (flag->p_width < 0)
 		{
 			i = (flag->width - ft_strlen(str)) > 0 ? \
-				flag->width-ft_strlen(str) : 0;
+				flag->width - ft_strlen(str) : 0;
 			ft_putstr_fd(str, 1);
 			flag->result += (i + ft_strlen(str));
 			while (i-- > 0)

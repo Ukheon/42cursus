@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 16:00:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 20:51:52 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void			error_check(t_flag *flag, long long int p, int i)
 {
 	i = flag->width;
 	flag->result += i > 0 ? i : 0;
+	flag->result -= 1;
 	while (i-- > 0)
 		write(1, " ", 1);
 	if (flag->p_width < 0)

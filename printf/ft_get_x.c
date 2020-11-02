@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 16:57:44 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 21:07:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void			x_error_check(t_flag *flag, long long int p, int i)
 {
 	i = flag->width;
 	flag->result += i > 0 ? i : 0;
+	flag->result -= 1;
 	while (i-- > 0)
 		write(1, " ", 1);
 	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
@@ -78,13 +79,13 @@ void			x_error_check(t_flag *flag, long long int p, int i)
 
 void			get_x(t_flag *flag, va_list ap)
 {
-	long long int	p;
+	unsigned int	p;
 	int				i;
 	int				p_i;
 
 	i = 0;
 	p_i = 0;
-	p = va_arg(ap, long long int);
+	p = va_arg(ap, unsigned int);
 	if (p < 0)
 	{
 		p *= -1;

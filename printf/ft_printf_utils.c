@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 17:00:18 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 21:21:01 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,16 @@ void			x_last_check(t_flag *flag, long long int p, int i)
 
 void			get_u(t_flag *flag, va_list ap)
 {
-	long long int	p;
+	unsigned int	p;
 	int				i;
 	int				p_i;
 
 	i = 0;
 	p_i = 0;
-	p = va_arg(ap, long long int);
+	p = va_arg(ap, unsigned int);
 	flag->result += ft_strlen(ft_itoa(p));
 	if (flag->precision && p == 0 && flag->p_width <= 0)
-	{
-		i = flag->width;
-		flag->result += i > 0 ? i : 0;
-		while (i-- > 0)
-			write(1, " ", 1);
-		if (flag->p_width < 0)
-			ft_putstr_fd((ft_itoa(p)), 1);
-	}
+		error_check(flag, p, i);
 	else if (flag->left)
 		check_left(flag, p, i, p_i);
 	else if (flag->zero)

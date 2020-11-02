@@ -6,16 +6,38 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/01 21:04:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/02 20:20:19 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
+void			md_error_check(t_flag *flag, long long int p, int i)
+{
+	i = flag->width - ft_strlen(ft_itoa(p)) - 1;
+	flag->result += i > 0 ? i : 0;
+	if (flag->left)
+	{
+		write(1, "-", 1);
+		ft_putstr_fd((ft_itoa(p)), 1);
+		while (i-- > 0)
+			write(1, " ", 1);
+	}
+	else
+	{
+		while (i-- > 0)
+			write(1, " ", 1);
+		write(1, "-", 1);
+		ft_putstr_fd((ft_itoa(p)), 1);
+	}
+}
+
 void			get_md(t_flag *flag, long long int p, int i, int p_i)
 {
-	if (flag->left)
+	if (flag->precision && flag->p_width <= 0)
+		md_error_check(flag, p, i);
+	else if (flag->left)
 	{
 		if (flag->width && flag->p_width)
 		{
@@ -72,7 +94,7 @@ void			get_md(t_flag *flag, long long int p, int i, int p_i)
 	}
 	else if (flag->zero)
 	{
-		if (flag->width && flag->p_width)
+		if (flag->p_width)
 		{
 			if (flag->width <= flag->p_width)
 			{
