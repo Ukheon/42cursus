@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/k/02 17:51:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/03 21:13:55 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 int			main(void)
 {
 	int i;
-	char *str;
+	char *s;
 	int result1;
 	int result2;
-	char c;
-
-	c = '0';
-	str = "hello world! please TT";
+	char c = 'y';
+	s = "";
 	i = 12345;
 	int j;
 	j = 8;
@@ -32,8 +30,16 @@ int			main(void)
 	l = 64;
 	int k;
 	k = 0;
-	result1 = printf("[%c]\n", c);
-	result2 = ft_printf("[%c]\n", c);
+	// printf("%s", NULL);
+
+	// result1 = printf("[%-p]\n",&s);
+	// result2 = ft_printf("[%-p]\n",&s);
+	// result1 = printf("[%.s] [%-.4s] [%5.3s] [%-4.8s] [%8.10s] [%-10.s]\n",s,s,s,s,s,s);
+	// result2 = ft_printf("[%.s] [%-.4s] [%5.3s] [%-4.8s] [%8.10s] [%-10.s]\n",s,s,s,s,s,s);
+	// result1 = printf("[%c] [%2c] [%3c] [%-7c]\n",c,c,c,c);
+	// result2 = ft_printf("[%c] [%2c] [%3c] [%-7c]\n",c,c,c,c);
+	// result1 = printf("%-.c%-2.c%-3.c%4c%1c%2c%3c%4c%1c%2c%3c%4c%1c%2c%3c%4c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
+	// result2 = ft_printf("%-.c%-2.c%-3.c%4c%1c%2c%3c%4c%1c%2c%3c%4c%1c%2c%3c%4c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
 	// result1 = printf("[%-*.*i], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d]\n",-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i);
 	// result2 = ft_printf("[%-*.*i], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d]\n",-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i);
 
@@ -70,8 +76,13 @@ int			main(void)
 	// result1 = printf("      printf -> :[%5.0d], [%.0d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
 	// result2 = ft_printf("   ft_printf -> :[%5.0d], [%.0d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
 
-	printf("result1 : %d\nresult2 : %d\n", result1, result2);
-// 	return (0);
+	// printf("result1 : %d\nresult2 : %d\n", result1, result2);
+	// return (0);
+// }
+	ft_printf("%d", 1);
+	while (1)
+		;
+	return (0);
 }
 
 // c_main

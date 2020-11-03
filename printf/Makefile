@@ -8,6 +8,8 @@ SRCS		= ./ft_printf.c \
 			  ./ft_get_c.c \
 			  ./ft_get_p.c \
 			  ./ft_get_md.c \
+			  ./ft_get_md_left.c \
+			  ./ft_get_md_zero.c \
 			  ./ft_printf_utils.c \
 			  ./ft_get_d.c \
 			  ./ft_get_d_left.c \
@@ -15,6 +17,10 @@ SRCS		= ./ft_printf.c \
 			  ./ft_get_x.c \
 			  ./ft_get_x_left.c \
 			  ./ft_get_x_zero.c \
+			  ./ft_get_p_left.c \
+			  ./ft_get_p_zero.c \
+			  ./ft_get_s_null.c \
+			  ./ft_get_s.c
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .

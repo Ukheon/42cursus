@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:43:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/02 20:30:56 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/03 19:07:20 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ int				ft_printf(const char *format, ...)
 		}
 		format++;
 	}
+	va_end(ap);
 	return (flag.result);
 }
