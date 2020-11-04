@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/04 12:39:52 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 20:32:57 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,34 @@ int			main(void)
 	int result1;
 	int result2;
 	char c = 'y';
-	s = "abcd";
-	i = 12345;
+	s = "abcde";
+	i = -16;
 	int j;
 	j = 8;
 	int l;
 	l = 64;
 	int k;
 	k = 0;
-	// printf("%s", NULL);
-	printf("%d\n",i);
-	ft_printf("%-5s\n","hello");
-}
 
-	// result1 = printf("[%-p]\n",&s);
-	// result2 = ft_printf("[%-p]\n",&s);
-	// result1 = printf("[%.s] [%-.4s] [%5.3s] [%-4.8s] [%8.10s] [%-10.s]\n",s,s,s,s,s,s);
-	// result2 = ft_printf("[%.s] [%-.4s] [%5.3s] [%-4.8s] [%8.10s] [%-10.s]\n",s,s,s,s,s,s);
+	// ft_printf("%d\n",-2147483648);
+	printf("[%*.4d]",-6,6555);
+
+
+	// printf("[%-*d]\n",-5,i);
+	// ft_printf("[%-*d]\n",-5,i);
+	// result1 = printf("[%18p]\n",&s);
+	// result2 = ft_printf("[%18p]\n",&s);
+	// flag width . p_width
+	// result1 = printf("[%.s] [%-.4s] [%4.3s] [%-4.8s] [%10.8s] [%-10.s]\n",s,s,s,s,s,s);
+	// result2 = ft_printf("[%.s] [%-.4s] [%4.3s] [%-4.8s] [%10.8s] [%-10.s]\n",s,s,s,s,s,s);
 	// result1 = printf("[%c] [%2c] [%3c] [%-7c]\n",c,c,c,c);
 	// result2 = ft_printf("[%c] [%2c] [%3c] [%-7c]\n",c,c,c,c);
 	// result1 = printf("%-.c%-2.c%-3.c%4c%1c%2c%3c%4c%1c%2c%3c%4c%1c%2c%3c%4c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
 	// result2 = ft_printf("%-.c%-2.c%-3.c%4c%1c%2c%3c%4c%1c%2c%3c%4c%1c%2c%3c%4c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
 	// result1 = printf("[%-*.*i], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d]\n",-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i);
 	// result2 = ft_printf("[%-*.*i], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d], [%-*.*d]\n",-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i,-1,-1,i);
-
 	// result1 = printf("[%X] [%5X] [%.5X] [%-5.10X] [%2.5X]\n", i,i,i,i,i);
 	// result2 = ft_printf("[%X] [%5X] [%.5X] [%-5.10X] [%2.5X]\n", i,i,i,i,i);
-
 	// result1 = printf("[%-5u] [%5u] [%.5u] [%-5.10u] [%2.5u]\n", i,i,i,i,i);
 	// result2 = ft_printf("[%-5u] [%5u] [%.5u] [%-5.10u] [%2.5u]\n", i,i,i,i,i);
 	// result1 = printf("[%-*p] [%-*p] [%-5p] [%-*p] [%*p] [%*p]\n",i,&i,i,&i,&i,i,&i,i,&i,i,&i);
@@ -71,8 +72,10 @@ int			main(void)
 	// printf("      printf -> :[%5.0d] [%10.9d] [%9.10d] [%-5.5d] [%-7.6d] [%-4.5d] [%08.8d] [%07.8d] [%08.7d] [%5.6d]\n",i,i,i,i,i,i,i,i,i,i);
 	// ft_printf("   ft_printf -> :[%5.0d] [%10.9d] [%9.10d] [%-5.5d] [%-7.6d] [%-4.5d] [%08.8d] [%07.8d] [%08.7d] [%5.6d]\n",i,i,i,i,i,i,i,i,i,i);
 
-	// printf("      printf -> :[%5.0d], [%.0d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
-	// ft_printf("   ft_printf -> :[%5.0d], [%.0d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
+
+
+	// printf("   ft_printf -> :[%5.s], [%156643.5d], [%5.5d], [%-5.5d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
+	// ft_printf("   ft_printf -> :[%5.4s], [%156643d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
 
 	// result1 = printf("      printf -> :[%5u] [%5.10u] [%8.6d] [%-5.10d] [%-8.5d] [%-*.*d] [%d] [%08.15d] [%010.6d]\n", i, i, i, i,8, 10 , 8, i,i,i,i);
 	// result2 = ft_printf("   ft_printf -> :[%5u] [%5.10u] [%8.6d] [%-5.10d] [%-8.5d] [%-*.*d] [%d] [%08.15d] [%010.6d]\n", i, i, i, i, 8, 10 , 8, i,i,i,i);
@@ -80,8 +83,10 @@ int			main(void)
 	// result2 = ft_printf("   ft_printf -> :[%5.0d], [%.0d], [%5.d], [%-5.0d], [%-5.d] [%.d]\n", i,i,i,i,i,i);
 
 	// printf("result1 : %d\nresult2 : %d\n", result1, result2);
+	// while(1)
+	// 	;
 	// return (0);
-// }
+}
 	// ft_printf("%d", 1);
 	// while (1)
 	// 	;

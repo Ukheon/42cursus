@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:47:00 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/04 14:02:31 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 17:21:13 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void			x_zero_check_five(t_flag *flag, long long int p, int i)
 	if (flag->x_check == 0)
 		ft_putstr_fd((str), 1);
 	else
-		ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
+	{
+		free(str);
+		str = ft_itoa_base_upper(p, 16);
+		ft_putstr_fd((str), 1);
+	}
 	free(str);
 }
 
@@ -45,7 +49,11 @@ void			x_zero_check_four(t_flag *flag, long long int p, int i, int p_i)
 	if (flag->x_check == 0)
 		ft_putstr_fd((str), 1);
 	else
-		ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
+	{
+		free(str);
+		str = ft_itoa_base_upper(p, 16);
+		ft_putstr_fd((str), 1);
+	}
 	free(str);
 }
 
@@ -66,7 +74,11 @@ void			x_zero_check_thr(t_flag *flag, long long int p, int i, int p_i)
 	if (flag->x_check == 0)
 		ft_putstr_fd((str), 1);
 	else
-		ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
+	{
+		free(str);
+		str = ft_itoa_base_upper(p, 16);
+		ft_putstr_fd((str), 1);
+	}
 	free(str);
 }
 
@@ -83,7 +95,11 @@ void			x_zero_check_two(t_flag *flag, long long int p, int p_i)
 	if (flag->x_check == 0)
 		ft_putstr_fd((str), 1);
 	else
-		ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
+	{
+		free(str);
+		str = ft_itoa_base_upper(p, 16);
+		ft_putstr_fd((str), 1);
+	}
 	free(str);
 }
 
@@ -97,17 +113,7 @@ void			x_zero_check(t_flag *flag, long long int p, int i, int p_i)
 		if (flag->width <= flag->p_width)
 			x_zero_check_two(flag, p, p_i);
 		else if (flag->p_width < ft_strlen(str))
-		{
-			flag->result += ft_strlen(str);
-			i = flag->width - ft_strlen(str);
-			flag->result += i > 0 ? i : 0;
-			while (i-- > 0)
-				write(1, " ", 1);
-			if (flag->x_check == 0)
-				ft_putstr_fd((str), 1);
-			else
-				ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
-		}
+			x_zero_check_last(flag, p, i);
 		else
 			x_zero_check_thr(flag, p, i, p_i);
 	}

@@ -22,7 +22,8 @@ SRCS		= ./ft_printf.c \
 			  ./ft_get_s_null.c \
 			  ./ft_get_s.c \
 			  ./ft_get_s_null.c \
-			  ./ft_get_s_left.c
+			  ./ft_get_s_left.c \
+			  ./ft_get_x_remain.c
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .

@@ -6,14 +6,14 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/03 21:37:17 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 17:54:41 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-char	*ft_itoa_base_upper(long long int value, int base)
+char			*ft_itoa_base_upper(long long int value, int base)
 {
 	int				size;
 	long long int	save_value;
@@ -42,7 +42,7 @@ char	*ft_itoa_base_upper(long long int value, int base)
 	return (res);
 }
 
-char	*ft_itoa_base_lower(long long int value, int base)
+char			*ft_itoa_base_lower(long long int value, int base)
 {
 	int				size;
 	long long int	save_value;
@@ -85,15 +85,23 @@ void			reset_flag(t_flag *flag)
 
 void			x_last_check(t_flag *flag, long long int p, int i)
 {
-	i = flag->width - ft_strlen(ft_itoa_base_lower(p, 16));
+	char	*str;
+
+	str = ft_itoa_base_lower(p, 16);
+	i = flag->width - ft_strlen(str);
 	flag->result += i > 0 ? i : 0;
 	while (i-- > 0)
 		write(1, " ", 1);
-	flag->result += ft_strlen(ft_itoa_base_lower(p, 16));
+	flag->result += ft_strlen(str);
 	if (flag->x_check == 0)
-		ft_putstr_fd((ft_itoa_base_lower(p, 16)), 1);
+		ft_putstr_fd(str, 1);
 	else
-		ft_putstr_fd((ft_itoa_base_upper(p, 16)), 1);
+	{
+		free(str);
+		str = ft_itoa_base_upper(p, 16);
+		ft_putstr_fd(str, 1);
+	}
+	free(str);
 }
 
 void			get_u(t_flag *flag, va_list ap)
@@ -101,11 +109,13 @@ void			get_u(t_flag *flag, va_list ap)
 	unsigned int	p;
 	int				i;
 	int				p_i;
+	char			*str;
 
+	p = va_arg(ap, unsigned int);
+	str = ft_itoa(p);
 	i = 0;
 	p_i = 0;
-	p = va_arg(ap, unsigned int);
-	flag->result += ft_strlen(ft_itoa(p));
+	flag->result += ft_strlen(str);
 	if (flag->precision && p == 0 && flag->p_width <= 0)
 		error_check(flag, p, i);
 	else if (flag->left)
@@ -116,4 +126,5 @@ void			get_u(t_flag *flag, va_list ap)
 		check_precision(flag, p, i, p_i);
 	else
 		last_check(flag, p, i);
+	free(str);
 }

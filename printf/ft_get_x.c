@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/04 14:00:05 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 16:07:35 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void			x_pre_check_thr(t_flag *flag, long long p, int i)
 		ft_putstr_fd((str), 1);
 	else
 	{
+		free(str);
 		str = ft_itoa_base_upper(p, 16);
 		ft_putstr_fd((str), 1);
 	}
@@ -50,6 +51,7 @@ void			x_pre_check_two(t_flag *flag, long long int p, int i, int p_i)
 		ft_putstr_fd((str), 1);
 	else
 	{
+		free(str);
 		str = ft_itoa_base_upper(p, 16);
 		ft_putstr_fd((str), 1);
 	}
@@ -73,6 +75,7 @@ void			x_pre_check(t_flag *flag, long long int p, int i, int p_i)
 			ft_putstr_fd((str), 1);
 		else
 		{
+			free(str);
 			str = ft_itoa_base_upper(p, 16);
 			ft_putstr_fd((str), 1);
 		}
@@ -81,6 +84,7 @@ void			x_pre_check(t_flag *flag, long long int p, int i, int p_i)
 		x_pre_check_thr(flag, p, i);
 	else
 		x_pre_check_two(flag, p, i, p_i);
+	free(str);
 }
 
 void			x_error_check(t_flag *flag, long long int p, int i)
@@ -100,7 +104,8 @@ void			x_error_check(t_flag *flag, long long int p, int i)
 			ft_putstr_fd((str), 1);
 		else
 		{
-			str = str;
+			free(str);
+			str = ft_itoa_base_upper(p, 16);
 			ft_putstr_fd((str), 1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:42:29 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/04 13:35:36 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 16:14:56 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	s_flag
 	int			len;
 }				t_flag;
 
+void			x_zero_check_last(t_flag *flag, long long int p, int i);
+void			x_left_check_last(t_flag *flag, long long int p, int p_i);
 void			s_left_check(t_flag *flag, char *str, int i, int p_i);
 void			md_zero_check(t_flag *flag, long long int p, int i, int p_i);
 void			md_left_check(t_flag *flag, long long int p, int i, int p_i);
