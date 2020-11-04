@@ -6,12 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:41:07 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/03 18:40:11 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 13:13:32 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
+
 void			md_pre_last(t_flag *flag, long long int p, int i, int p_i)
 {
 	char	*str;

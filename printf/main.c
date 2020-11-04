@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:47:15 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/03 21:13:55 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/04 12:39:52 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			main(void)
 	int result1;
 	int result2;
 	char c = 'y';
-	s = "";
+	s = "abcd";
 	i = 12345;
 	int j;
 	j = 8;
@@ -31,6 +31,9 @@ int			main(void)
 	int k;
 	k = 0;
 	// printf("%s", NULL);
+	printf("%d\n",i);
+	ft_printf("%-5s\n","hello");
+}
 
 	// result1 = printf("[%-p]\n",&s);
 	// result2 = ft_printf("[%-p]\n",&s);
@@ -79,11 +82,11 @@ int			main(void)
 	// printf("result1 : %d\nresult2 : %d\n", result1, result2);
 	// return (0);
 // }
-	ft_printf("%d", 1);
-	while (1)
-		;
-	return (0);
-}
+	// ft_printf("%d", 1);
+	// while (1)
+	// 	;
+	// return (0);
+// }
 
 // c_main
 

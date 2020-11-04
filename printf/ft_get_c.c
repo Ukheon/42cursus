@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/03 18:49:14 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/03 21:21:41 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			get_c(t_flag *flag, va_list ap)
 	char	c;
 
 	i = 0;
-	c = (char)va_arg(ap, int);
+	c = va_arg(ap, int);
 	if (flag->left)
 	{
 		i = flag->width - 1;

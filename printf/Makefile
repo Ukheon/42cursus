@@ -20,7 +20,9 @@ SRCS		= ./ft_printf.c \
 			  ./ft_get_p_left.c \
 			  ./ft_get_p_zero.c \
 			  ./ft_get_s_null.c \
-			  ./ft_get_s.c
+			  ./ft_get_s.c \
+			  ./ft_get_s_null.c \
+			  ./ft_get_s_left.c
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .

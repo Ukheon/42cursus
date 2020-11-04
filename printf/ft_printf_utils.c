@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 20:58:03 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/03 17:48:10 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/03 21:37:17 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			reset_flag(t_flag *flag)
 	flag->precision = 0;
 	flag->check = 0;
 	flag->x_check = 0;
+	flag->len = 0;
 }
 
 void			x_last_check(t_flag *flag, long long int p, int i)
