@@ -1,14 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
+/*   Updated: 2020/11/25 04:39:24 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mlx.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#define PI 3.14159265359
+#define RAD PI/180
+#define W 13
+#define S 1
+#define A 0
+#define D 2
 
 int		map[11][11] = {
 		{1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,1,1,1,1,1,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,1,1,1,1,1,1,1,1,1}
@@ -18,8 +38,9 @@ typedef struct	s_pix
 {
 	void		*ptr;
 	void		*win;
-	int			x;
-	int			y;
+	float		pa;
+	float		px;
+	float		py;
 	int			**map;
 	void		*img_ptr;
 	int			*img;
@@ -30,37 +51,41 @@ int			player_show(t_pix *pix)
 	int i;
 	int j;
 
-	i = 0;
-	while (i <= 10)
+	i = -5;
+	while (i <= 5)
 	{
-		j = 0;
-		while (j++ <= 10)
-			mlx_pixel_put(pix->ptr, pix->win, pix->x + i, pix->y + j, 0xff0000);
+		j = -5;
+		while (j++ <= 5)
+			mlx_pixel_put(pix->ptr, pix->win, pix->px + i, pix->py + j, 0xff0000);
 		i++;
 	}
 	j = 0;
 	i = 5;
-	while (j++ <= 100)
-	{
-		mlx_pixel_put(pix->ptr, pix->win, pix->x + i, pix->y - j, 0xff0000);
-	}
+	while (j++ <= 300)
+		mlx_pixel_put(pix->ptr, pix->win, j * cos(pix->pa * RAD) + pix->px, j * sin(pix->pa* RAD ) + pix->py, 0xff0000);
 	return (0);
 }
 
 int			player_move(int keycode, t_pix *pix)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	if (keycode == 1)
-		pix->y += 5;
-	else if (keycode == 13)
-		pix->y -= 5;
-	else if (keycode == 2)
-		pix->x += 5;
-	else if (keycode == 0)
-		pix->x -= 5;
+	if (keycode == W)
+	{
+		pix->px += cos(pix->pa * RAD) * 5;
+		pix->py += sin(pix->pa * RAD) * 5;
+	}
+	else if (keycode == S)
+	{
+		pix->px -= cos(pix->pa * RAD) * 5;
+		pix->py -= sin(pix->pa * RAD) * 5;
+	}
+	else if (keycode == D)
+	{
+		pix->pa += 5;
+	}
+	else if (keycode == A)
+	{
+		pix->pa -= 5;
+	}
 	else if (keycode == 53)
 		exit(0);
 	return (0);
@@ -69,23 +94,24 @@ int			player_move(int keycode, t_pix *pix)
 int			draw_map(t_pix *pix)
 {
 	int count_h;
-	int IMG_HEIGHT = 1000;
-	int	IMG_WIDTH = 1000;
+	int IMG_HEIGHT = 100;
+	int	IMG_WIDTH = 100;
 	int count_w = -1;
 	int bpp;
 	int size;
 	int endian;
-	pix->img = (int *)mlx_get_data_addr(pix->img_ptr, &bpp,&size,&endian);
+
+	pix->img = (int *)mlx_get_data_addr(pix->img_ptr, &bpp, &size, &endian);
 	count_h = -1;
 	while (++count_h < IMG_HEIGHT)
 	{
 		count_w = -1;
 		while (++count_w < IMG_WIDTH)
 		{
-			if (count_w % 2)
-				pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
-			else
-				pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
+			// if (count_w % 2)
+			// 	pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
+			// else
+			pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
 		}
 	}
 	return (1);
@@ -117,7 +143,7 @@ int			put_pix(t_pix *pix)
 	int		width;
 	int		height;
 
-	height = 1000; // admin
+	height = 1000;
 	width = 1000;
 	mlx_clear_window(pix->ptr, pix->win);
 
@@ -151,15 +177,16 @@ int			put_pix(t_pix *pix)
 int			main(void)
 {
 	t_pix	pix;
-	t_pix	pix2;
 
-	pix.x = 220;
-	pix.y = 220;
+
+	pix.pa = 0.0;
+	pix.px = 130.0;
+	pix.py = 130.0;
 	pix.ptr = mlx_init();
 	pix.win = mlx_new_window(pix.ptr, 1000, 1000, "ukheon");
 	pix.img_ptr = mlx_new_image(pix.ptr, 100, 100);
 	draw_map(&pix);
 	mlx_loop_hook(pix.ptr, &put_pix, &pix);
-	mlx_hook(pix.win, 4, 0, &player_move, &pix);
+	mlx_hook(pix.win, 2, 0, &player_move, &pix);
 	mlx_loop(pix.ptr);
 }
