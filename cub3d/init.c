@@ -6,20 +6,16 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/11/25 04:39:24 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/11/25 17:26:38 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
-#define PI 3.14159265359
-#define RAD PI/180
-#define W 13
-#define S 1
-#define A 0
-#define D 2
+#include <stdio.h>
+
+// 확인용 맵
 
 int		map[11][11] = {
 		{1,1,1,1,1,1,1,1,1,1},
@@ -34,159 +30,177 @@ int		map[11][11] = {
 		{1,1,1,1,1,1,1,1,1,1}
 };
 
-typedef struct	s_pix
+#define A 0
+#define S 1
+#define D 2
+#define W 13
+#define END 53
+#define PI 3.14159265359
+#define RAD PI/180
+
+typedef struct	s_zip
 {
-	void		*ptr;
+	void		*start;
 	void		*win;
-	float		pa;
-	float		px;
-	float		py;
-	int			**map;
-	void		*img_ptr;
-	int			*img;
-}				t_pix;
+	int			width;
+	int			height;
+	float		p_x;
+	float		p_y;
+	float		pdr;
 
-int			player_show(t_pix *pix)
+
+// img
+	void		*img;
+	int			*img_ptr;
+	int			bits;
+	int			size_l;
+	int			endian;
+}				t_zip;
+
+void	zip_setting(t_zip *zip)
 {
-	int i;
-	int j;
-
-	i = -5;
-	while (i <= 5)
-	{
-		j = -5;
-		while (j++ <= 5)
-			mlx_pixel_put(pix->ptr, pix->win, pix->px + i, pix->py + j, 0xff0000);
-		i++;
-	}
-	j = 0;
-	i = 5;
-	while (j++ <= 300)
-		mlx_pixel_put(pix->ptr, pix->win, j * cos(pix->pa * RAD) + pix->px, j * sin(pix->pa* RAD ) + pix->py, 0xff0000);
-	return (0);
+	zip->width = 600;
+	zip->height = 600;
+	zip->p_x = 200;
+	zip->p_y = 200;
+	zip->pdr = 270;
 }
 
-int			player_move(int keycode, t_pix *pix)
+void	show_player(t_zip *zip)
+{
+	int		i;
+	int		j;
+	int		x;
+	int		y;
+	int		sight;
+
+	i = -5;
+	while (i < 5)
+	{
+		j = -5;
+		while (j < 5)
+		{
+			mlx_pixel_put(zip->start, zip->win, cos(zip->pdr * RAD) + zip->p_x + i, sin(zip->pdr * RAD) + zip->p_y + j, 0xff00ff);
+			j++;
+		}
+		i++;
+	}
+
+	sight = -15;
+	while (sight < 15)
+	{
+		j = 0;
+		while (++j)
+		{
+			x = j * cos((zip->pdr + sight) * RAD) + zip->p_x;
+			y = j * sin((zip->pdr + sight) * RAD) + zip->p_y;
+			mlx_pixel_put(zip->start, zip->win, x, y, 0xff00ff);
+			printf("%d\n",j);
+			if ((x >= zip->width || x <= 0) || (y <= 0 || y >= zip->height))
+				break;
+		}
+		sight += 5;
+	}
+}
+
+int		player_move(int keycode, t_zip *zip)
 {
 	if (keycode == W)
 	{
-		pix->px += cos(pix->pa * RAD) * 5;
-		pix->py += sin(pix->pa * RAD) * 5;
+		zip->p_x += cos(zip->pdr * RAD) * 5;
+		zip->p_y += sin(zip->pdr * RAD) * 5;
 	}
-	else if (keycode == S)
+	if (keycode == S)
 	{
-		pix->px -= cos(pix->pa * RAD) * 5;
-		pix->py -= sin(pix->pa * RAD) * 5;
+		zip->p_x -= cos(zip->pdr * RAD) * 5;
+		zip->p_y -= sin(zip->pdr * RAD) * 5;
 	}
-	else if (keycode == D)
+	if (keycode == A)
 	{
-		pix->pa += 5;
+		zip->pdr -= 5;
+		if (zip->pdr <= 0)
+			zip->pdr = 355;
 	}
-	else if (keycode == A)
+	if (keycode == D)
 	{
-		pix->pa -= 5;
+		zip->pdr += 5;
+		if (zip->pdr >= 360)
+			zip->pdr = 5;
 	}
-	else if (keycode == 53)
+	if (keycode == END)
 		exit(0);
 	return (0);
 }
 
-int			draw_map(t_pix *pix)
+void	show_grid(t_zip *zip)
 {
-	int count_h;
-	int IMG_HEIGHT = 100;
-	int	IMG_WIDTH = 100;
-	int count_w = -1;
-	int bpp;
-	int size;
-	int endian;
+	int		x;
+	int		y;
 
-	pix->img = (int *)mlx_get_data_addr(pix->img_ptr, &bpp, &size, &endian);
-	count_h = -1;
-	while (++count_h < IMG_HEIGHT)
+	x = 0;
+	while (x < zip->width / 10)
 	{
-		count_w = -1;
-		while (++count_w < IMG_WIDTH)
+		y = 0;
+		while (y < zip->height)
 		{
-			// if (count_w % 2)
-			// 	pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
-			// else
-			pix->img[count_h * IMG_WIDTH + count_w] = 0xffffff;
+			mlx_pixel_put(zip->start, zip->win, x * zip->width / 10, y, 0xff0000);
+			y++;
 		}
+		x++;
 	}
-	return (1);
-}
-
-void		show_wall(t_pix *pix)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < 10)
+	x = 0;
+	while (x < zip->width / 10)
 	{
-		j = 0;
-		while (j < 10)
+		y = 0;
+		while (y < zip->height)
 		{
-			if (map[i][j] == 1)
-				mlx_put_image_to_window(pix->ptr, pix->win, pix->img_ptr, j * 100, i * 100);
-			j++;
+			mlx_pixel_put(zip->start, zip->win, y, x * zip->width / 10, 0xff0000);
+			y++;
 		}
-		i++;
+		x++;
 	}
 }
 
-int			put_pix(t_pix *pix)
+int		show_wall(t_zip *zip)
 {
-	int		i;
-	int		j;
-	int		width;
-	int		height;
-
-	height = 1000;
-	width = 1000;
-	mlx_clear_window(pix->ptr, pix->win);
-
-	show_wall(pix);
-	i = 1;
-	while (i <= 10)
-	{
-		j = 0;
-		while (j <= width)
-		{
-			mlx_pixel_put(pix->ptr, pix->win, i * 100, j, 0x00ff00);
-			j++;
-		}
-		i++;
-	}
-	i = 1;
-	while (i <= 10)
-	{
-		j = 0;
-		while (j <= width)
-		{
-			mlx_pixel_put(pix->ptr, pix->win, j, i * 100, 0x00ff00);
-			j++;
-		}
-		i++;
-	}
-	player_show(pix);
+	mlx_clear_window(zip->start, zip->win);
+	mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
+	show_grid(zip);
+	show_player(zip);
 	return (0);
 }
 
-int			main(void)
+void	make_img(t_zip *zip)
 {
-	t_pix	pix;
+	int		width;
+	int		height;
+	int		i;
 
+	i = 0;
+	zip->img_ptr = (int *)mlx_get_data_addr(zip->img, &zip->bits, &zip->size_l, &zip->endian);
+	width = 0;
+	while (width < zip->width/10)
+	{
+		height = 0;
+		while (height < zip->width/10)
+		{
+			zip->img_ptr[width * zip->width/10 + height] = 0xffffff;
+			height++;
+		}
+		width++;
+	}
+}
 
-	pix.pa = 0.0;
-	pix.px = 130.0;
-	pix.py = 130.0;
-	pix.ptr = mlx_init();
-	pix.win = mlx_new_window(pix.ptr, 1000, 1000, "ukheon");
-	pix.img_ptr = mlx_new_image(pix.ptr, 100, 100);
-	draw_map(&pix);
-	mlx_loop_hook(pix.ptr, &put_pix, &pix);
-	mlx_hook(pix.win, 2, 0, &player_move, &pix);
-	mlx_loop(pix.ptr);
+int		main(void)
+{
+	t_zip zip;
+
+	zip_setting(&zip);
+	zip.start = mlx_init();
+	zip.win = mlx_new_window(zip.start, zip.width, zip.height, "hi~hello");
+	zip.img = mlx_new_image(zip.start, (zip.width / 10), (zip.height / 10));
+	make_img(&zip);
+	mlx_loop_hook(zip.start, &show_wall, &zip);
+	mlx_hook(zip.win, 2, 0, &player_move, &zip);
+	mlx_loop(zip.start);
 }
