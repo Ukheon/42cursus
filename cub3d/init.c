@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/12/02 17:10:40 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/12/02 20:49:19 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,31 @@
 // 확인용 맵
 int color = 0x00ff00;
 
-int		map[11][11] = {
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,1,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1}
-};
-
 // int		map[11][11] = {
 // 		{1,1,1,1,1,1,1,1,1,1},
 // 		{1,0,0,0,0,0,0,0,0,1},
-// 		{1,0,1,1,1,1,1,1,1,1},
 // 		{1,0,0,0,0,0,0,0,0,1},
-// 		{1,1,1,1,1,1,0,0,0,1},
 // 		{1,0,0,0,0,0,0,0,0,1},
-// 		{1,0,1,1,1,1,1,1,1,1},
 // 		{1,0,0,0,0,0,0,0,0,1},
+// 		{1,0,0,0,0,0,0,0,0,1},
+// 		{1,0,0,0,0,0,0,0,0,1},
+// 		{1,0,1,0,0,0,0,0,0,1},
 // 		{1,0,0,0,0,0,0,0,0,1},
 // 		{1,1,1,1,1,1,1,1,1,1}
 // };
+
+int		map[11][11] = {
+		{1,1,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,1}
+};
 
 #define A 0
 #define S 1
@@ -80,8 +80,8 @@ void	zip_setting(t_zip *zip)
 {
 	zip->width = 600;
 	zip->height = 600;
-	zip->p_x = 150;
-	zip->p_y = 150;
+	zip->p_x = 200;
+	zip->p_y = 200;
 	zip->pdr = 270;
 	zip->count = 1;
 	zip->index = 0;
@@ -101,13 +101,11 @@ void	show_cub(t_zip *zip)
 	int		zero;
 	int		last;
 
-	zero = 0;
-	last = zip->height;
-	line = (int)(zip->height) * 40 / (zip->len);
+	line = (int)(zip->height) * 30 / (zip->len);
 
 	//width = 600; sight = 61개의 광선을 쏠 때 10번 이다
 	i = 0;
-	while (zip->index < (zip->count * (zip->width / 60)))
+	while (zip->index < (zip->count * ((float)zip->width / 300.0)))
 	{
 		start = -line / 2 + zip->height / 2;
 		if (start < 0)
@@ -116,22 +114,22 @@ void	show_cub(t_zip *zip)
 		if (end >= zip->height)
 			end = zip->height - 1;
 		zero = 0;
-		while (zero <= start)
+		while (zero < start)
 		{
-			zip->img_ptr[(zip->width) * zero + zip->index] = 0x00FF00;
+			zip->img_ptr[(zip->width) * zero + zip->index] = 0xff00ff;
 			zero++;
 		}
-		while (start <= end)
+		while (start < end)
 		{
 			zip->img_ptr[(zip->width) * start + zip->index] = 0xFF0000;
 			start++;
 		}
-		while (start <= last)
+		while (start <= zip->height)
 		{
-			zip->img_ptr[(zip->width) * start + zip->index] = 0xFFFFFF;
+			zip->img_ptr[(zip->width) * start + zip->index] = 0x000043;
 			start++;
 		}
-		mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
+		// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
 		// while (start < end)
 		// {
 		// 	mlx_pixel_put(zip->start, zip->win, zip->index, start, 0xff0000);
@@ -141,6 +139,7 @@ void	show_cub(t_zip *zip)
 		// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, start);
 		zip->index++;
 	}
+	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
 	zip->count++;
 }
 
@@ -148,7 +147,7 @@ void	show_player(t_zip *zip)
 {
 	int		i;
 	int		j;
-	int		sight;
+	float	sight;
 	float	a;
 	float	b;
 
@@ -165,10 +164,9 @@ void	show_player(t_zip *zip)
 	// 	i++;
 	// }
 
-	sight = -30;
-	// mlx_clear_window(zip->start, zip->win);
-	zip->count = 1;
-	while (sight <= 30)
+	mlx_clear_window(zip->start, zip->win);
+	sight = -30.0;
+	while (sight <= 30.0)
 	{
 		j = 0;
 		while (++j)
@@ -187,14 +185,15 @@ void	show_player(t_zip *zip)
 				// a & b 길이를 구해서 빗변=광선길이 구하기 # cos 붙는 이유는 내가보는 방향의 수직거리만 필요하기때문. 직각의 길이가 아니면 둥글게 나옴.
 				zip->len = sqrt((a * a) + (b * b)) * cos(sight * RAD);
 				show_cub(zip);
-				// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
-				continue;
+				break;
 			}
+
 			if ((zip->x >= zip->width || zip->x <= 0) || (zip->y <= 0 || zip->y >= zip->height))
 				break;
 		}
-		sight += 1;
 	}
+	mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
+	zip->count = 1;
 	zip->index = 0;
 }
 
@@ -202,7 +201,6 @@ int		player_move(int keycode, t_zip *zip)
 {
 	float x_temp;
 	float y_temp;
-
 
 	if (keycode == W)
 	{
@@ -224,22 +222,22 @@ int		player_move(int keycode, t_zip *zip)
 	}
 	if (keycode == A)
 	{
-		zip->pdr -= 5;
+		zip->pdr -= 2.5;
 		if (zip->pdr <= 0)
-			zip->pdr = 355;
+			zip->pdr = 357.5;
 	}
 	if (keycode == D)
 	{
-		zip->pdr += 5;
+		zip->pdr += 2.5;
 		if (zip->pdr >= 360)
-			zip->pdr = 5;
+			zip->pdr = 2.5;
 	}
 	if (keycode == END)
 		exit(0);
 	// printf("x : %f ",zip->p_x);
 	// printf("// y : %f\n",zip->p_y);
 
-	// show_player(zip);
+	show_player(zip);
 	return (0);
 }
 
@@ -290,8 +288,8 @@ int		show_wall(t_zip *zip)
 	// 	}
 	// 	i++;
 	// }
-	// // show_grid(zip);
-	show_player(zip);
+	// show_grid(zip);
+	// show_player(zip);
 	return (0);
 }
 
@@ -326,11 +324,11 @@ int		main(void)
 	zip_setting(&zip);
 	zip.start = mlx_init();
 	zip.win = mlx_new_window(zip.start, zip.width, zip.height, "hi~hello");
-	zip.img = mlx_new_image(zip.start, (zip.width), (zip.height));
+	zip.img = mlx_new_image(zip.start, zip.width, zip.height);
 	zip.img_ptr = (int *)mlx_get_data_addr(zip.img, &zip.bpp, &zip.size_l, &zip.endian);
-	// zip.img = mlx_xpm_file_to_image(zip.start, "textures/wall_n.xpm", &imgwidth, &imgheight);
 	// make_img(&zip);
-	mlx_loop_hook(zip.start, &show_wall, &zip);
+
+	// mlx_loop_hook(zip.start, &show_wall, &zip);
 	//mlx_hook(zip.start, 2, 0, &show_wall, &zip);
 
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
