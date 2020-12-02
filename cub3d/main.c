@@ -197,7 +197,7 @@ int	key_press(int key, t_info *info)
 			info->posY -= info->dirY * info->moveSpeed;
 	}
 	//rotate to the right
-	if (key == K_D)
+	if (key == K_A)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
@@ -208,7 +208,7 @@ int	key_press(int key, t_info *info)
 		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
 	//rotate to the left
-	if (key == K_A)
+	if (key == K_D)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
@@ -230,12 +230,12 @@ int	main(void)
 
 	info.posX = 12;
 	info.posY = 5;
-	info.dirX = -1;
+	info.dirX = 1;
 	info.dirY = 0;
 	info.planeX = 0;
 	info.planeY = 0.66;
-	info.moveSpeed = 0.05;
-	info.rotSpeed = 0.05;
+	info.moveSpeed = 0.1;
+	info.rotSpeed = 0.1;
 
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
 
