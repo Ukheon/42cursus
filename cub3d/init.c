@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/12/02 20:49:19 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/12/03 20:15:55 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int		map[11][11] = {
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,0,0,0,1},
+		{1,1,1,1,1,1,1,1,0,1},
 		{1,0,0,0,0,0,0,0,0,1},
 		{1,0,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,1,1,1,0,1},
 		{1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -49,7 +49,7 @@ int		map[11][11] = {
 #define D 2
 #define W 13
 #define END 53
-#define PI 3.14159265359
+#define PI 3.1415926535897932
 #define RAD PI/180
 
 typedef struct	s_zip
@@ -78,7 +78,7 @@ typedef struct	s_zip
 
 void	zip_setting(t_zip *zip)
 {
-	zip->width = 600;
+	zip->width = 1000;
 	zip->height = 600;
 	zip->p_x = 200;
 	zip->p_y = 200;
@@ -89,56 +89,49 @@ void	zip_setting(t_zip *zip)
 
 void	show_cub(t_zip *zip)
 {
-	int		half;
-	int		len;
-	int		start;
-	int		end;
-	int		i;
-	int		line;
-	int		imgwidth;
-	int		imgheight;
-	int		save;
-	int		zero;
-	int		last;
+	float	start;
+	float	end;
+	float	line;
+	float	zero;
+	float	last;
 
-	line = (int)(zip->height) * 30 / (zip->len);
+	line = (float)((zip->height) * 33 / (zip->len));
 
 	//width = 600; sight = 61개의 광선을 쏠 때 10번 이다
-	i = 0;
-	while (zip->index < (zip->count * ((float)zip->width / 300.0)))
+
+	start = -line / 2 + zip->height / 2;
+	if (start < 0)
+		start = 0;
+	end = line / 2 + zip->height / 2;
+	if (end >= zip->height)
+		end = zip->height;
+	zero = 0;
+	while (zero < start)
 	{
-		start = -line / 2 + zip->height / 2;
-		if (start < 0)
-			start = 0;
-		end = line / 2 + zip->height / 2;
-		if (end >= zip->height)
-			end = zip->height - 1;
-		zero = 0;
-		while (zero < start)
-		{
-			zip->img_ptr[(zip->width) * zero + zip->index] = 0xff00ff;
-			zero++;
-		}
-		while (start < end)
-		{
-			zip->img_ptr[(zip->width) * start + zip->index] = 0xFF0000;
-			start++;
-		}
-		while (start <= zip->height)
-		{
-			zip->img_ptr[(zip->width) * start + zip->index] = 0x000043;
-			start++;
-		}
-		// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
-		// while (start < end)
-		// {
-		// 	mlx_pixel_put(zip->start, zip->win, zip->index, start, 0xff0000);
-		// 	start++;
-		// }
-		// zip->img = mlx_xpm_file_to_image(zip->start, "textures/wall_n.xpm", &imgwidth, &imgheight);
-		// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, start);
-		zip->index++;
+		zip->img_ptr[(int)(zip->width) * (int)zero + zip->index] = 0x000000;
+		zero++;
 	}
+	while (start < end)
+	{
+		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = 0xff0000;
+		start++;
+	}
+	while (start <= zip->height)
+	{
+		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = 0xffffff;
+		start++;
+	}
+	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
+	// while (start < end)
+	// {
+	// 	mlx_pixel_put(zip->start, zip->win, zip->index, start, 0xff0000);
+	// 	start++;
+	// }
+	// zip->img = mlx_xpm_file_to_image(zip->start, "textures/wall_n.xpm", &imgwidth, &imgheight);
+	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, start);
+	zip->index++;
+
+
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
 	zip->count++;
 }
@@ -146,7 +139,7 @@ void	show_cub(t_zip *zip)
 void	show_player(t_zip *zip)
 {
 	int		i;
-	int		j;
+	float		j;
 	float	sight;
 	float	a;
 	float	b;
@@ -165,11 +158,11 @@ void	show_player(t_zip *zip)
 	// }
 
 	mlx_clear_window(zip->start, zip->win);
-	sight = -30.0;
-	while (sight <= 30.0)
+	sight = -33.0;
+	while (sight <= 33.0)
 	{
 		j = 0;
-		while (++j)
+		while (1)
 		{
 			zip->x = j * cos((zip->pdr + sight) * RAD) + zip->p_x;
 			zip->y = j * sin((zip->pdr + sight) * RAD) + zip->p_y;
@@ -179,18 +172,19 @@ void	show_player(t_zip *zip)
 
 			if (map[(int)(zip->y / (zip->height / 10))][(int)(zip->x / (zip->width / 10))] == 1)
 			{
-				a =	fabs(zip->p_x - zip->x);
-				b =	fabs(zip->p_y - zip->y);
+				a =	abs((int)zip->p_x - (int)zip->x);
+				b =	abs((int)zip->p_y - (int)zip->y);
 
 				// a & b 길이를 구해서 빗변=광선길이 구하기 # cos 붙는 이유는 내가보는 방향의 수직거리만 필요하기때문. 직각의 길이가 아니면 둥글게 나옴.
 				zip->len = sqrt((a * a) + (b * b)) * cos(sight * RAD);
 				show_cub(zip);
 				break;
 			}
-
-			if ((zip->x >= zip->width || zip->x <= 0) || (zip->y <= 0 || zip->y >= zip->height))
-				break;
+			j += 1.0;
+			// if ((zip->x >= zip->width || zip->x <= 0) || (zip->y <= 0 || zip->y >= zip->height))
+			// 	break;
 		}
+		sight += (66.0 / zip->width);
 	}
 	mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
 	zip->count = 1;
@@ -222,22 +216,19 @@ int		player_move(int keycode, t_zip *zip)
 	}
 	if (keycode == A)
 	{
-		zip->pdr -= 2.5;
-		if (zip->pdr <= 0)
-			zip->pdr = 357.5;
+		zip->pdr -= 5.0;
+		if (zip->pdr < 0)
+			zip->pdr = 355.0;
 	}
 	if (keycode == D)
 	{
-		zip->pdr += 2.5;
-		if (zip->pdr >= 360)
-			zip->pdr = 2.5;
+		zip->pdr += 5.0;
+		if (zip->pdr > 360)
+			zip->pdr = 5.0;
 	}
 	if (keycode == END)
 		exit(0);
-	// printf("x : %f ",zip->p_x);
-	// printf("// y : %f\n",zip->p_y);
-
-	show_player(zip);
+	// show_player(zip);
 	return (0);
 }
 
@@ -272,24 +263,9 @@ void	show_grid(t_zip *zip)
 
 int		show_wall(t_zip *zip)
 {
-	int		i;
-	int		j;
 
-	mlx_clear_window(zip->start, zip->win);
-	// i = 0;
-	// while (i <= 10)
-	// {
-	// 	j = 0;
-	// 	while (j <= 10)
-	// 	{
-	// 		if (map[i][j] == 1)
-	// 			mlx_put_image_to_window(zip->start, zip->win, zip->img, (j * (zip->width / 10)), (i * (zip->height / 10)));
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// show_grid(zip);
-	// show_player(zip);
+	// mlx_clear_window(zip->start, zip->win);
+	show_player(zip);
 	return (0);
 }
 
@@ -326,11 +302,9 @@ int		main(void)
 	zip.win = mlx_new_window(zip.start, zip.width, zip.height, "hi~hello");
 	zip.img = mlx_new_image(zip.start, zip.width, zip.height);
 	zip.img_ptr = (int *)mlx_get_data_addr(zip.img, &zip.bpp, &zip.size_l, &zip.endian);
+
 	// make_img(&zip);
-
-	// mlx_loop_hook(zip.start, &show_wall, &zip);
-	//mlx_hook(zip.start, 2, 0, &show_wall, &zip);
-
+	mlx_loop_hook(zip.start, &show_wall, &zip);
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
 	mlx_loop(zip.start);
 }
