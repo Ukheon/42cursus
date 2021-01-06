@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/12/03 20:15:55 by ukwon            ###   ########.fr       */
+/*   Updated: 2020/12/04 17:09:48 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct	s_zip
 
 // img
 	void		*img;
+	int			*texture;
 	int			*img_ptr;
 	int			bpp;
 	int			size_l;
@@ -78,10 +79,10 @@ typedef struct	s_zip
 
 void	zip_setting(t_zip *zip)
 {
-	zip->width = 1000;
+	zip->width = 600;
 	zip->height = 600;
-	zip->p_x = 200;
-	zip->p_y = 200;
+	zip->p_x = 6;
+	zip->p_y = 6;
 	zip->pdr = 270;
 	zip->count = 1;
 	zip->index = 0;
@@ -95,7 +96,7 @@ void	show_cub(t_zip *zip)
 	float	zero;
 	float	last;
 
-	line = (float)((zip->height) * 33 / (zip->len));
+	line = (float)((zip->height) * 40 / (zip->len));
 
 	//width = 600; sight = 61개의 광선을 쏠 때 10번 이다
 
@@ -108,17 +109,20 @@ void	show_cub(t_zip *zip)
 	zero = 0;
 	while (zero < start)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)zero + zip->index] = 0x000000;
+		zip->img_ptr[(int)(zip->width) * (int)(zero) + zip->index]) = \
+		// zip->texture[(int)((zip->width) * (int)zero + zip->index) / 10];
 		zero++;
 	}
 	while (start < end)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = 0xff0000;
+		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
+		// zip->texture[(int)((zip->width) * (int)start + zip->index) / 10];
 		start++;
 	}
 	while (start <= zip->height)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = 0xffffff;
+		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
+		// zip->texture[(int)((zip->width) * (int)start + zip->index) / 10];
 		start++;
 	}
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
@@ -130,7 +134,6 @@ void	show_cub(t_zip *zip)
 	// zip->img = mlx_xpm_file_to_image(zip->start, "textures/wall_n.xpm", &imgwidth, &imgheight);
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, start);
 	zip->index++;
-
 
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
 	zip->count++;
@@ -186,9 +189,36 @@ void	show_player(t_zip *zip)
 		}
 		sight += (66.0 / zip->width);
 	}
-	mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
+
+	// mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
+
 	zip->count = 1;
 	zip->index = 0;
+}
+
+void	load_image(t_zip *zip)
+{
+	int		img_height;
+	int		img_width;
+	int		x , y;
+
+
+	zip->img = mlx_xpm_file_to_image(zip->start, "textures/eagle.xpm", &img_width, &img_height);
+	zip->texture = (int *)malloc(sizeof(int) * ((img_width * img_height) + 1));
+	zip->img_ptr = (int *)mlx_get_data_addr(zip->start, &zip->bpp, &zip->size_l, &zip->endian);
+
+	y = 0;
+	while (y < img_height)
+	{
+		y++;
+		x = 0;
+		while (x < img_width)
+		{
+			zip->texture[img_width * y + x] = zip->img_ptr[img_width * y + x];
+			x++;
+		}
+	}
+	mlx_destroy_image(zip->start, zip->img);
 }
 
 int		player_move(int keycode, t_zip *zip)
@@ -300,10 +330,10 @@ int		main(void)
 	zip_setting(&zip);
 	zip.start = mlx_init();
 	zip.win = mlx_new_window(zip.start, zip.width, zip.height, "hi~hello");
+
+	load_image(&zip);
 	zip.img = mlx_new_image(zip.start, zip.width, zip.height);
 	zip.img_ptr = (int *)mlx_get_data_addr(zip.img, &zip.bpp, &zip.size_l, &zip.endian);
-
-	// make_img(&zip);
 	mlx_loop_hook(zip.start, &show_wall, &zip);
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
 	mlx_loop(zip.start);
