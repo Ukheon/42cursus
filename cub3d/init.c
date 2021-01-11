@@ -77,16 +77,18 @@ typedef struct	s_zip
 	int			endian;
 }				t_zip;
 
+
 void	zip_setting(t_zip *zip)
 {
 	zip->width = 600;
 	zip->height = 600;
-	zip->p_x = 6;
-	zip->p_y = 6;
+	zip->p_x = 120;
+	zip->p_y = 230;
 	zip->pdr = 270;
 	zip->count = 1;
 	zip->index = 0;
 }
+
 
 void	show_cub(t_zip *zip)
 {
@@ -109,22 +111,44 @@ void	show_cub(t_zip *zip)
 	zero = 0;
 	while (zero < start)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)(zero) + zip->index]) = \
+		zip->img_ptr[(int)zero * zip->width + zip->index] = 0x00ff00;
+		// mlx_pixel_put(zip->start, zip->win, zip->index, zero, 0x00ff00);
+		// zip->img_ptr[(int)(zip->width) * (int)(zero) + zip->index] = \
 		// zip->texture[(int)((zip->width) * (int)zero + zip->index) / 10];
 		zero++;
 	}
+	int check_point = 0;
+	int	count = 0;
+	int check_po1;
+
+	check_po1 = (int)end - (int)start / 64;
+	if (((int)end - (int)start % 64) > 32)
+		check_po1++;
 	while (start < end)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
+		if (count != 0 && count % check_po1 == 0)
+		{
+			count = 0;
+			check_point++;
+		}
+		zip->img_ptr[(int)start * zip->width + zip->index] = zip->texture[64 * check_point + ((int)zip->len + (int)zip->index) % 64];
+		// mlx_pixel_put(zip->start, zip->win, zip->index, start, 0xff00ff);
+		// zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
 		// zip->texture[(int)((zip->width) * (int)start + zip->index) / 10];
+		count++;
 		start++;
 	}
 	while (start <= zip->height)
 	{
-		zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
+		zip->img_ptr[(int)start * zip->width + zip->index] = 0xffffff;
+		// mlx_pixel_put(zip->start, zip->wn, zip->index, start, 0x0000ff);
+		// zip->img_ptr[(int)(zip->width) * (int)start + zip->index] = \
 		// zip->texture[(int)((zip->width) * (int)start + zip->index) / 10];
+		// mlx_pixel_put(zip->start, zip->win, (int)start, zip->index, 0x0000ff);
 		start++;
 	}
+	// mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
+	
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, zip->index, 0);
 	// while (start < end)
 	// {
@@ -142,23 +166,10 @@ void	show_cub(t_zip *zip)
 void	show_player(t_zip *zip)
 {
 	int		i;
-	float		j;
+	float	j;
 	float	sight;
 	float	a;
 	float	b;
-
-	// 플레이어 그리기
-	// i = -5;
-	// while (i < 5)
-	// {
-	// 	j = -5;
-	// 	while (j < 5)
-	// 	{
-	// 		mlx_pixel_put(zip->start, zip->win, zip->p_x + i, zip->p_y + j, 0xff00ff);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 
 	mlx_clear_window(zip->start, zip->win);
 	sight = -33.0;
@@ -169,9 +180,6 @@ void	show_player(t_zip *zip)
 		{
 			zip->x = j * cos((zip->pdr + sight) * RAD) + zip->p_x;
 			zip->y = j * sin((zip->pdr + sight) * RAD) + zip->p_y;
-
-			// 광선 그리기
-			// mlx_pixel_put(zip->start, zip->win, zip->x, zip->y, 0xff00ff);
 
 			if (map[(int)(zip->y / (zip->height / 10))][(int)(zip->x / (zip->width / 10))] == 1)
 			{
@@ -189,6 +197,7 @@ void	show_player(t_zip *zip)
 		}
 		sight += (66.0 / zip->width);
 	}
+	mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
 
 	// mlx_put_image_to_window(zip->start, zip->win, zip->img, 0, 0);
 
@@ -196,30 +205,10 @@ void	show_player(t_zip *zip)
 	zip->index = 0;
 }
 
-void	load_image(t_zip *zip)
-{
-	int		img_height;
-	int		img_width;
-	int		x , y;
 
 
-	zip->img = mlx_xpm_file_to_image(zip->start, "textures/eagle.xpm", &img_width, &img_height);
-	zip->texture = (int *)malloc(sizeof(int) * ((img_width * img_height) + 1));
-	zip->img_ptr = (int *)mlx_get_data_addr(zip->start, &zip->bpp, &zip->size_l, &zip->endian);
 
-	y = 0;
-	while (y < img_height)
-	{
-		y++;
-		x = 0;
-		while (x < img_width)
-		{
-			zip->texture[img_width * y + x] = zip->img_ptr[img_width * y + x];
-			x++;
-		}
-	}
-	mlx_destroy_image(zip->start, zip->img);
-}
+
 
 int		player_move(int keycode, t_zip *zip)
 {
@@ -258,37 +247,49 @@ int		player_move(int keycode, t_zip *zip)
 	}
 	if (keycode == END)
 		exit(0);
-	// show_player(zip);
 	return (0);
 }
 
-void	show_grid(t_zip *zip)
-{
-	int		x;
-	int		y;
 
-	x = 0;
-	while (x < zip->width / 10)
+void	load_image(t_zip *zip)
+{
+	int		img_height;
+	int		img_width;
+	int		x , y;
+
+
+	zip->img = mlx_xpm_file_to_image(zip->start, "textures/eagle.xpm", &img_width, &img_height);
+	zip->texture = (int *)malloc(sizeof(int) * ((img_width * img_height) + 1));
+	zip->img_ptr = (int *)mlx_get_data_addr(zip->img, &zip->bpp, &zip->size_l, &zip->endian);
+
+	y = 0;
+	while (y < img_height)
 	{
-		y = 0;
-		while (y < zip->height)
+		x = 0;
+		while (x < img_width)
 		{
-			mlx_pixel_put(zip->start, zip->win, x * zip->width / 10, y, 0xff0000);
-			y++;
+			zip->texture[img_width * y + x] = zip->img_ptr[img_width * y + x];
+			x++;
 		}
-		x++;
+		y++;
 	}
-	x = 0;
-	while (x < zip->height / 10)
-	{
-		y = 0;
-		while (y < zip->width)
-		{
-			mlx_pixel_put(zip->start, zip->win, y, x * zip->height / 10, 0xff0000);
-			y++;
-		}
-		x++;
-	}
+	mlx_destroy_image(zip->start, zip->img);
+	// mlx_put_image_to_window(zip->start,zip->win, zip->img_ptr, 0,0);
+	// zip->img = mlx_new_image(zip->start, img_width, img_height);
+	// zip->img_ptr = (int *)mlx_get_data_addr(zip->img, &zip->bpp, &zip->size_l, &zip->endian);
+	// while (y < img_height)
+	// {
+	// 	x = 0;
+	// 	while (x < img_width)
+	// 	{
+	// 		zip->img_ptr[img_width * y + x] = zip->texture[img_width * y + x];
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	// mlx_put_image_to_window(zip->start,zip->win, zip->img, 0,0);
+	// mlx_destroy_image(zip->start, zip->img);
+
 }
 
 int		show_wall(t_zip *zip)
@@ -298,28 +299,6 @@ int		show_wall(t_zip *zip)
 	show_player(zip);
 	return (0);
 }
-
-// void	make_img(t_zip *zip)
-// {
-// 	int		width;
-// 	int		height;
-// 	int		i;
-
-// 	i = 0;
-// 	zip->img_ptr = (int *)mlx_get_data_addr(zip->img, &zip->bpp, &zip->size_l, &zip->endian);
-// 	width = 0;
-// 	while (width < zip->width/10)
-// 	{
-// 		height = 0;
-// 		while (height < zip->width/10)
-// 		{
-// 			zip->img_ptr[i] = 0xffffff;
-// 			height++;
-// 			i++;
-// 		}
-// 		width++;
-// 	}
-// }
 
 int		main(void)
 {
@@ -332,9 +311,13 @@ int		main(void)
 	zip.win = mlx_new_window(zip.start, zip.width, zip.height, "hi~hello");
 
 	load_image(&zip);
+
 	zip.img = mlx_new_image(zip.start, zip.width, zip.height);
 	zip.img_ptr = (int *)mlx_get_data_addr(zip.img, &zip.bpp, &zip.size_l, &zip.endian);
+
 	mlx_loop_hook(zip.start, &show_wall, &zip);
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
+
+
 	mlx_loop(zip.start);
 }
