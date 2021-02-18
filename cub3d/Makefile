@@ -11,3 +11,6 @@ $(TARGET) :
 
 clean :
 	rm -rf $(TARGET)
+
+re :
+	rm -rf $(TARGET) && make

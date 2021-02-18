@@ -6,12 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:12:38 by ukheon            #+#    #+#             */
-/*   Updated: 2020/10/21 17:07:27 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:59:40 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define OPENMAX 100
 
 static int		insert_line(char **board, char **line, int index)
 {
@@ -54,7 +53,7 @@ static int		check_board(char *board)
 
 int				get_next_line(int fd, char **line)
 {
-	static char			*board[OPEN_MAX];
+	static char			*board[1];
 	char				*buf;
 	char				*str;
 	ssize_t				r_size;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/12/04 17:09:48 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/18 18:49:29 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../include/cub3d.h"
 
 
 void		sort_sprite(t_zip *zip)
@@ -52,15 +52,13 @@ void	zip_set(t_zip *zip)
 			}
 		}
 	}
-	// zip->player_x = 6.5;
-	// zip->player_y = 6.5;
 	zip->dir_x = -1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
 	zip->plane_y = 0.66f;
 	zip->rot_speed = 0.05f;
 	zip->move_speed = 0.2f;
-	// zip->count_sprite = 0;
+	zip->count_sprite = 0;
 }
 
 void	draw(t_zip *zip)
@@ -69,12 +67,12 @@ void	draw(t_zip *zip)
 	int		y;
 
 	y = 0;
-	while (y < height)
+	while (y < zip->height)
 	{
 		x = 0;
-		while (x < width)
+		while (x < zip->width)
 		{
-			zip->img.data[y * width + x] = zip->buf[y][x];
+			zip->img.data[y * zip->width + x] = zip->buf[y][x];
 			x++;
 		}
 		y++;
@@ -88,12 +86,12 @@ void	calc(t_zip *zip)
 	int		y;
 
 	y = 0;
-	while (y < height)
+	while (y < zip->height)
 	{
 		x = 0;
-		while (x < width)
+		while (x < zip->width)
 		{
-			if (y < height / 2)
+			if (y < zip->height / 2)
 				zip->buf[y][x] = 0x99FFFF;
 			else
 				zip->buf[y][x] = 0xCC9966;
@@ -102,9 +100,9 @@ void	calc(t_zip *zip)
 		y++;
 	}
 	x = -1;
-	while (++x < width)
+	while (++x < zip->width)
 	{
-		zip->camera = 2 * x / (double)width - 1;
+		zip->camera = 2 * x / (double)zip->width - 1;
 		zip->ray_dir_x = zip->dir_x + zip->plane_x * zip->camera;
 		zip->ray_dir_y = zip->dir_y + zip->plane_y * zip->camera;
 		zip->map_x = (int)zip->player_x;
@@ -132,7 +130,7 @@ void	calc(t_zip *zip)
 			zip->side_dist_y = (zip->map_y + 1.0 - zip->player_y) * zip->delta_y;
 		}
 		zip->hit = 0;
-	
+
 		while (zip->hit == 0)
 		{
 			if (zip->side_dist_x < zip->side_dist_y)
@@ -150,19 +148,19 @@ void	calc(t_zip *zip)
 			if (map[zip->map_x][zip->map_y] == 1)
 				zip->hit = 1;
 		}
-		
+
 		if (zip->side == 0)
 			zip->rayLen = (zip->map_x - zip->player_x + (1 - zip->step_x) / 2) / zip->ray_dir_x;
 		else
 			zip->rayLen = (zip->map_y - zip->player_y + (1 - zip->step_y) / 2) / zip->ray_dir_y;
-		zip->line_height = (int)(height / zip->rayLen);
-		zip->draw_start = -zip->line_height / 2 + height / 2;
+		zip->line_height = (int)(zip->height / zip->rayLen);
+		zip->draw_start = -zip->line_height / 2 + zip->height / 2;
 		if (zip->draw_start < 0)
 			zip->draw_start = 0;
 
-		zip->draw_end = zip->line_height / 2 + height / 2;
-		if (zip->draw_end >= height)
-			zip->draw_end = height;
+		zip->draw_end = zip->line_height / 2 + zip->height / 2;
+		if (zip->draw_end >= zip->height)
+			zip->draw_end = zip->height;
 
 		if (zip->side == 1 && zip->ray_dir_y > 0)
 			zip->text_num = 0;
@@ -187,9 +185,9 @@ void	calc(t_zip *zip)
 			zip->text_x = text_width - zip->text_x - 1;
 
 		zip->text_step = (double)text_width / zip->line_height;
-		zip->text_pos = (zip->draw_start - height / 2 + zip->line_height / 2) * zip->text_step;
-		
-	
+		zip->text_pos = (zip->draw_start - zip->height / 2 + zip->line_height / 2) * zip->text_step;
+
+
 		y = zip->draw_start - 1;
 		while (++y < zip->draw_end)
 		{
@@ -202,7 +200,7 @@ void	calc(t_zip *zip)
 	x = -1;
 	while (++x < zip->count_sprite)
 	{
-		zip->sprite[x].len = ((zip->player_x - zip->sprite[x].x) * (zip->player_x - zip->sprite[x].x)) + 
+		zip->sprite[x].len = ((zip->player_x - zip->sprite[x].x) * (zip->player_x - zip->sprite[x].x)) +
 		((zip->player_y - zip->sprite[x].y) * (zip->player_y - zip->sprite[x].y));
 	}
 	sort_sprite(zip);
@@ -214,31 +212,31 @@ void	calc(t_zip *zip)
 		zip->sub = 1.0 / (zip->plane_x * zip->dir_y - zip->dir_x * zip->plane_y);
 		zip->transform_x = zip->sub * (zip->dir_y * zip->relative_x - zip->dir_x * zip->relative_y);
 		zip->transform_y = zip->sub * (-zip->plane_y * zip->relative_x + zip->plane_x * zip->relative_y);
-		zip->sprite_screen = (int)((width / 2) * (1 + zip->transform_x / zip->transform_y));
-		zip->sprite_height = (int)fabs((height / zip->transform_y));
-		zip->sprite_width = (int)fabs((width / zip->transform_y));
+		zip->sprite_screen = (int)((zip->width / 2) * (1 + zip->transform_x / zip->transform_y));
+		zip->sprite_height = (int)fabs((zip->height / zip->transform_y));
+		zip->sprite_width = (int)fabs((zip->width / zip->transform_y));
 		zip->sprite_start_x = -zip->sprite_width / 2 + zip->sprite_screen;
 		if (zip->sprite_start_x < 0)
 			zip->sprite_start_x = 0;
 		zip->sprite_end_x = zip->sprite_width / 2 + zip->sprite_screen;
-		if (zip->sprite_end_x > width)
-			zip->sprite_end_x = width;
-		zip->sprite_end_y = zip->sprite_height / 2 + height / 2;
-		if (zip->sprite_end_y >= height)
-			zip->sprite_end_y = height;
+		if (zip->sprite_end_x > zip->width)
+			zip->sprite_end_x = zip->width;
+		zip->sprite_end_y = zip->sprite_height / 2 + zip->height / 2;
+		if (zip->sprite_end_y >= zip->height)
+			zip->sprite_end_y = zip->height;
 		while (zip->sprite_start_x < zip->sprite_end_x)
 		{
 			zip->text_x = (int)((256 * (zip->sprite_start_x - (-zip->sprite_width / 2 + zip->sprite_screen)) * text_width / zip->sprite_width) / 256);
-			if (zip->transform_y > 0 && zip->sprite_start_x > 0 && zip->sprite_start_x < width && zip->transform_y < zip->save_wall_len[zip->sprite_start_x])
+			if (zip->transform_y > 0 && zip->sprite_start_x > 0 && zip->sprite_start_x < zip->width && zip->transform_y < zip->save_wall_len[zip->sprite_start_x])
 			{
-				zip->sprite_start_y = -(zip->sprite_height / 2) + height / 2;
+				zip->sprite_start_y = -(zip->sprite_height / 2) + zip->height / 2;
 				if (zip->sprite_start_y < 0)
 					zip->sprite_start_y = 0;
 				while (zip->sprite_start_y < zip->sprite_end_y)
 				{
-					zip->sub = (zip->sprite_start_y) * 256 - height * 128 + zip->sprite_height * 128;
+					zip->sub = (zip->sprite_start_y) * 256 - zip->height * 128 + zip->sprite_height * 128;
 					zip->text_y = ((zip->sub * text_height) / zip->sprite_height) / 256;
-				
+
 					zip->color = zip->texture[4][text_width * zip->text_y + zip->text_x];
 					if (zip->color != 0)
 						zip->buf[zip->sprite_start_y][zip->sprite_start_x] = zip->color;
@@ -289,7 +287,7 @@ int		player_move(int	keycode, t_zip *zip)
 {
 	double	temp;
 	double	planetemp;
-	
+
 	if (keycode == W)
 	{
 		if (!map[(int)(zip->player_x + zip->dir_x * zip->move_speed)][(int)(zip->player_y)])
@@ -343,6 +341,27 @@ int		player_move(int	keycode, t_zip *zip)
 	return (0);
 }
 
+void	get_map(t_zip *zip)
+{
+	int		fd;
+	char	*line;
+	char	**save;
+	int		ret;
+	int		len;
+	int		i;
+
+	i = 0;
+	line = 0;
+	fd = open("../cub", O_RDONLY);
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		save = ft_split(line, ' ');
+		int i = 0;
+		save[0] = R
+
+	}
+}
+
 int		main(int argc, char *argv[])
 {
 	t_zip	zip;
@@ -350,16 +369,12 @@ int		main(int argc, char *argv[])
 	int		j;
 	int		idx;
 
-	printf("%d\n",argc);
-	if (argc == 2)
-	{
-		return (0);
-	}
+	printf("why?\n");
 	zip.mlx = mlx_init();
+	zip.width = 2560;
+	zip.height = 1600;
+	// get_map(&zip);
 	zip_set(&zip);
-
-
-	
 	if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
 		return (-1);
 	i = -1;
@@ -389,7 +404,9 @@ int		main(int argc, char *argv[])
 	}
 	i = -1;
 	idx = 0;
+
 	zip.sprite = (t_sprite *)malloc(sizeof(t_sprite) * zip.count_sprite);
+
 	while (i++ < map_w)
 	{
 		j = -1;
@@ -398,28 +415,22 @@ int		main(int argc, char *argv[])
 			if (map[i][j] == 2)
 			{
 				map[i][j] = 0;
-				if (j < map_h / 2)
-				{
-					zip.sprite[idx].x = i;
-					zip.sprite[idx++].y = j;
-				}
-				else
-				{
-					zip.sprite[idx].x = i;
-					zip.sprite[idx++].y = j;
-				}
+				zip.sprite[idx].x = i;
+				zip.sprite[idx++].y = j;
 			}
 		}
 	}
-
-
+	zip.buf = (int **)malloc(sizeof(int *) * zip.height);
+	i = -1;
+	while (++i < zip.height)
+		zip.buf[i] = (int *)malloc(sizeof(int) * zip.width);
 	img_load(&zip);
-	
-	zip.win = mlx_new_window(zip.mlx, width, height, "Cub3D");
-	
-	zip.img.img = mlx_new_image(zip.mlx, width, height);
+
+	zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
+
+	zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
 	zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, &zip.img.size_l, &zip.img.endian);
-	
+
 	mlx_loop_hook(zip.mlx, &main_loop, &zip);
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
 	mlx_loop(zip.mlx);

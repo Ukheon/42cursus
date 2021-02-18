@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2020/12/04 17:09:48 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/18 18:35:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/get_next_line.h"
-#include "./mlx/mlx.h"
+#include "../include/get_next_line.h"
+#include "../include/libft.h"
+#include "../mlx/mlx.h"
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-
-#define height 640
-#define width 640
 #define A 0
 #define S 1
 #define D 2
@@ -65,8 +63,8 @@ int	map[map_w][map_h] =
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -95,7 +93,11 @@ typedef struct	s_sprite
 
 typedef struct	s_zip
 {
-	double		save_wall_len[width];
+	int			map_width;
+	int			map_height;
+	int			width;
+	int			height;
+	double		save_wall_len[4096];
 	void		*mlx;
 	void		*win;
 	t_img		img;
@@ -109,7 +111,8 @@ typedef struct	s_zip
 	double		plane_y;
 	double		move_speed;
 	double		rot_speed;
-	int			buf[height][width];
+
+	int			**buf;
 	int			**texture;
 
 	double		camera;
@@ -155,6 +158,7 @@ typedef struct	s_zip
 	double		sub;
 }				t_zip;
 
+void		get_map(t_zip *zip);
 void		sort_sprite(t_zip *zip);
 void		zip_set(t_zip *zip);
 void		draw(t_zip *zip);
