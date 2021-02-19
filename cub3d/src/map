@@ -1,11 +1,12 @@
-R 1920 1240
-NO ./textures/color1.xpm
-SO ./textures/color2.xpm
-WE ./textures/color3.xpm
-EA ./texture/color4.xpm
-S ./texture/pillar.xpm
+R 640 640
+NO textures/color1.xpm
+SO textures/color2.xpm
+WE textures/color3.xpm
+EA textures/color4.xpm
+S textures/pillar.xpm
 F 220,100,0
 C 225,30,0
+
 1111111111111111111111111
 1000000000110000000000001
 1011000001110000002000001

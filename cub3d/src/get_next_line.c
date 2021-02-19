@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../include/get_next_line.h"
 
 static int		insert_line(char **board, char **line, int index)
 {
@@ -36,7 +36,7 @@ static int		insert_line(char **board, char **line, int index)
 	}
 	return (_ERROR);
 }
-
+int idx;
 static int		check_board(char *board)
 {
 	int					i;

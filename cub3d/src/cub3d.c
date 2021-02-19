@@ -84,6 +84,7 @@ void	calc(t_zip *zip)
 {
 	int		x;
 	int		y;
+	unsigned int	co;
 
 	y = 0;
 	while (y < zip->height)
@@ -92,9 +93,9 @@ void	calc(t_zip *zip)
 		while (x < zip->width)
 		{
 			if (y < zip->height / 2)
-				zip->buf[y][x] = 0x99FFFF;
+				zip->buf[y][x] = zip->c_color;
 			else
-				zip->buf[y][x] = 0xCC9966;
+				zip->buf[y][x] = zip->f_color;
 			x++;
 		}
 		y++;
@@ -150,10 +151,10 @@ void	calc(t_zip *zip)
 		}
 
 		if (zip->side == 0)
-			zip->rayLen = (zip->map_x - zip->player_x + (1 - zip->step_x) / 2) / zip->ray_dir_x;
+			zip->raylen = (zip->map_x - zip->player_x + (1 - zip->step_x) / 2) / zip->ray_dir_x;
 		else
-			zip->rayLen = (zip->map_y - zip->player_y + (1 - zip->step_y) / 2) / zip->ray_dir_y;
-		zip->line_height = (int)(zip->height / zip->rayLen);
+			zip->raylen = (zip->map_y - zip->player_y + (1 - zip->step_y) / 2) / zip->ray_dir_y;
+		zip->line_height = (int)(zip->height / zip->raylen);
 		zip->draw_start = -zip->line_height / 2 + zip->height / 2;
 		if (zip->draw_start < 0)
 			zip->draw_start = 0;
@@ -172,9 +173,9 @@ void	calc(t_zip *zip)
 			zip->text_num = 3;
 
 		if (zip->side == 1)
-			zip->wall = zip->player_x + zip->rayLen * zip->ray_dir_x;
+			zip->wall = zip->player_x + zip->raylen * zip->ray_dir_x;
 		else
-			zip->wall = zip->player_y + zip->rayLen * zip->ray_dir_y;
+			zip->wall = zip->player_y + zip->raylen * zip->ray_dir_y;
 
 		zip->wall -= floor(zip->wall);
 		zip->text_x = (int)(zip->wall * (double)text_width);
@@ -195,7 +196,7 @@ void	calc(t_zip *zip)
 			zip->text_pos += zip->text_step;
 			zip->buf[y][x] = zip->texture[zip->text_num][text_height * zip->text_y + zip->text_x];
 		}
-		zip->save_wall_len[x] = zip->rayLen;
+		zip->save_wall_len[x] = zip->raylen;
 	}
 	x = -1;
 	while (++x < zip->count_sprite)
@@ -252,6 +253,7 @@ void	get_img(t_zip *zip, int *texture, char *path, t_img *img)
 {
 	int		x;
 	int		y;
+
 	img->img = mlx_xpm_file_to_image(zip->mlx, path, &img->img_width, &img->img_height);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
 	y = -1;
@@ -268,12 +270,18 @@ void	img_load(t_zip *zip)
 {
 	t_img	img;
 
-	get_img(zip, zip->texture[0], "textures/color1.xpm", &img);
-	get_img(zip, zip->texture[1], "textures/color2.xpm", &img);
-	get_img(zip, zip->texture[2], "textures/color3.xpm", &img);
-	get_img(zip, zip->texture[3], "textures/color4.xpm", &img);
-	get_img(zip, zip->texture[4], "textures/pillar.xpm", &img);
-
+	// printf("come img_load\n");
+	// get_img(zip, zip->texture[0], "textures/color1.xpm", &img);
+	// get_img(zip, zip->texture[1], "textures/color2.xpm", &img);
+	// get_img(zip, zip->texture[2], "textures/color3.xpm", &img);
+	// get_img(zip, zip->texture[3], "textures/color4.xpm", &img);
+	// get_img(zip, zip->texture[4], "textures/pillar.xpm", &img);
+	// printf("%s\n%s\n%s\n%s\n", zip->no_texture, zip->so_texture, zip->ea_texture,zip->we_texture);
+	get_img(zip, zip->texture[0], zip->no_texture, &img);
+	get_img(zip, zip->texture[1], zip->so_texture, &img);
+	get_img(zip, zip->texture[2], zip->ea_texture, &img);
+	get_img(zip, zip->texture[3], zip->we_texture, &img);
+	get_img(zip, zip->texture[4], zip->s_texture, &img);
 }
 
 int		main_loop(t_zip *zip)
@@ -341,6 +349,7 @@ int		player_move(int	keycode, t_zip *zip)
 	return (0);
 }
 
+int g_i;
 void	get_map(t_zip *zip)
 {
 	int		fd;
@@ -350,15 +359,68 @@ void	get_map(t_zip *zip)
 	int		len;
 	int		i;
 
+	ret = 0;
 	i = 0;
 	line = 0;
-	fd = open("../cub", O_RDONLY);
+
+	fd = open("./src/map", O_RDONLY);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		// printf("%d\n",g_i++);
+		// printf("%c\n",line[0]);
+		// if (!(line))
+		// 	continue ;
+		// printf("%s\n",line);
 		save = ft_split(line, ' ');
-		int i = 0;
-		save[0] = R
-
+		printf("%s\n", *save);
+		if (!*save)
+			continue;
+		i = 0;
+		if (!(ft_strcmp(save[0],"R")))
+		{
+			zip->width = ft_atoi(save[1]);
+			zip->height = ft_atoi(save[2]);
+		}
+		if (!(ft_strcmp(save[0], "NO")))
+			zip->no_texture = ft_strdup(save[1]);
+		if (!(ft_strcmp(save[0], "SO")))
+			zip->so_texture = ft_strdup(save[1]);
+		if (!(ft_strcmp(save[0], "WE")))
+			zip->we_texture = ft_strdup(save[1]);
+		if (!(ft_strcmp(save[0], "EA")))
+			zip->ea_texture = ft_strdup(save[1]);
+		if (!(ft_strcmp(save[0], "S")))
+			zip->s_texture = ft_strdup(save[1]);
+		if (!(ft_strcmp(save[0], "C")))
+		{
+			zip->color_save = ft_split(save[1], ',');
+			zip->count = -1;
+			zip->idx = 2;
+			zip->c_color = 0;
+			while (++zip->count < 6)
+			{
+				zip->num = ft_atoi(zip->color_save[zip->idx--]);
+				zip->c_color += zip->num % 16 * pow(16, zip->count++);
+				zip->c_color +=	zip->num / 16 * pow(16, zip->count);
+			}
+			// printf("%d\n",zip->c_color);
+			free(zip->color_save);
+		}
+		if (!(ft_strcmp(save[0], "F")))
+		{
+			zip->color_save = ft_split(save[1], ',');
+			zip->count = -1;
+			zip->idx = 2;
+			zip->f_color = 0;
+			while (++zip->count < 6)
+			{
+				zip->num = ft_atoi(zip->color_save[zip->idx--]);
+				zip->f_color += zip->num % 16 * pow(16, zip->count++);
+				zip->f_color += zip->num / 16 * pow(16, zip->count);
+			}
+			// printf("%d\n",zip->f_color);
+			free(zip->color_save);
+		}
 	}
 }
 
@@ -369,11 +431,10 @@ int		main(int argc, char *argv[])
 	int		j;
 	int		idx;
 
-	printf("why?\n");
 	zip.mlx = mlx_init();
-	zip.width = 2560;
-	zip.height = 1600;
-	// get_map(&zip);
+	zip.width = 640;
+	zip.height = 640;
+	get_map(&zip);
 	zip_set(&zip);
 	if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
 		return (-1);
@@ -390,8 +451,6 @@ int		main(int argc, char *argv[])
 		while (j++ < text_width * text_height)
 			zip.texture[i][j] = 0;
 	}
-
-
 	i = -1;
 	while (i ++ < map_w)
 	{
@@ -420,12 +479,12 @@ int		main(int argc, char *argv[])
 			}
 		}
 	}
+	printf("here?\n");
 	zip.buf = (int **)malloc(sizeof(int *) * zip.height);
 	i = -1;
 	while (++i < zip.height)
 		zip.buf[i] = (int *)malloc(sizeof(int) * zip.width);
 	img_load(&zip);
-
 	zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
 
 	zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);

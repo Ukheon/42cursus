@@ -93,6 +93,13 @@ typedef struct	s_sprite
 
 typedef struct	s_zip
 {
+	int			num;
+	int			res;
+	int			count;
+	int			idx;
+	char		**color_save;
+	int			c_color;
+	int			f_color;
 	int			map_width;
 	int			map_height;
 	int			width;
@@ -124,7 +131,7 @@ typedef struct	s_zip
 	double		side_dist_y;
 	double		delta_x;
 	double		delta_y;
-	double		rayLen;
+	double		raylen;
 	int			step_x;
 	int			step_y;
 	int			hit;
@@ -156,6 +163,11 @@ typedef struct	s_zip
 	int			sprite_end_y;
 	int			color;
 	double		sub;
+	char		*no_texture;
+	char		*so_texture;
+	char		*we_texture;
+	char		*ea_texture;
+	char		*s_texture;
 }				t_zip;
 
 void		get_map(t_zip *zip);
