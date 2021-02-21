@@ -6,11 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:45:18 by ukheon            #+#    #+#             */
-/*   Updated: 2020/10/25 16:36:52 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:03:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/cub3d.h"
 
 static int		col_size(char const *s1, char c)
 {

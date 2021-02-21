@@ -6,11 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:43:04 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/18 15:47:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:03:06 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/cub3d.h"
 
 static int		ft_whitespace(char str)
 {

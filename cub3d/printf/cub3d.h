@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   qweqwe.c                                           :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/21 17:24:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 17:39:24 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define map_h 24
 # define text_width 64
 # define text_height 64
+#endif
 
 // int		map[map_w][map_h] = {
 // 		{2,2,2,2,2,2,2,2,2,2},
@@ -221,4 +222,4 @@ char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 char			*ft_strdup(const char *s1);
-#endif
+

@@ -6,12 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/18 18:49:29 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 17:26:56 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+int			g_check;
 
 void		sort_sprite(t_zip *zip)
 {
@@ -269,7 +270,7 @@ void	get_img(t_zip *zip, int *texture, char *path, t_img *img)
 void	img_load(t_zip *zip)
 {
 	t_img	img;
-
+	// printf("why?\n");
 	// printf("come img_load\n");
 	// get_img(zip, zip->texture[0], "textures/color1.xpm", &img);
 	// get_img(zip, zip->texture[1], "textures/color2.xpm", &img);
@@ -277,6 +278,9 @@ void	img_load(t_zip *zip)
 	// get_img(zip, zip->texture[3], "textures/color4.xpm", &img);
 	// get_img(zip, zip->texture[4], "textures/pillar.xpm", &img);
 	// printf("%s\n%s\n%s\n%s\n", zip->no_texture, zip->so_texture, zip->ea_texture,zip->we_texture);
+// 	printf("%s\n",zip->no_texture);
+// 	printf("why?\n");printf("why?\n");printf("why?\n");
+// 	printf("why?\n");
 	get_img(zip, zip->texture[0], zip->no_texture, &img);
 	get_img(zip, zip->texture[1], zip->so_texture, &img);
 	get_img(zip, zip->texture[2], zip->ea_texture, &img);
@@ -349,49 +353,63 @@ int		player_move(int	keycode, t_zip *zip)
 	return (0);
 }
 
-int g_i;
+void		add_storage(t_storage *target, char *str, t_zip *zip)
+{
+	t_storage *new;
+	new = (t_storage *)malloc(sizeof(t_storage));
+
+	new->next = target->next;
+	new->data = str;
+	target->next = new;
+}
+
 void	get_map(t_zip *zip)
 {
-	int		fd;
 	char	*line;
 	char	**save;
-	int		ret;
-	int		len;
 	int		i;
 
-	ret = 0;
+
+	zip->ret = 0;
 	i = 0;
 	line = 0;
-
-	fd = open("./src/map", O_RDONLY);
-	while ((ret = get_next_line(fd, &line)) > 0)
+	zip->check = 0;
+	zip->fd = open("./map", O_RDONLY);
+	zip->width_size = 0;
+	zip->height_size = 0;
+	t_storage *head;
+	head = (t_storage *)malloc(sizeof(t_storage));
+	while ((zip->ret = get_next_line(zip->fd, &line)) > 0)
 	{
-		// printf("%d\n",g_i++);
-		// printf("%c\n",line[0]);
-		// if (!(line))
-		// 	continue ;
-		// printf("%s\n",line);
 		save = ft_split(line, ' ');
-		printf("%s\n", *save);
+		if (zip->check == 1)
+		{
+			zip->height_size++;
+			if (zip->width_size < ft_strlen(line))
+				zip->width_size = ft_strlen(line);
+			add_storage(head, line, zip);
+		}
 		if (!*save)
+		{
+			zip->check = 1;
 			continue;
-		i = 0;
-		if (!(ft_strcmp(save[0],"R")))
+		}
+		else if (!(ft_strcmp(save[0],"R")))
 		{
 			zip->width = ft_atoi(save[1]);
 			zip->height = ft_atoi(save[2]);
 		}
-		if (!(ft_strcmp(save[0], "NO")))
+		else if (!(ft_strcmp(save[0], "NO")))
 			zip->no_texture = ft_strdup(save[1]);
-		if (!(ft_strcmp(save[0], "SO")))
+		else if (!(ft_strcmp(save[0], "SO")))
 			zip->so_texture = ft_strdup(save[1]);
-		if (!(ft_strcmp(save[0], "WE")))
+		else if (!(ft_strcmp(save[0], "WE")))
 			zip->we_texture = ft_strdup(save[1]);
-		if (!(ft_strcmp(save[0], "EA")))
+		else if (!(ft_strcmp(save[0], "EA")))
 			zip->ea_texture = ft_strdup(save[1]);
-		if (!(ft_strcmp(save[0], "S")))
+		else if (!(ft_strcmp(save[0], "S")))
 			zip->s_texture = ft_strdup(save[1]);
-		if (!(ft_strcmp(save[0], "C")))
+		else if (!(ft_strcmp(save[0], "C")))
 		{
 			zip->color_save = ft_split(save[1], ',');
 			zip->count = -1;
@@ -403,10 +421,9 @@ void	get_map(t_zip *zip)
 				zip->c_color += zip->num % 16 * pow(16, zip->count++);
 				zip->c_color +=	zip->num / 16 * pow(16, zip->count);
 			}
-			// printf("%d\n",zip->c_color);
 			free(zip->color_save);
 		}
-		if (!(ft_strcmp(save[0], "F")))
+		else if (!(ft_strcmp(save[0], "F")))
 		{
 			zip->color_save = ft_split(save[1], ',');
 			zip->count = -1;
@@ -418,7 +435,6 @@ void	get_map(t_zip *zip)
 				zip->f_color += zip->num % 16 * pow(16, zip->count++);
 				zip->f_color += zip->num / 16 * pow(16, zip->count);
 			}
-			// printf("%d\n",zip->f_color);
 			free(zip->color_save);
 		}
 	}
@@ -431,6 +447,7 @@ int		main(int argc, char *argv[])
 	int		j;
 	int		idx;
 
+	// printf("why?\n");
 	zip.mlx = mlx_init();
 	zip.width = 640;
 	zip.height = 640;
@@ -479,7 +496,6 @@ int		main(int argc, char *argv[])
 			}
 		}
 	}
-	printf("here?\n");
 	zip.buf = (int **)malloc(sizeof(int *) * zip.height);
 	i = -1;
 	while (++i < zip.height)

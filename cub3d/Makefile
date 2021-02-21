@@ -9,7 +9,7 @@ OBJS =	./src/cub3d.c \
 		./src/get_next_line.c \
 		./src/get_next_line_utils.c
 		# ./src/ft_strdup.c \
-		# ./src/ft_strlcpy.c 
+		# ./src/ft_strlcpy.c
 
 all : $(TARGET)
 

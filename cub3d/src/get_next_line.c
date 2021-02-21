@@ -6,11 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:12:38 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/18 14:59:40 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:02:14 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
+#include "../include/cub3d.h"
 
 static int		insert_line(char **board, char **line, int index)
 {
@@ -36,7 +36,7 @@ static int		insert_line(char **board, char **line, int index)
 	}
 	return (_ERROR);
 }
-int idx;
+
 static int		check_board(char *board)
 {
 	int					i;
@@ -59,7 +59,7 @@ int				get_next_line(int fd, char **line)
 	ssize_t				r_size;
 	int					index;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line || fd > OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (_ERROR);
 	if (!board[fd])
 		board[fd] = ft_strdup("");

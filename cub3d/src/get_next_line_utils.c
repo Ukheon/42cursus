@@ -6,11 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:57:34 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/18 15:17:35 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:03:23 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
+#include "../include/cub3d.h"
 
 char			*ft_strjoin(char const *s1, char const *s2)
 {
