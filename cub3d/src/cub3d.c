@@ -12,7 +12,33 @@
 
 #include "../include/cub3d.h"
 
-int			g_check;
+// int	map[map_w][map_h] =
+// 									{
+// 										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+// 									};
 
 void		sort_sprite(t_zip *zip)
 {
@@ -41,15 +67,15 @@ void		sort_sprite(t_zip *zip)
 
 void	zip_set(t_zip *zip)
 {
-	for(int i = 0; i < map_w; i++)
+	for(int i = 0; i < zip->height_size; i++)
 	{
-		for (int j = 0; j < map_h; j++)
+		for (int j = 0; j < zip->width_size; j++)
 		{
-			if (map[i][j] == 5)
+			if (zip->map[i][j] == 'N')
 			{
 				zip->player_x = i;
 				zip->player_y = j;
-				map[i][j] = 0;
+				zip->map[i][j] = '0';
 			}
 		}
 	}
@@ -85,8 +111,6 @@ void	calc(t_zip *zip)
 {
 	int		x;
 	int		y;
-	unsigned int	co;
-
 	y = 0;
 	while (y < zip->height)
 	{
@@ -102,6 +126,7 @@ void	calc(t_zip *zip)
 		y++;
 	}
 	x = -1;
+
 	while (++x < zip->width)
 	{
 		zip->camera = 2 * x / (double)zip->width - 1;
@@ -132,7 +157,6 @@ void	calc(t_zip *zip)
 			zip->side_dist_y = (zip->map_y + 1.0 - zip->player_y) * zip->delta_y;
 		}
 		zip->hit = 0;
-
 		while (zip->hit == 0)
 		{
 			if (zip->side_dist_x < zip->side_dist_y)
@@ -147,10 +171,9 @@ void	calc(t_zip *zip)
 				zip->map_y += zip->step_y;
 				zip->side = 1;
 			}
-			if (map[zip->map_x][zip->map_y] == 1)
+			if (zip->map[zip->map_x][zip->map_y] == '1')
 				zip->hit = 1;
 		}
-
 		if (zip->side == 0)
 			zip->raylen = (zip->map_x - zip->player_x + (1 - zip->step_x) / 2) / zip->ray_dir_x;
 		else
@@ -177,7 +200,6 @@ void	calc(t_zip *zip)
 			zip->wall = zip->player_x + zip->raylen * zip->ray_dir_x;
 		else
 			zip->wall = zip->player_y + zip->raylen * zip->ray_dir_y;
-
 		zip->wall -= floor(zip->wall);
 		zip->text_x = (int)(zip->wall * (double)text_width);
 
@@ -188,8 +210,6 @@ void	calc(t_zip *zip)
 
 		zip->text_step = (double)text_width / zip->line_height;
 		zip->text_pos = (zip->draw_start - zip->height / 2 + zip->line_height / 2) * zip->text_step;
-
-
 		y = zip->draw_start - 1;
 		while (++y < zip->draw_end)
 		{
@@ -199,6 +219,7 @@ void	calc(t_zip *zip)
 		}
 		zip->save_wall_len[x] = zip->raylen;
 	}
+
 	x = -1;
 	while (++x < zip->count_sprite)
 	{
@@ -302,16 +323,16 @@ int		player_move(int	keycode, t_zip *zip)
 
 	if (keycode == W)
 	{
-		if (!map[(int)(zip->player_x + zip->dir_x * zip->move_speed)][(int)(zip->player_y)])
+		if (zip->map[(int)(zip->player_x + zip->dir_x * zip->move_speed)][(int)(zip->player_y)] == '0')
 			zip->player_x += zip->dir_x * zip->move_speed;
-		if (!map[(int)(zip->player_x)][(int)(zip->player_y + zip->dir_y * zip->move_speed)])
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y + zip->dir_y * zip->move_speed)] == '0')
 			zip->player_y += zip->dir_y * zip->move_speed;
 	}
 	if (keycode == S)
 	{
-		if (!map[(int)(zip->player_x - zip->dir_x * zip->move_speed)][(int)(zip->player_y)])
+		if (zip->map[(int)(zip->player_x - zip->dir_x * zip->move_speed)][(int)(zip->player_y)] == '0')
 			zip->player_x -= zip->dir_x * zip->move_speed;
-		if (!map[(int)(zip->player_x)][(int)(zip->player_y - zip->dir_y * zip->move_speed)])
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y - zip->dir_y * zip->move_speed)] == '0')
 			zip->player_y -= zip->dir_y * zip->move_speed;
 	}
 	if (keycode == Q)
@@ -334,18 +355,16 @@ int		player_move(int	keycode, t_zip *zip)
 	}
 	if (keycode == A)
 	{
-		if (!map[(int)(zip->player_x - zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)])
-		{
+		if (zip->map[(int)(zip->player_x - zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)] == '0')
 			zip->player_x -= zip->plane_x * zip->move_speed * 2;
-		}
-		if (!map[(int)(zip->player_x)][(int)(zip->player_y - zip->plane_y * zip->move_speed * 2)])
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y - zip->plane_y * zip->move_speed * 2)] == '0')
 			zip->player_y -= zip->plane_y * zip->move_speed * 2;
 	}
 	if (keycode == D)
 	{
-		if (!map[(int)(zip->player_x + zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)])
+		if (zip->map[(int)(zip->player_x + zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)] == '0')
 			zip->player_x += zip->plane_x * zip->move_speed * 2;
-		if (!map[(int)(zip->player_x)][(int)(zip->player_y + zip->plane_y * zip->move_speed * 2)])
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y + zip->plane_y * zip->move_speed * 2)] == '0')
 			zip->player_y += zip->plane_y * zip->move_speed * 2;
 	}
 	if (keycode == ESC)
@@ -357,10 +376,102 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 {
 	t_storage *new;
 	new = (t_storage *)malloc(sizeof(t_storage));
-
+	while(target->next)
+		target = target->next;
+	if (zip->width_size < ft_strlen(str))
+		zip->width_size = ft_strlen(str);
 	new->next = target->next;
 	new->data = str;
 	target->next = new;
+
+}
+
+void	cub_file_error(int i, int j)
+{
+	printf("Are you kidding me? I want the right file!");
+	exit(0);
+}
+
+void	map_row_test(int i, int j, t_zip *zip)
+{
+	int			temp_i;
+	int			temp_j;
+	int			check;
+
+	temp_i = i;
+	temp_j = j;
+	check = 0;
+	while (i < zip->height_size)
+	{
+		if (zip->map[i][j] == '1')
+			check = 1;
+		i++;
+	}
+	if (check != 1)
+		cub_file_error(i,j);
+	i = temp_i;
+	j = temp_j;
+	check = 0;
+	while (i >= 0)
+	{
+		if (zip->map[i][j] == '1')
+			check = 1;
+		i--;
+	}
+	if (check != 1)
+		cub_file_error(i,j);
+}
+
+void	map_col_test(int i, int j, t_zip *zip)
+{
+	int			temp_i;
+	int			temp_j;
+	int			check;
+
+	check = 0;
+	temp_i = i;
+	temp_j = j;
+	while (j < zip->width_size)
+	{
+		if (zip->map[i][j] == '1')
+			check = 1;
+		j++;
+	}
+	if (check != 1)
+		cub_file_error(i,j);
+	
+	i = temp_i;
+	j = temp_j;
+	check = 0;
+	while (j >= 0)
+	{
+		if (zip->map[i][j] == '1')
+			check = 1;
+		j--;
+	}
+	if (check != 1)
+		cub_file_error(i,j);
+}
+
+void	map_check(t_zip *zip)
+{
+	int			i;
+	int			j;
+
+	i = -1;
+	while (++i < zip->height_size)
+	{
+		j = -1;
+		while (++j < zip->width_size)
+		{
+			if (zip->map[i][j] == '0')
+			{
+				map_row_test(i, j, zip);
+				map_col_test(i, j, zip);
+			}
+		}
+	}
+	
 }
 
 void	get_map(t_zip *zip)
@@ -368,10 +479,11 @@ void	get_map(t_zip *zip)
 	char	*line;
 	char	**save;
 	int		i;
+	int		j;
 
-
-	zip->ret = 0;
 	i = 0;
+	j = 0;
+	zip->ret = 0;
 	line = 0;
 	zip->check = 0;
 	zip->fd = open("./map", O_RDONLY);
@@ -379,14 +491,14 @@ void	get_map(t_zip *zip)
 	zip->height_size = 0;
 	t_storage *head;
 	head = (t_storage *)malloc(sizeof(t_storage));
+	head->next = NULL;
 	while ((zip->ret = get_next_line(zip->fd, &line)) > 0)
 	{
 		save = ft_split(line, ' ');
 		if (zip->check == 1)
 		{
 			zip->height_size++;
-			if (zip->width_size < ft_strlen(line))
-				zip->width_size = ft_strlen(line);
+			// printf("%s\n",line);
 			add_storage(head, line, zip);
 		}
 		if (!*save)
@@ -438,6 +550,36 @@ void	get_map(t_zip *zip)
 			free(zip->color_save);
 		}
 	}
+	zip->map = (char **)malloc(sizeof(char *) * (zip->height_size));
+	i = -1;
+	while (++i < zip->height_size)
+	{
+		zip->map[i] = (char *)malloc(sizeof(char) * (zip->width_size + 1));
+		zip->map[i][zip->width_size] = '\0';
+	}
+	t_storage *check1 = (t_storage *)malloc(sizeof(t_storage));
+	check1 = head->next;
+	for (int i = 0; i < zip->height_size; i++)
+	{
+		for (int j = 0; j < zip->width_size; j++)
+			zip->map[i][j] = '9';
+	}
+	i = 0;
+	while (check1)
+	{
+		j = -1;
+		while (++j < zip->width_size)
+		{
+			if (check1->data[j] == '1' || check1->data[j] == '2' || \
+			check1->data[j] == '0' || check1->data[j] == 'N')
+				zip->map[i][j] = check1->data[j];
+		}
+		i++;
+		check1 = check1->next;
+	}
+	free(check1);
+	free(head);
+
 }
 
 int		main(int argc, char *argv[])
@@ -447,11 +589,11 @@ int		main(int argc, char *argv[])
 	int		j;
 	int		idx;
 
-	// printf("why?\n");
 	zip.mlx = mlx_init();
 	zip.width = 640;
 	zip.height = 640;
 	get_map(&zip);
+	map_check(&zip);
 	zip_set(&zip);
 	if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
 		return (-1);
@@ -469,28 +611,25 @@ int		main(int argc, char *argv[])
 			zip.texture[i][j] = 0;
 	}
 	i = -1;
-	while (i ++ < map_w)
+	while (++i < zip.height_size)
 	{
 		j = -1;
-		while (j++ < map_h)
+		while (++j < zip.width_size)
 		{
-			if (map[i][j] == 2)
+			if (zip.map[i][j] == '2')
 				zip.count_sprite++;
 		}
 	}
 	i = -1;
 	idx = 0;
-
 	zip.sprite = (t_sprite *)malloc(sizeof(t_sprite) * zip.count_sprite);
-
-	while (i++ < map_w)
+	while (++i < zip.height_size)
 	{
 		j = -1;
-		while (j++ < map_h)
+		while (++j < zip.width_size)
 		{
-			if (map[i][j] == 2)
+			if (zip.map[i][j] == '2')
 			{
-				map[i][j] = 0;
 				zip.sprite[idx].x = i;
 				zip.sprite[idx++].y = j;
 			}
@@ -502,10 +641,8 @@ int		main(int argc, char *argv[])
 		zip.buf[i] = (int *)malloc(sizeof(int) * zip.width);
 	img_load(&zip);
 	zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
-
 	zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
 	zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, &zip.img.size_l, &zip.img.endian);
-
 	mlx_loop_hook(zip.mlx, &main_loop, &zip);
 	mlx_hook(zip.win, 2, 0, &player_move, &zip);
 	mlx_loop(zip.mlx);

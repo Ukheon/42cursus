@@ -14,7 +14,7 @@ OBJS =	./src/cub3d.c \
 all : $(TARGET)
 
 $(TARGET) :
-	$(CC) $(CFLAG) $(OBJS) -o $@
+	$(CC) $(CFLAG) $(OBJS) -o $@ && ./cub3d
 
 clean :
 	rm -rf $(TARGET)

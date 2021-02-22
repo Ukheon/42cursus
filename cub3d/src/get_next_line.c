@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/get_next_line.h"
 
 static int		insert_line(char **board, char **line, int index)
 {
