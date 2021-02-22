@@ -1,3 +1,1 @@
-hi! qwe
-
-qwe
+Cub3d
