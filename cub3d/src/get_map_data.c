@@ -1,70 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_data.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
+/*   Updated: 2021/02/24 05:37:51 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-void	get_map(t_zip *zip)
-{
-	int		i;
-	int		j;
+static void			ceil_parse(t_zip *zip);
 
-	i = 0;
-	j = 0;
-	zip->ret = 0;
-	zip->line = 0;
-	zip->check = 0;
+static void			default_parsing(t_zip *zip, t_storage *head)
+{
+	zip->split = ft_split(zip->line, " ", zip);
+	if (zip->check == 8 && *zip->split && (zip->height_size += 1))
+		add_storage(head, zip->line, zip);
+	else if (!(ft_strcmp(zip->split[0],"R")) && (zip->row == 3))
+	{
+		zip->check++;
+		zip->width = ft_atoi(zip->split[1]);
+		zip->height = ft_atoi(zip->split[2]);
+	}
+	else if (!(ft_strcmp(zip->split[0], "NO")) && \
+		((zip->check += 1) && (zip->row == 2)))
+		zip->no_texture = ft_strdup(zip->split[1]);
+	else if (!(ft_strcmp(zip->split[0], "SO")) && \
+		((zip->check += 1) && (zip->row == 2)))
+		zip->so_texture = ft_strdup(zip->split[1]);
+	else if (!(ft_strcmp(zip->split[0], "WE")) && \
+		((zip->check += 1) && (zip->row == 2)))
+		zip->we_texture = ft_strdup(zip->split[1]);
+	else if (!(ft_strcmp(zip->split[0], "EA")) && \
+		((zip->check += 1) && (zip->row == 2)))
+		zip->ea_texture = ft_strdup(zip->split[1]);
+	else if (!(ft_strcmp(zip->split[0], "S")) && \
+		((zip->check += 1) && (zip->row == 2)))
+		zip->s_texture = ft_strdup(zip->split[1]);
+}
+
+void	get_map(t_zip *zip, int i, int j)
+{
 	zip->fd = open("./cub3d", O_RDONLY);
-	zip->width_size = 0;
-	zip->height_size = 0;
 	t_storage *head;
 	head = (t_storage *)malloc(sizeof(t_storage));
 	head->next = NULL;
 	while ((zip->ret = get_next_line(zip->fd, &zip->line)) > 0)
 	{
-		zip->split_data = ft_split(zip->line, " ", zip);
-		if (zip->check == 8 && *zip->split_data)
-		{
-			zip->height_size++;
-			add_storage(head, zip->line, zip);
-		}
-		if (!*zip->split_data)
+		zip->split = ft_split(zip->line, " ", zip);
+		if (!*zip->split)
 			continue;
-		else if (!(ft_strcmp(zip->split_data[0],"R")) && zip->row_check == 3)
+		else if (!(ft_strcmp(zip->split[0], "C")) && (zip->check += 1))
 		{
-			zip->check++;
-			zip->width = ft_atoi(zip->split_data[1]);
-			zip->height = ft_atoi(zip->split_data[2]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "NO")) && zip->row_check == 2)
-		{
-			zip->check++;
-			zip->no_texture = ft_strdup(zip->split_data[1]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "SO")) && zip->row_check == 2)
-		{
-			zip->check++;
-			zip->so_texture = ft_strdup(zip->split_data[1]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "WE")) && zip->row_check == 2)
-		{
-			zip->check++;
-			zip->we_texture = ft_strdup(zip->split_data[1]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "EA")) && zip->row_check == 2)
-		{
-			zip->check++;
-			zip->ea_texture = ft_strdup(zip->split_data[1]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "S")) && zip->row_check == 2)
-		{
-			zip->check++;
-			zip->s_texture = ft_strdup(zip->split_data[1]);
-		}
-		else if (!(ft_strcmp(zip->split_data[0], "C")))
-		{
-			zip->check++;
 			zip->line++;
 			zip->line++;
 			zip->color_save = ft_split(zip->line, ", ", zip);
-			// if (zip->row_check != 4)
-			// 	break ;
 			zip->count = -1;
 			zip->idx = 2;
 			zip->c_color = 0;
@@ -76,14 +69,12 @@ void	get_map(t_zip *zip)
 			}
 			free(zip->color_save);
 		}
-		else if (!(ft_strcmp(zip->split_data[0], "F")))
+		else if (!(ft_strcmp(zip->split[0], "F")))
 		{
 			zip->check++;
 			zip->line++;
 			zip->line++;
 			zip->color_save = ft_split(zip->line, ", ", zip);
-			// if (zip->row_check != 4)
-			// 	break ;
 			zip->count = -1;
 			zip->idx = 2;
 			zip->f_color = 0;
@@ -105,30 +96,18 @@ void	get_map(t_zip *zip)
 	}
 	t_storage *check1 = (t_storage *)malloc(sizeof(t_storage));
 	check1 = head->next;
-	t_storage *check2 = (t_storage *)malloc(sizeof(t_storage));
-	check2 = head->next;
-	for (int i = 0; i < zip->height_size; i++)
-	{
-		for (int j = 0; j < zip->width_size; j++)
-			zip->map[i][j] = '9';
-	}
-	// for(int i = 0; i < zip->height_size; i++)
-	// {
-		// printf("%s\n",check2->data);
-		// printf("%s\n",zip->map[i]);
-		// check2 = check2->next;
-	// }
 	i = -1;
-	while (++i < zip->height_size)
+	while (++i < zip->height_size && (j = -1))
+		while (++j < zip->width_size)
+			zip->map[i][j] = '9';
+	i = -1;
+	while (++i < zip->height_size && (j = -1))
 	{
-		j = 0;
-		while (j < ft_strlen(check1->data))
-		{
-			if (check1->data[j] == '1' || check1->data[j] == '0' || check1->data[j] == 'N' || check1->data[j] == ' ' || check1->data[j] == '2')
+		while (++j < ft_strlen(check1->data))
+			if (check1->data[j] == '1' || check1->data[j] == '0' || check1->data[j] == 'N'\
+			|| check1->data[j] == 'E' || check1->data[j] == 'W' || check1->data[j] == 'S'\
+			 || check1->data[j] == ' ' || check1->data[j] == '2')
 				zip->map[i][j] = check1->data[j];
-			j++;
-		}
-		check2 = check2->next;
 		check1 = check1->next;
 	}
 	free(check1);

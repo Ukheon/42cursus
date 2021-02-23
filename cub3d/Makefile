@@ -9,7 +9,8 @@ OBJS =	./src/main.c \
 		./src/get_next_line.c \
 		./src/get_next_line_utils.c \
 		./src/map_check.c \
-		./src/get_map_data.c
+		./src/get_map_data.c \
+		./src/check_player_vec.c
 		# ./src/ft_strdup.c \
 		# ./src/ft_strlcpy.c
 

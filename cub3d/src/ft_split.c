@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:45:18 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/24 01:22:18 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 04:44:30 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char			**ft_split(char const *s, char *sep, t_zip *zip)
 
 	row = 0;
 	len = row_size(s, sep);
-	zip->row_check = len;
+	zip->row = len;
 	if (!s || !(res = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (0);
 	while (*s)

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 02:34:10 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 05:04:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE		100
-# endif
+# define BUFFER_SIZE		100
 # define _ERROR				-1
 # define _ENDFILE			0
 # define _NOTEND			1
@@ -108,7 +106,7 @@ typedef struct	s_storage
 
 typedef struct	s_zip
 {
-	int			row_check;
+	int			row;
 	int			flag_count;
 	int			temp_i;
 	int			temp_j;
@@ -117,7 +115,7 @@ typedef struct	s_zip
 	char		**map;
 
 	char		*line;
-	char		**split_data;
+	char		**split;
 	int			fd;
 	int			ret;
 	int			height_size;
@@ -202,7 +200,7 @@ typedef struct	s_zip
 //main
 
 void			add_storage(t_storage *target, char *str, t_zip *zip);
-void			get_map(t_zip *zip);
+void			get_map(t_zip *zip, int i, int j);
 void			sort_sprite(t_zip *zip);
 void			zip_set(t_zip *zip);
 void			draw(t_zip *zip);
@@ -212,12 +210,14 @@ void			img_load(t_zip *zip);
 int				main_loop(t_zip *zip);
 int				player_move(int	keycode, t_zip *zip);
 void			get_bitmap_data(t_zip *zip);
+void			check_player_vec(t_zip *zip);
+
 //맵체크
 
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
-void			cub_file_error(int i, int j);
+void			cub_file_error();
 //gnl
 
 int				get_next_line(int fd, char **line);
@@ -232,9 +232,6 @@ char			*ft_strdup(const char *s1);
 int				ft_atoi(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 char			**ft_split(char const *s, char *sep, t_zip *zip);
-
-
-
 
 
 #endif

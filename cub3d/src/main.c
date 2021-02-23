@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 02:41:53 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 05:27:43 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,7 @@ void		sort_sprite(t_zip *zip)
 
 void	zip_set(t_zip *zip)
 {
-	for(int i = 0; i < zip->height_size; i++)
-	{
-		for (int j = 0; j < zip->width_size; j++)
-		{
-			if (zip->map[i][j] == 'N')
-			{
-				zip->player_x = i;
-				zip->player_y = j;
-				zip->map[i][j] = '0';
-			}
-		}
-	}
 	zip->flag_count = 0;
-	zip->dir_x = -1.0f;
-	zip->dir_y = 0.0f;
-	zip->plane_x = 0.0f;
-	zip->plane_y = 0.66f;
 	zip->rot_speed = 0.05f;
 	zip->move_speed = 0.2f;
 	zip->count_sprite = 0;
@@ -311,6 +295,7 @@ int		player_move(int	keycode, t_zip *zip)
 	double	temp;
 	double	planetemp;
 
+	int	vec_check = 1;
 	if (keycode == W)
 	{
 		if (zip->map[(int)(zip->player_x + zip->dir_x * zip->move_speed)][(int)(zip->player_y)] == '0')
@@ -376,9 +361,8 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 
 }
 
-void	cub_file_error(int i, int j)
+void	cub_file_error()
 {
-	printf("%d %d\n",i,j);
 	printf("Are you kidding me? I want the right file!");
 	exit(0);
 }
@@ -389,11 +373,13 @@ int		main(int argc, char *argv[])
 	int		i;
 	int		j;
 	int		idx;
+
 	if (argc == 1)
 	{
-		get_map(&zip);
+		get_map(&zip, 0, 0);
 		map_check(&zip);
 		zip_set(&zip);
+		check_player_vec(&zip);
 		zip.mlx = mlx_init();
 		if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
 			return (-1);
