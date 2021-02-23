@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/21 17:26:56 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/23 19:15:49 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,7 +386,7 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 
 }
 
-void	cub_file_error(int i, int j)
+void	cub_file_error()
 {
 	printf("Are you kidding me? I want the right file!");
 	exit(0);
@@ -394,63 +394,63 @@ void	cub_file_error(int i, int j)
 
 void	map_row_test(int i, int j, t_zip *zip)
 {
-	int			temp_i;
-	int			temp_j;
-	int			check;
-
-	temp_i = i;
-	temp_j = j;
-	check = 0;
+	zip->temp_i = i;
+	zip->temp_j = j;
+	zip->check = 0;
 	while (i < zip->height_size)
 	{
 		if (zip->map[i][j] == '1')
-			check = 1;
+			zip->check = 1;
+		if (zip->check == 0 && zip->map[i][j] == ' ')
+			cub_file_error();
 		i++;
 	}
-	if (check != 1)
-		cub_file_error(i,j);
-	i = temp_i;
-	j = temp_j;
-	check = 0;
+	if (zip->check != 1)
+		cub_file_error();
+	i = zip->temp_i;
+	j = zip->temp_j;
+	zip->check = 0;
 	while (i >= 0)
 	{
 		if (zip->map[i][j] == '1')
-			check = 1;
+			zip->check = 1;
+		if (zip->check == 0 && zip->map[i][j] == ' ')
+			cub_file_error();
 		i--;
 	}
-	if (check != 1)
-		cub_file_error(i,j);
+	if (zip->check != 1)
+		cub_file_error();
 }
 
 void	map_col_test(int i, int j, t_zip *zip)
 {
-	int			temp_i;
-	int			temp_j;
-	int			check;
-
-	check = 0;
-	temp_i = i;
-	temp_j = j;
+	zip->check = 0;
+	zip->temp_i = i;
+	zip->temp_j = j;
 	while (j < zip->width_size)
 	{
 		if (zip->map[i][j] == '1')
-			check = 1;
+			zip->check = 1;
+		if (zip->check == 0 && zip->map[i][j] == ' ')
+			cub_file_error();
 		j++;
 	}
-	if (check != 1)
-		cub_file_error(i,j);
-	
-	i = temp_i;
-	j = temp_j;
-	check = 0;
+	if (zip->check != 1)
+		cub_file_error();
+
+	i = zip->temp_i;
+	j = zip->temp_j;
+	zip->check = 0;
 	while (j >= 0)
 	{
 		if (zip->map[i][j] == '1')
-			check = 1;
+			zip->check = 1;
+		if (zip->check == 0 && zip->map[i][j] == ' ')
+			cub_file_error();
 		j--;
 	}
-	if (check != 1)
-		cub_file_error(i,j);
+	if (zip->check != 1)
+		cub_file_error();
 }
 
 void	map_check(t_zip *zip)
@@ -469,9 +469,12 @@ void	map_check(t_zip *zip)
 				map_row_test(i, j, zip);
 				map_col_test(i, j, zip);
 			}
+			if (zip->map[i][j] == 'N')
+				zip->player_check = 1;
 		}
 	}
-	
+	if (!zip->player_check)
+		cub_file_error();
 }
 
 void	get_map(t_zip *zip)
@@ -571,7 +574,7 @@ void	get_map(t_zip *zip)
 		while (++j < zip->width_size)
 		{
 			if (check1->data[j] == '1' || check1->data[j] == '2' || \
-			check1->data[j] == '0' || check1->data[j] == 'N')
+			check1->data[j] == '0' || check1->data[j] == 'N' || check1->data[j] == ' ')
 				zip->map[i][j] = check1->data[j];
 		}
 		i++;

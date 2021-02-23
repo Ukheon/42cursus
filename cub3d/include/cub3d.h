@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/21 18:04:06 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/23 19:17:44 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 # define CUB3D
 # include "../mlx/mlx.h"
 # include <stdlib.h>
-
 # include <stdio.h>
 # include <string.h>
 # include <stdint.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE		100
 # endif
@@ -54,8 +52,40 @@
 // 		{8,8,8,8,8,8,8,8,8,8}
 // };
 
-// 
+#pragma pack(push, 1)
 
+typedef struct	s_bmp
+{
+	unsigned short	bm_number;
+	unsigned int	bm_size;
+	unsigned short	bfreserved1;
+	unsigned short	bfreserved2;
+	unsigned int	bfoffbits;
+}				t_bmp;
+
+typedef struct	s_bmp_header
+{
+	unsigned int	bi_size;
+	int				bi_width;
+	int				bi_height;
+	unsigned short	bi_planes;
+	unsigned short	bi_count;
+	unsigned int	bi_compression;
+	unsigned int	bi_size_image;
+	int				bi_w;
+	int				bi_h;
+	unsigned int	bi_use_color;
+	unsigned int	bi_need_index;
+}				t_bmp_header;
+
+typedef struct	s_bmp_color
+{
+	unsigned char	rgb_red;
+	unsigned char	rgb_blue;
+	unsigned char	rgb_green;
+}				t_bmp_color;
+
+#pragma pack(pop)
 typedef struct	s_img
 {
 	void	*img;
@@ -89,6 +119,10 @@ typedef struct	s_storage
 
 typedef struct	s_zip
 {
+	int			temp_i;
+	int			temp_j;
+	int			map_check_flag;
+	int			player_check;
 	char		**map;
 	int			fd;
 	int			ret;
