@@ -6,13 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/23 19:17:44 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 02:34:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D
 # define CUB3D
-# include "../mlx/mlx.h"
+# include "../mlx2/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -61,10 +61,7 @@ typedef struct	s_bmp
 	unsigned short	bfreserved1;
 	unsigned short	bfreserved2;
 	unsigned int	bfoffbits;
-}				t_bmp;
 
-typedef struct	s_bmp_header
-{
 	unsigned int	bi_size;
 	int				bi_width;
 	int				bi_height;
@@ -76,16 +73,14 @@ typedef struct	s_bmp_header
 	int				bi_h;
 	unsigned int	bi_use_color;
 	unsigned int	bi_need_index;
-}				t_bmp_header;
 
-typedef struct	s_bmp_color
-{
 	unsigned char	rgb_red;
 	unsigned char	rgb_blue;
 	unsigned char	rgb_green;
-}				t_bmp_color;
+}				t_bmp;
 
 #pragma pack(pop)
+
 typedef struct	s_img
 {
 	void	*img;
@@ -105,12 +100,6 @@ typedef struct	s_sprite
 	int			index;
 }				t_sprite;
 
-typedef struct	s_node
-{
-	struct s_node *next;
-	char *save;
-}				t_node;
-
 typedef struct	s_storage
 {
 	struct s_storage	*next;
@@ -119,11 +108,16 @@ typedef struct	s_storage
 
 typedef struct	s_zip
 {
+	int			row_check;
+	int			flag_count;
 	int			temp_i;
 	int			temp_j;
 	int			map_check_flag;
 	int			player_check;
 	char		**map;
+
+	char		*line;
+	char		**split_data;
 	int			fd;
 	int			ret;
 	int			height_size;
@@ -206,6 +200,7 @@ typedef struct	s_zip
 	char		*s_texture;
 }				t_zip;
 //main
+
 void			add_storage(t_storage *target, char *str, t_zip *zip);
 void			get_map(t_zip *zip);
 void			sort_sprite(t_zip *zip);
@@ -216,7 +211,15 @@ void			get_img(t_zip *zip, int *texture, char *path, t_img *img);
 void			img_load(t_zip *zip);
 int				main_loop(t_zip *zip);
 int				player_move(int	keycode, t_zip *zip);
+void			get_bitmap_data(t_zip *zip);
+//맵체크
+
+void			map_row_test(int i, int j, t_zip *zip);
+void			map_col_test(int i, int j, t_zip *zip);
+void			map_check(t_zip *zip);
+void			cub_file_error(int i, int j);
 //gnl
+
 int				get_next_line(int fd, char **line);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlen(const char *str);
@@ -225,10 +228,11 @@ size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 char			*ft_strdup(const char *s1);
 
 
-// //libft
+//libft
 int				ft_atoi(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
-char			**ft_split(char const *s, char c);
+char			**ft_split(char const *s, char *sep, t_zip *zip);
+
 
 
 

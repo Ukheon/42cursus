@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/23 19:15:49 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 02:41:53 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	zip_set(t_zip *zip)
 			}
 		}
 	}
+	zip->flag_count = 0;
 	zip->dir_x = -1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
@@ -99,7 +100,7 @@ void	draw(t_zip *zip)
 		x = 0;
 		while (x < zip->width)
 		{
-			zip->img.data[y * zip->width + x] = zip->buf[y][x];
+			zip->img.data[y * zip->height + x] = zip->buf[y][x];
 			x++;
 		}
 		y++;
@@ -195,7 +196,6 @@ void	calc(t_zip *zip)
 			zip->text_num = 2;
 		else
 			zip->text_num = 3;
-
 		if (zip->side == 1)
 			zip->wall = zip->player_x + zip->raylen * zip->ray_dir_x;
 		else
@@ -291,17 +291,7 @@ void	get_img(t_zip *zip, int *texture, char *path, t_img *img)
 void	img_load(t_zip *zip)
 {
 	t_img	img;
-	// printf("why?\n");
-	// printf("come img_load\n");
-	// get_img(zip, zip->texture[0], "textures/color1.xpm", &img);
-	// get_img(zip, zip->texture[1], "textures/color2.xpm", &img);
-	// get_img(zip, zip->texture[2], "textures/color3.xpm", &img);
-	// get_img(zip, zip->texture[3], "textures/color4.xpm", &img);
-	// get_img(zip, zip->texture[4], "textures/pillar.xpm", &img);
-	// printf("%s\n%s\n%s\n%s\n", zip->no_texture, zip->so_texture, zip->ea_texture,zip->we_texture);
-// 	printf("%s\n",zip->no_texture);
-// 	printf("why?\n");printf("why?\n");printf("why?\n");
-// 	printf("why?\n");
+
 	get_img(zip, zip->texture[0], zip->no_texture, &img);
 	get_img(zip, zip->texture[1], zip->so_texture, &img);
 	get_img(zip, zip->texture[2], zip->ea_texture, &img);
@@ -386,203 +376,11 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 
 }
 
-void	cub_file_error()
+void	cub_file_error(int i, int j)
 {
+	printf("%d %d\n",i,j);
 	printf("Are you kidding me? I want the right file!");
 	exit(0);
-}
-
-void	map_row_test(int i, int j, t_zip *zip)
-{
-	zip->temp_i = i;
-	zip->temp_j = j;
-	zip->check = 0;
-	while (i < zip->height_size)
-	{
-		if (zip->map[i][j] == '1')
-			zip->check = 1;
-		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub_file_error();
-		i++;
-	}
-	if (zip->check != 1)
-		cub_file_error();
-	i = zip->temp_i;
-	j = zip->temp_j;
-	zip->check = 0;
-	while (i >= 0)
-	{
-		if (zip->map[i][j] == '1')
-			zip->check = 1;
-		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub_file_error();
-		i--;
-	}
-	if (zip->check != 1)
-		cub_file_error();
-}
-
-void	map_col_test(int i, int j, t_zip *zip)
-{
-	zip->check = 0;
-	zip->temp_i = i;
-	zip->temp_j = j;
-	while (j < zip->width_size)
-	{
-		if (zip->map[i][j] == '1')
-			zip->check = 1;
-		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub_file_error();
-		j++;
-	}
-	if (zip->check != 1)
-		cub_file_error();
-
-	i = zip->temp_i;
-	j = zip->temp_j;
-	zip->check = 0;
-	while (j >= 0)
-	{
-		if (zip->map[i][j] == '1')
-			zip->check = 1;
-		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub_file_error();
-		j--;
-	}
-	if (zip->check != 1)
-		cub_file_error();
-}
-
-void	map_check(t_zip *zip)
-{
-	int			i;
-	int			j;
-
-	i = -1;
-	while (++i < zip->height_size)
-	{
-		j = -1;
-		while (++j < zip->width_size)
-		{
-			if (zip->map[i][j] == '0')
-			{
-				map_row_test(i, j, zip);
-				map_col_test(i, j, zip);
-			}
-			if (zip->map[i][j] == 'N')
-				zip->player_check = 1;
-		}
-	}
-	if (!zip->player_check)
-		cub_file_error();
-}
-
-void	get_map(t_zip *zip)
-{
-	char	*line;
-	char	**save;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	zip->ret = 0;
-	line = 0;
-	zip->check = 0;
-	zip->fd = open("./map", O_RDONLY);
-	zip->width_size = 0;
-	zip->height_size = 0;
-	t_storage *head;
-	head = (t_storage *)malloc(sizeof(t_storage));
-	head->next = NULL;
-	while ((zip->ret = get_next_line(zip->fd, &line)) > 0)
-	{
-		save = ft_split(line, ' ');
-		if (zip->check == 1)
-		{
-			zip->height_size++;
-			// printf("%s\n",line);
-			add_storage(head, line, zip);
-		}
-		if (!*save)
-		{
-			zip->check = 1;
-			continue;
-		}
-		else if (!(ft_strcmp(save[0],"R")))
-		{
-			zip->width = ft_atoi(save[1]);
-			zip->height = ft_atoi(save[2]);
-		}
-		else if (!(ft_strcmp(save[0], "NO")))
-			zip->no_texture = ft_strdup(save[1]);
-		else if (!(ft_strcmp(save[0], "SO")))
-			zip->so_texture = ft_strdup(save[1]);
-		else if (!(ft_strcmp(save[0], "WE")))
-			zip->we_texture = ft_strdup(save[1]);
-		else if (!(ft_strcmp(save[0], "EA")))
-			zip->ea_texture = ft_strdup(save[1]);
-		else if (!(ft_strcmp(save[0], "S")))
-			zip->s_texture = ft_strdup(save[1]);
-		else if (!(ft_strcmp(save[0], "C")))
-		{
-			zip->color_save = ft_split(save[1], ',');
-			zip->count = -1;
-			zip->idx = 2;
-			zip->c_color = 0;
-			while (++zip->count < 6)
-			{
-				zip->num = ft_atoi(zip->color_save[zip->idx--]);
-				zip->c_color += zip->num % 16 * pow(16, zip->count++);
-				zip->c_color +=	zip->num / 16 * pow(16, zip->count);
-			}
-			free(zip->color_save);
-		}
-		else if (!(ft_strcmp(save[0], "F")))
-		{
-			zip->color_save = ft_split(save[1], ',');
-			zip->count = -1;
-			zip->idx = 2;
-			zip->f_color = 0;
-			while (++zip->count < 6)
-			{
-				zip->num = ft_atoi(zip->color_save[zip->idx--]);
-				zip->f_color += zip->num % 16 * pow(16, zip->count++);
-				zip->f_color += zip->num / 16 * pow(16, zip->count);
-			}
-			free(zip->color_save);
-		}
-	}
-	zip->map = (char **)malloc(sizeof(char *) * (zip->height_size));
-	i = -1;
-	while (++i < zip->height_size)
-	{
-		zip->map[i] = (char *)malloc(sizeof(char) * (zip->width_size + 1));
-		zip->map[i][zip->width_size] = '\0';
-	}
-	t_storage *check1 = (t_storage *)malloc(sizeof(t_storage));
-	check1 = head->next;
-	for (int i = 0; i < zip->height_size; i++)
-	{
-		for (int j = 0; j < zip->width_size; j++)
-			zip->map[i][j] = '9';
-	}
-	i = 0;
-	while (check1)
-	{
-		j = -1;
-		while (++j < zip->width_size)
-		{
-			if (check1->data[j] == '1' || check1->data[j] == '2' || \
-			check1->data[j] == '0' || check1->data[j] == 'N' || check1->data[j] == ' ')
-				zip->map[i][j] = check1->data[j];
-		}
-		i++;
-		check1 = check1->next;
-	}
-	free(check1);
-	free(head);
-
 }
 
 int		main(int argc, char *argv[])
@@ -591,62 +389,62 @@ int		main(int argc, char *argv[])
 	int		i;
 	int		j;
 	int		idx;
-
-	zip.mlx = mlx_init();
-	zip.width = 640;
-	zip.height = 640;
-	get_map(&zip);
-	map_check(&zip);
-	zip_set(&zip);
-	if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
-		return (-1);
-	i = -1;
-	while (i++ < 5)
+	if (argc == 1)
 	{
-		if (!(zip.texture[i] = (int *)malloc(sizeof(int) * (text_height * text_width))))
+		get_map(&zip);
+		map_check(&zip);
+		zip_set(&zip);
+		zip.mlx = mlx_init();
+		if (!(zip.texture = (int **)malloc(sizeof(int *) * 5)))
 			return (-1);
-	}
-	i = -1;
-	while (i++ < 5)
-	{
-		j = -1;
-		while (j++ < text_width * text_height)
-			zip.texture[i][j] = 0;
-	}
-	i = -1;
-	while (++i < zip.height_size)
-	{
-		j = -1;
-		while (++j < zip.width_size)
+		i = -1;
+		while (i++ < 5)
 		{
-			if (zip.map[i][j] == '2')
-				zip.count_sprite++;
+			if (!(zip.texture[i] = (int *)malloc(sizeof(int) * (text_height * text_width))))
+				return (-1);
 		}
-	}
-	i = -1;
-	idx = 0;
-	zip.sprite = (t_sprite *)malloc(sizeof(t_sprite) * zip.count_sprite);
-	while (++i < zip.height_size)
-	{
-		j = -1;
-		while (++j < zip.width_size)
+		i = -1;
+		while (i++ < 5)
 		{
-			if (zip.map[i][j] == '2')
+			j = -1;
+			while (j++ < text_width * text_height)
+				zip.texture[i][j] = 0;
+		}
+		i = -1;
+		while (++i < zip.height_size)
+		{
+			j = -1;
+			while (++j < zip.width_size)
 			{
-				zip.sprite[idx].x = i;
-				zip.sprite[idx++].y = j;
+				if (zip.map[i][j] == '2')
+					zip.count_sprite++;
 			}
 		}
+		i = -1;
+		idx = 0;
+		zip.sprite = (t_sprite *)malloc(sizeof(t_sprite) * zip.count_sprite);
+		while (++i < zip.height_size)
+		{
+			j = -1;
+			while (++j < zip.width_size)
+			{
+				if (zip.map[i][j] == '2')
+				{
+				zip.sprite[idx].x = i;
+				zip.sprite[idx++].y = j;
+				}
+			}
+		}
+		zip.buf = (int **)malloc(sizeof(int *) * zip.height);
+		i = -1;
+		while (++i < zip.height)
+			zip.buf[i] = (int *)malloc(sizeof(int) * zip.width);
+		img_load(&zip);
+		zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
+		zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
+		zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, &zip.img.size_l, &zip.img.endian);
+		mlx_loop_hook(zip.mlx, &main_loop, &zip);
+		mlx_hook(zip.win, 2, 0, &player_move, &zip);
+		mlx_loop(zip.mlx);
 	}
-	zip.buf = (int **)malloc(sizeof(int *) * zip.height);
-	i = -1;
-	while (++i < zip.height)
-		zip.buf[i] = (int *)malloc(sizeof(int) * zip.width);
-	img_load(&zip);
-	zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
-	zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
-	zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, &zip.img.size_l, &zip.img.endian);
-	mlx_loop_hook(zip.mlx, &main_loop, &zip);
-	mlx_hook(zip.win, 2, 0, &player_move, &zip);
-	mlx_loop(zip.mlx);
 }
