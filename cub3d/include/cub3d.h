@@ -6,13 +6,14 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 05:04:10 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 22:16:35 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D
 # define CUB3D
 # include "../mlx2/mlx.h"
+# include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -113,7 +114,6 @@ typedef struct	s_zip
 	int			map_check_flag;
 	int			player_check;
 	char		**map;
-
 	char		*line;
 	char		**split;
 	int			fd;
@@ -130,6 +130,7 @@ typedef struct	s_zip
 	int			f_color;
 	int			map_width;
 	int			map_height;
+
 	int			width;
 	int			height;
 	double		save_wall_len[4096];
@@ -203,21 +204,22 @@ void			add_storage(t_storage *target, char *str, t_zip *zip);
 void			get_map(t_zip *zip, int i, int j);
 void			sort_sprite(t_zip *zip);
 void			zip_set(t_zip *zip);
-void			draw(t_zip *zip);
-void			calc(t_zip *zip);
+void			draw(t_zip *zip, int x, int y);
+void			calc(t_zip *zip, int x, int y);
 void			get_img(t_zip *zip, int *texture, char *path, t_img *img);
 void			img_load(t_zip *zip);
 int				main_loop(t_zip *zip);
 int				player_move(int	keycode, t_zip *zip);
 void			get_bitmap_data(t_zip *zip);
 void			check_player_vec(t_zip *zip);
+void			dda(t_zip *zip, int x, int y);
 
 //맵체크
 
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
-void			cub_file_error();
+void			cub3d_error();
 //gnl
 
 int				get_next_line(int fd, char **line);

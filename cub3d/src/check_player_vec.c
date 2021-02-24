@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:47:44 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 05:27:46 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/24 21:17:38 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		check_n(t_zip *zip, int i, int j)
 {
-	zip->player_x = i;
-	zip->player_y = j;
+	zip->player_x = i + 0.5;
+	zip->player_y = j + 0.5;
 	zip->dir_x = -1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
@@ -25,8 +25,8 @@ static void		check_n(t_zip *zip, int i, int j)
 
 static void		check_w(t_zip *zip, int i, int j)
 {
-	zip->player_x = i;
-	zip->player_y = j;
+	zip->player_x = i + 0.5;
+	zip->player_y = j + 0.5;
 	zip->dir_x = 0.0f;
 	zip->dir_y = -1.0f;
 	zip->plane_x = -0.66f;
@@ -36,8 +36,8 @@ static void		check_w(t_zip *zip, int i, int j)
 
 static void		check_e(t_zip *zip, int i, int j)
 {
-	zip->player_x = i;
-	zip->player_y = j;
+	zip->player_x = i + 0.5;
+	zip->player_y = j + 0.5;
 	zip->dir_x = 0.0f;
 	zip->dir_y = 1.0f;
 	zip->plane_x = 0.66f;
@@ -47,8 +47,8 @@ static void		check_e(t_zip *zip, int i, int j)
 
 static void		check_s(t_zip *zip, int i, int j)
 {
-	zip->player_x = i;
-	zip->player_y = j;
+	zip->player_x = i + 0.5;
+	zip->player_y = j + 0.5;
 	zip->dir_x = 1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
