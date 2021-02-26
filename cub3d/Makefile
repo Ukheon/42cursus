@@ -11,7 +11,11 @@ OBJS =	./src/main.c \
 		./src/map_check.c \
 		./src/get_map_data.c \
 		./src/check_player_vec.c \
-		./src/calculate.c
+		./src/calculate.c \
+		./src/get_splite.c \
+		./src/player_move.c \
+		./src/get_img.c \
+		./src/utils.c
 		# ./src/ft_strdup.c \
 		# ./src/ft_strlcpy.c
 

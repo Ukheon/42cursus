@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:43:46 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 20:51:26 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:01:46 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	map_row_test(int i, int j, t_zip *zip)
 		i++;
 	}
 	if (zip->check != 1)
-		cub3d_error(i, j);
+		cub3d_error();
 	i = zip->temp_i;
 	j = zip->temp_j;
 	zip->check = 0;

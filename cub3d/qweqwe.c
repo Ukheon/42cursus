@@ -6,219 +6,228 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/21 17:24:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/26 20:02:35 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D
-# define CUB3D
-# include "./mlx/mlx.h"
-# include <stdlib.h>
-# include <math.h>
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+#include "../include/cub3d.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE		100
-# endif
-# define _ERROR				-1
-# define _ENDFILE			0
-# define _NOTEND			1
-# define A 0
-# define S 1
-# define D 2
-# define W 13
-# define Q 12
-# define E 14
-# define ESC 53
-# define map_w 24
-# define map_h 24
-# define text_width 64
-# define text_height 64
-
-// int		map[map_w][map_h] = {
-// 		{2,2,2,2,2,2,2,2,2,2},
-// 		{8,0,2,0,2,0,2,0,2,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,8,8,8,8,8,8,8,8,8}
-// };
-
-int	map[map_w][map_h] =
-									{
-										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-										{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-									};
-
-typedef struct	s_img
+void	zip_set(t_zip *zip)
 {
-	void	*img;
-	int		*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
-	int		img_width;
-	int		img_height;
-}				t_img;
+	zip->rot_speed = 0.05f;
+	zip->move_speed = 0.2f;
+	zip->count_sprite = 0;
+}
 
-typedef struct	s_sprite
+void	draw(t_zip *zip, int x, int y)
 {
-	double		x;
-	double		y;
-	double		len;
-	int			index;
-}				t_sprite;
+	y = 0;
+	while (y < zip->height)
+	{
+		x = 0;
+		while (x < zip->width)
+		{
+			zip->img.data[y * zip->height + x] = zip->buf[y][x];
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(zip->mlx, zip->win, zip->img.img, 0, 0);
+}
 
-typedef struct	s_node
+
+void	get_img(t_zip *zip, int *texture, char *path, t_img *img)
 {
-	struct s_node *next;
-	char *save;
-}				t_node;
+	int		x;
+	int		y;
 
-typedef struct	s_storage
+	img->img = mlx_xpm_file_to_image(zip->mlx, path, &img->img_width, &img->img_height);
+	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	y = -1;
+	while (++y < img->img_height)
+	{
+		x = -1;
+		while (++x < img->img_width)
+			texture[img->img_height * y + x] = img->data[img->img_height * y + x];
+	}
+	mlx_destroy_image(zip->mlx, img->img);
+}
+
+void	img_load(t_zip *zip)
 {
-	struct s_storage	*next;
-	char				*data;
-}				t_storage;
+	t_img	img;
+	int		i;
+	int		j;
 
-typedef struct	s_zip
+	if (!(zip->texture = (int **)malloc(sizeof(int *) * 5)))
+		cub3d_error();
+	i = -1;
+	while (i++ < 5)
+		if (!(zip->texture[i] = (int *)malloc(sizeof(int) * (text_height * text_width))))
+			cub3d_error();
+	i = -1;
+	while (i++ < 5 && (j = -1))
+		while (j++ < text_width * text_height)
+			zip->texture[i][j] = 0;
+	zip->buf = (int **)malloc(sizeof(int *) * zip->height);
+	i = -1;
+	while (++i < zip->height)
+		zip->buf[i] = (int *)malloc(sizeof(int) * zip->width);
+	get_img(zip, zip->texture[0], zip->no_texture, &img);
+	get_img(zip, zip->texture[1], zip->so_texture, &img);
+	get_img(zip, zip->texture[2], zip->ea_texture, &img);
+	get_img(zip, zip->texture[3], zip->we_texture, &img);
+	get_img(zip, zip->texture[4], zip->s_texture, &img);
+}
+
+int		main_loop(t_zip *zip)
 {
-	int			fd;
-	int			ret;
-	int			height_size;
-	int			width_size;
-	int			check;
-	int			num;
-	int			res;
-	int			count;
-	int			idx;
-	char		**color_save;
-	int			c_color;
-	int			f_color;
-	int			map_width;
-	int			map_height;
-	int			width;
-	int			height;
-	double		save_wall_len[4096];
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	double		dir_x;
-	double		dir_y;
-	double		player_x;
-	double		player_y;
-	double		ray_x;
-	double		ray_y;
-	double		plane_x;
-	double		plane_y;
-	double		move_speed;
-	double		rot_speed;
+	calc(zip, -1, -1);
+	draw(zip, 0, 0);
+	player_move(zip);
+	return (0);
+}
 
-	int			**buf;
-	int			**texture;
+int		player_move(int key, t_zip *zip)
+{
+	double	temp;
+	double	planetemp;
 
-	double		camera;
-	double		ray_dir_x;
-	double		ray_dir_y;
-	int			map_x;
-	int			map_y;
-	double		side_dist_x;
-	double		side_dist_y;
-	double		delta_x;
-	double		delta_y;
-	double		raylen;
-	int			step_x;
-	int			step_y;
-	int			hit;
-	int			side;
+	if (key == W)
+	{
+		if (zip->map[(int)(zip->player_x + zip->dir_x * zip->move_speed)][(int)(zip->player_y)] == '0')
+			zip->player_x += zip->dir_x * zip->move_speed;
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y + zip->dir_y * zip->move_speed)] == '0')
+			zip->player_y += zip->dir_y * zip->move_speed;
+	}
+	if (key == S)
+	{
+		if (zip->map[(int)(zip->player_x - zip->dir_x * zip->move_speed)][(int)(zip->player_y)] == '0')
+			zip->player_x -= zip->dir_x * zip->move_speed;
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y - zip->dir_y * zip->move_speed)] == '0')
+			zip->player_y -= zip->dir_y * zip->move_speed;
+	}
+	if (key == Q)
+	{
+		temp = zip->dir_x;
+		zip->dir_x = cos(zip->rot_speed) * temp - sin(zip->rot_speed) * zip->dir_y;
+		zip->dir_y = sin(zip->rot_speed) * temp + cos(zip->rot_speed) * zip->dir_y;
+		planetemp = zip->plane_x;
+		zip->plane_x = cos(zip->rot_speed) * planetemp - sin(zip->rot_speed) * zip->plane_y;
+		zip->plane_y = sin(zip->rot_speed) * planetemp + cos(zip->rot_speed) * zip->plane_y;
+	}
+	if (key == E)
+	{
+		temp = zip->dir_x;
+		zip->dir_x = cos(-zip->rot_speed) * temp - sin(-zip->rot_speed) * zip->dir_y;
+		zip->dir_y = sin(-zip->rot_speed) * temp + cos(-zip->rot_speed) * zip->dir_y;
+		planetemp = zip->plane_x;
+		zip->plane_x = cos(-zip->rot_speed) * planetemp - sin(-zip->rot_speed) * zip->plane_y;
+		zip->plane_y = sin(-zip->rot_speed) * planetemp + cos(-zip->rot_speed) * zip->plane_y;
+	}
+	if (key == A)
+	{
+		if (zip->map[(int)(zip->player_x - zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)] == '0')
+			zip->player_x -= zip->plane_x * zip->move_speed * 2;
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y - zip->plane_y * zip->move_speed * 2)] == '0')
+			zip->player_y -= zip->plane_y * zip->move_speed * 2;
+	}
+	if (key == D)
+	{
+		if (zip->map[(int)(zip->player_x + zip->plane_x * zip->move_speed * 2)][(int)(zip->player_y)] == '0')
+			zip->player_x += zip->plane_x * zip->move_speed * 2;
+		if (zip->map[(int)(zip->player_x)][(int)(zip->player_y + zip->plane_y * zip->move_speed * 2)] == '0')
+			zip->player_y += zip->plane_y * zip->move_speed * 2;
+	}
+	if (key == ESC)
+		exit(0);
+	return (0);
+}
 
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	double		wall;
-	int			text_num;
-	int			text_x;
-	int			text_y;
-	double		text_step;
-	double		text_pos;
+void		add_storage(t_storage *target, char *str, t_zip *zip)
+{
+	t_storage *new;
+	new = (t_storage *)malloc(sizeof(t_storage));
+	while(target->next)
+		target = target->next;
+	if (zip->width_size < ft_strlen(str))
+		zip->width_size = ft_strlen(str);
+	new->next = target->next;
+	new->data = str;
+	target->next = new;
+}
 
-	int			count_sprite;
-	int			*order;
-	t_sprite	*sprite;
-	double		relative_x;
-	double		relative_y;
-	double		transform_x;
-	double		transform_y;
-	int			sprite_screen;
-	int			sprite_height;
-	int			sprite_width;
-	int			sprite_start_x;
-	int			sprite_start_y;
-	int			sprite_end_x;
-	int			sprite_end_y;
-	int			color;
-	double		sub;
-	char		*no_texture;
-	char		*so_texture;
-	char		*we_texture;
-	char		*ea_texture;
-	char		*s_texture;
-}				t_zip;
+void	cub3d_error()
+{
+	printf("Are you kidding me? I want the right file!");
+	exit(0);
+}
 
-void			add_storage(t_storage *target, char *str, t_zip *zip);
-void			get_map(t_zip *zip);
-void			sort_sprite(t_zip *zip);
-void			zip_set(t_zip *zip);
-void			draw(t_zip *zip);
-void			calc(t_zip *zip);
-void			get_img(t_zip *zip, int *texture, char *path, t_img *img);
-void			img_load(t_zip *zip);
-int				main_loop(t_zip *zip);
-int				player_move(int	keycode, t_zip *zip);
+int		key_release(int key, t_zip *zip)
+{
+	if (key >= 300)
+		return (-1);
+	if (key == W)
+		zip->key_w = 0;
+	if (key == S)
+		zip->key_s = 0;
+	if (key == A)
+		zip->key_a = 0;
+	if (key == D)
+		zip->key_d = 0;
+	if (key == Q)
+		zip->key_q = 0;
+	if (key == E)
+		zip->key_e = 0;
+	if (key == ESC)
+		zip->key_esc = 0;
+	return (0);
+}
 
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin(char const *s1, char const *s2);
-size_t			ft_strlen(const char *str);
-size_t			ft_strlcat(char *dst, const char *src, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strdup(const char *s1);
+int		key_press(int key, t_zip *zip)
+{
+	if (key >= 300)
+		return (-1);
+	printf("%d\n",key);
+	if (key == W)
+		zip->key_w = 1;
+	if (key == S)
+		zip->key_s = 1;
+	if (key == A)
+		zip->key_a = 1;
+	if (key == D)
+		zip->key_d = 1;
+	if (key == Q)
+		zip->key_q = 1;
+	if (key == E)
+		zip->key_e = 1;
+	if (key == ESC)
+		zip->key_esc = 1;
+	return (0);
+}
 
-int				ft_atoi(const char *str);
-int				ft_strcmp(const char *s1, const char *s2);
-char			**ft_split(char const *s, char c);
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin(char const *s1, char const *s2);
-size_t			ft_strlcat(char *dst, const char *src, size_t size);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-char			*ft_strdup(const char *s1);
-#endif
+int		main(int argc, char *argv[])
+{
+	t_zip	zip;
+
+	if (argc == 1)
+	{
+		get_map(&zip, 0, 0);
+		zip_set(&zip);
+		map_check(&zip);
+		check_player_vec(&zip);
+		zip.mlx = mlx_init();
+		img_load(&zip);
+		zip.win = mlx_new_window(zip.mlx, zip.width, zip.height, "Cub3D");
+		zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
+		zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, \
+		&zip.img.size_l, &zip.img.endian);
+		mlx_loop_hook(zip.mlx, &main_loop, &zip);
+		mlx_hook(zip.win, 2, 0, &player_move, &zip);
+		// mlx_hook(zip.win, 3, 0, &key_release, &zip);
+		mlx_loop(zip.mlx);
+	}
+	else
+		cub3d_error();
+	return (0);
+}

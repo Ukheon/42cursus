@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 22:16:35 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/26 20:33:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ typedef struct	s_storage
 
 typedef struct	s_zip
 {
+	int			key_w;
+	int			key_s;
+	int			key_a;
+	int			key_d;
+	int			key_q;
+	int			key_e;
+	int			key_esc;
+
 	int			row;
 	int			flag_count;
 	int			temp_i;
@@ -202,24 +210,25 @@ typedef struct	s_zip
 
 void			add_storage(t_storage *target, char *str, t_zip *zip);
 void			get_map(t_zip *zip, int i, int j);
-void			sort_sprite(t_zip *zip);
 void			zip_set(t_zip *zip);
 void			draw(t_zip *zip, int x, int y);
 void			calc(t_zip *zip, int x, int y);
 void			get_img(t_zip *zip, int *texture, char *path, t_img *img);
 void			img_load(t_zip *zip);
 int				main_loop(t_zip *zip);
-int				player_move(int	keycode, t_zip *zip);
+int				player_move(t_zip *zip);
+int				key_press(int key, t_zip *zip);
+int				key_release(int key, t_zip *zip);
 void			get_bitmap_data(t_zip *zip);
 void			check_player_vec(t_zip *zip);
-void			dda(t_zip *zip, int x, int y);
+void			get_sprite(t_zip *zip, int x);
 
 //맵체크
 
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
-void			cub3d_error();
+void			cub3d_error(void);
 //gnl
 
 int				get_next_line(int fd, char **line);

@@ -6,39 +6,40 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/24 19:59:07 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/26 20:08:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void			fill_map(t_zip *zip, t_storage *head)
+static void				fill_map(t_zip *zip, t_storage *head)
 {
-	int		i;
-	int		j;
-	t_storage *check1;
+	int			i;
+	int			j;
+	t_storage	*check1;
 
 	check1 = (t_storage *)malloc(sizeof(t_storage));
 	check1 = head->next;
 	i = -1;
 	while (++i < zip->height_size && (j = -1))
-	while (++j < zip->width_size)
-		zip->map[i][j] = '9';
+		while (++j < zip->width_size)
+			zip->map[i][j] = '9';
 	i = -1;
 	while (++i < zip->height_size && (j = -1))
 	{
-	while (++j < ft_strlen(check1->data))
-		if (check1->data[j] == '1' || check1->data[j] == '0' || check1->data[j] == 'N'\
-		|| check1->data[j] == 'E' || check1->data[j] == 'W' || check1->data[j] == 'S'\
-			|| check1->data[j] == ' ' || check1->data[j] == '2')
-			zip->map[i][j] = check1->data[j];
-	check1 = check1->next;
+		while (++j < ft_strlen(check1->data))
+			if (check1->data[j] == '1' || check1->data[j] == '0' || \
+			check1->data[j] == 'N' || check1->data[j] == 'E' || \
+			check1->data[j] == 'W' || check1->data[j] == 'S' || \
+			check1->data[j] == ' ' || check1->data[j] == '2')
+				zip->map[i][j] = check1->data[j];
+		check1 = check1->next;
 	}
 	free(check1);
 	free(head);
 }
 
-static void			floor_parse(t_zip *zip)
+static void				floor_parse(t_zip *zip)
 {
 	zip->check++;
 	zip->line++;
@@ -56,7 +57,7 @@ static void			floor_parse(t_zip *zip)
 	free(zip->color_save);
 }
 
-static void			ceil_parse(t_zip *zip)
+static void				ceil_parse(t_zip *zip)
 {
 	zip->line++;
 	zip->line++;
@@ -68,16 +69,16 @@ static void			ceil_parse(t_zip *zip)
 	{
 		zip->num = ft_atoi(zip->color_save[zip->idx--]);
 		zip->c_color += zip->num % 16 * pow(16, zip->count++);
-		zip->c_color +=	zip->num / 16 * pow(16, zip->count);
+		zip->c_color += zip->num / 16 * pow(16, zip->count);
 	}
 	free(zip->color_save);
 }
 
-static void			default_parsing(t_zip *zip, t_storage *head)
+static void				default_parsing(t_zip *zip, t_storage *head)
 {
 	if (zip->check == 8 && *zip->split && (zip->height_size += 1))
 		add_storage(head, zip->line, zip);
-	else if (!(ft_strcmp(zip->split[0],"R")) && (zip->row == 3))
+	else if (!(ft_strcmp(zip->split[0], "R")) && (zip->row == 3))
 	{
 		zip->check++;
 		zip->width = ft_atoi(zip->split[1]);
@@ -100,7 +101,7 @@ static void			default_parsing(t_zip *zip, t_storage *head)
 		zip->s_texture = ft_strdup(zip->split[1]);
 }
 
-void	get_map(t_zip *zip, int i, int j)
+void					get_map(t_zip *zip, int i, int j)
 {
 	t_storage *head;
 
