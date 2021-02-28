@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:26:08 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:43:06 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 03:35:23 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ void	img_load(t_zip *zip)
 	int		j;
 
 	if (!(zip->texture = (int **)malloc(sizeof(int *) * 5)))
-		cub3d_error();
+		cub3d_error("img malloc error");
 	i = -1;
 	while (i++ < 5)
 		if (!(zip->texture[i] = (int *)malloc(sizeof(int) * \
 		(text_height * text_width))))
-			cub3d_error();
+			cub3d_error("img malloc error");
 	i = -1;
 	while (i++ < 5 && (j = -1))
 		while (j++ < text_width * text_height)
 			zip->texture[i][j] = 0;
-	zip->buf = (int **)malloc(sizeof(int *) * zip->height);
+	zip->buf = (int **)malloc(sizeof(int *) * (zip->height));
 	i = -1;
 	while (++i < zip->height)
-		zip->buf[i] = (int *)malloc(sizeof(int) * zip->width);
+		zip->buf[i] = (int *)malloc(sizeof(int) * (zip->width));
 	get_img(zip, zip->texture[0], zip->no_texture, &img);
 	get_img(zip, zip->texture[1], zip->so_texture, &img);
 	get_img(zip, zip->texture[2], zip->ea_texture, &img);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:33:10 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 03:25:33 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D
 # define CUB3D
-# include "../mlx2/mlx.h"
+// # include "../mlx2/mlx.h"
 # include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
@@ -107,6 +107,9 @@ typedef struct	s_storage
 
 typedef struct	s_zip
 {
+	int			w;
+	int			h;
+
 	int			key_w;
 	int			key_s;
 	int			key_a;
@@ -222,13 +225,14 @@ int				key_release(int key, t_zip *zip);
 void			get_bitmap_data(t_zip *zip);
 void			check_player_vec(t_zip *zip);
 void			get_sprite(t_zip *zip, int x);
+void			check_size(t_zip *zip);
 
 //맵체크
 
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
-void			cub3d_error(void);
+void			cub3d_error(char *error);
 //gnl
 
 int				get_next_line(int fd, char **line);

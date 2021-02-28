@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:43:37 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 13:19:15 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw(t_zip *zip, int x, int y)
 		x = 0;
 		while (x < zip->width)
 		{
-			zip->img.data[y * zip->height + x] = zip->buf[y][x];
+			zip->img.data[y * zip->width + x] = zip->buf[y][x];
 			x++;
 		}
 		y++;
@@ -57,7 +57,21 @@ int		main(int argc, char *argv[])
 		mlx_hook(zip.win, 3, 0, &key_release, &zip);
 		mlx_loop(zip.mlx);
 	}
+	else if (argc == 2 && !(ft_strcmp(argv[1], "--save")))
+	{
+		get_map(&zip, 0, 0);
+		zip_set(&zip);
+		map_check(&zip);
+		check_player_vec(&zip);
+		zip.mlx = mlx_init();
+		img_load(&zip);
+		zip.img.img = mlx_new_image(zip.mlx, zip.width, zip.height);
+		zip.img.data = (int *)mlx_get_data_addr(zip.img.img, &zip.img.bpp, \
+		&zip.img.size_l, &zip.img.endian);
+		calc(&zip, -1, -1);
+		get_bitmap_data(&zip);
+	}
 	else
-		cub3d_error();
+		cub3d_error("error");
 	return (0);
 }

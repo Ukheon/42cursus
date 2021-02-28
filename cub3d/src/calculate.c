@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 22:13:42 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:30:59 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 03:29:15 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void				wall_set(t_zip *zip)
 		zip->wall = zip->player_y + zip->raylen * zip->ray_dir_y;
 }
 
-static void				dda_init(t_zip *zip, int x, int y)
+static void				dda_init(t_zip *zip, int x)
 {
 	zip->camera = 2 * x / (double)zip->width - 1;
 	zip->ray_dir_x = zip->dir_x + zip->plane_x * zip->camera;
@@ -85,7 +85,7 @@ static void				dda(t_zip *zip, int x, int y)
 {
 	while (++x < zip->width)
 	{
-		dda_init(zip, x, y);
+		dda_init(zip, x);
 		ray_set(zip);
 		wall_set(zip);
 		zip->wall -= floor(zip->wall);
@@ -111,7 +111,8 @@ static void				dda(t_zip *zip, int x, int y)
 
 void					calc(t_zip *zip, int x, int y)
 {
-	while (++y < zip->height && (x = -1))
+	y = -1;
+	while (++y < zip->height)
 	{
 		x = -1;
 		while (++x < zip->width)
@@ -122,6 +123,6 @@ void					calc(t_zip *zip, int x, int y)
 				zip->buf[y][x] = zip->f_color;
 		}
 	}
-	dda(zip, -1, y);
+	dda(zip, -1, 0);
 	get_sprite(zip, -1);
 }

@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:32:53 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 03:22:52 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void		cub3d_error(void)
+void		cub3d_error(char *error)
 {
-	printf("Are you kidding me? I want the right file!");
+	printf("%s\n", error);
 	exit(0);
+}
+
+void		check_size(t_zip *zip)
+{
+	zip->width = ft_atoi(zip->split[1]);
+	zip->height = ft_atoi(zip->split[2]);
+	// mlx_get_screen_size(zip->mlx, &zip->w, &zip->h);
+	// if (zip->w < ft_atoi(zip->split[1]))
+	// 	zip->width = zip->w;
+	// if (zip->h < ft_atoi(zip->split[2]))
+	// 	zip->height = zip->h;
+	if (zip->width <= 0 || zip->height <= 0)
+		cub3d_error("width / height size error!!");
 }
 
 void		zip_set(t_zip *zip)

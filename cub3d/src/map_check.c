@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:43:46 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 21:01:46 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 02:22:02 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	map_row_test(int i, int j, t_zip *zip)
+void		map_row_test(int i, int j, t_zip *zip)
 {
 	zip->temp_i = i;
 	zip->temp_j = j;
@@ -21,11 +21,11 @@ void	map_row_test(int i, int j, t_zip *zip)
 		if (zip->map[i][j] == '1')
 			zip->check = 1;
 		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub3d_error();
+			cub3d_error("map check error");
 		i++;
 	}
 	if (zip->check != 1)
-		cub3d_error();
+		cub3d_error("map check error");
 	i = zip->temp_i;
 	j = zip->temp_j;
 	zip->check = 0;
@@ -34,14 +34,14 @@ void	map_row_test(int i, int j, t_zip *zip)
 		if (zip->map[i][j] == '1')
 			zip->check = 1;
 		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub3d_error();
+			cub3d_error("map check error");
 		i--;
 	}
 	if (zip->check != 1)
-		cub3d_error();
+		cub3d_error("map check error");
 }
 
-void	map_col_test(int i, int j, t_zip *zip)
+void		map_col_test(int i, int j, t_zip *zip)
 {
 	zip->temp_i = i;
 	zip->temp_j = j;
@@ -50,11 +50,11 @@ void	map_col_test(int i, int j, t_zip *zip)
 		if (zip->map[i][j] == '1')
 			zip->check = 1;
 		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub3d_error();
+			cub3d_error("map check error");
 		j++;
 	}
 	if (zip->check != 1)
-		cub3d_error();
+		cub3d_error("map check error");
 	i = zip->temp_i;
 	j = zip->temp_j;
 	zip->check = 0;
@@ -63,18 +63,17 @@ void	map_col_test(int i, int j, t_zip *zip)
 		if (zip->map[i][j] == '1')
 			zip->check = 1;
 		if (zip->check == 0 && zip->map[i][j] == ' ')
-			cub3d_error();
+			cub3d_error("map check error");
 		j--;
 	}
 	if (zip->check != 1)
-		cub3d_error();
+		cub3d_error("map check error");
 }
 
-void	map_splite_check(t_zip *zip)
+static void	map_splite_check(t_zip *zip, int idx)
 {
 	int		i;
 	int		j;
-	int		idx;
 
 	i = -1;
 	while (++i < zip->height_size && (j = -1))
@@ -82,7 +81,6 @@ void	map_splite_check(t_zip *zip)
 			if (zip->map[i][j] == '2')
 				zip->count_sprite++;
 	i = -1;
-	idx = 0;
 	zip->sprite = (t_sprite *)malloc(sizeof(t_sprite) * zip->count_sprite);
 	while (++i < zip->height_size)
 	{
@@ -99,12 +97,12 @@ void	map_splite_check(t_zip *zip)
 	}
 }
 
-void	map_check(t_zip *zip)
+void		map_check(t_zip *zip)
 {
 	int			i;
 	int			j;
 
-	map_splite_check(zip);
+	map_splite_check(zip, 0);
 	zip->check = 0;
 	i = -1;
 	while (++i < zip->height_size)
@@ -123,5 +121,5 @@ void	map_check(t_zip *zip)
 		}
 	}
 	if (zip->player_check != 1)
-		cub3d_error();
+		cub3d_error("more than two player");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:24:28 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 21:01:06 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 03:09:21 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void			rot_move(t_zip *zip, double temp, double planetemp)
 		zip->plane_y = sin(zip->rot_speed) * planetemp + \
 		cos(zip->rot_speed) * zip->plane_y;
 	}
-	if (zip->key_e && (temp = zip->dir_x))
+	if (zip->key_e)
 	{
+		temp = zip->dir_x;
 		zip->dir_x = cos(-zip->rot_speed) * temp - \
 		sin(-zip->rot_speed) * zip->dir_y;
 		zip->dir_y = sin(-zip->rot_speed) * temp + \

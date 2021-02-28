@@ -15,23 +15,22 @@ OBJS =	./src/main.c \
 		./src/get_splite.c \
 		./src/player_move.c \
 		./src/get_img.c \
-		./src/utils.c
-		# ./src/ft_strdup.c \
-		# ./src/ft_strlcpy.c
+		./src/utils.c \
+		./src/ft_bitmap.c
 
 all : $(TARGET)
 
 $(TARGET) :
-	#make -C mlx
-	#make -C mlx2
-	cp mlx2/libmlx.dylib .
-	$(CC) $(CFLAG) $(OBJS) -o $@  && ./$(TARGET)
+	# make -C mlx
+	# make -C mlx2
+	# cp mlx2/libmlx.dylib .
+	$(CC) $(CFLAG) $(OBJS) -o $@
 
 clean :
 	rm -rf $(TARGET)
-	rm -rf mlx/*.o mlx/libmlx.a
-	rm -rf mlx2/*.o mlx/libmlx.dylib
-	rm -rf libmlx.dylib
+	# rm -rf mlx/*.o mlx/libmlx.a
+	# rm -rf mlx2/*.o mlx/libmlx.dylib
+	# rm -rf libmlx.dylib
 
 re :
 	make clean

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/26 20:08:10 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 02:57:46 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ static void				default_parsing(t_zip *zip, t_storage *head)
 	else if (!(ft_strcmp(zip->split[0], "R")) && (zip->row == 3))
 	{
 		zip->check++;
-		zip->width = ft_atoi(zip->split[1]);
-		zip->height = ft_atoi(zip->split[2]);
+		check_size(zip);
 	}
 	else if (!(ft_strcmp(zip->split[0], "NO")) && \
 		((zip->check += 1) && (zip->row == 2)))
@@ -118,6 +117,7 @@ void					get_map(t_zip *zip, int i, int j)
 			ceil_parse(zip);
 		else if (!(ft_strcmp(zip->split[0], "F")))
 			floor_parse(zip);
+		free(*zip->split);
 	}
 	zip->map = (char **)malloc(sizeof(char *) * (zip->height_size));
 	i = -1;
