@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 17:53:05 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/02 01:41:02 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D
 # define CUB3D
-// # include "../mlx2/mlx.h"
+# include "../mlx2/mlx.h"
 # include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
@@ -36,21 +36,6 @@
 # define map_h 24
 # define text_width 64
 # define text_height 64
-
-
-// int		map[map_w][map_h] = {
-// 		{2,2,2,2,2,2,2,2,2,2},
-// 		{8,0,2,0,2,0,2,0,2,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,0,0,0,0,0,0,0,0,8},
-// 		{8,8,8,8,8,8,8,8,8,8}
-// };
-
 
 typedef struct	s_img
 {
@@ -79,6 +64,7 @@ typedef struct	s_storage
 
 typedef struct	s_grid
 {
+	int			check_map_data;
 	int			i;
 	int			j;
 	int			x;
@@ -93,9 +79,9 @@ typedef struct	s_grid
 
 typedef struct	s_zip
 {
-	int			up_down;
 	int			w;
 	int			h;
+	char		*file_name;
 
 	int			key_m;
 	int			key_w;
@@ -197,10 +183,10 @@ typedef struct	s_zip
 	char		*ea_texture;
 	char		*s_texture;
 }				t_zip;
-//main
 
+//main
 void			add_storage(t_storage *target, char *str, t_zip *zip);
-void			get_map(t_zip *zip, int i, int j);
+void			get_map(t_zip *zip, int i, int j, char *str);
 void			zip_set(t_zip *zip);
 void			draw(t_zip *zip, int x, int y);
 void			calc(t_zip *zip, int x, int y);
@@ -214,26 +200,22 @@ void			get_bitmap_data(t_zip *zip);
 void			check_player_vec(t_zip *zip);
 void			get_sprite(t_zip *zip, int x);
 void			check_size(t_zip *zip);
-void			init_game(t_zip *zip);
-
+void			init_game(t_zip *zip, char *str);
 void			draw_map(t_zip *zip);
-
-//맵체크
-
+int				key_exit(int key, t_zip *zip);
+//mapcheck
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
 void			cub3d_error(char *error);
+int				parsing_error(t_zip *zip);
 //gnl
-
 int				get_next_line(int fd, char **line);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 char			*ft_strdup(const char *s1);
-
-
 //libft
 int				ft_atoi(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);

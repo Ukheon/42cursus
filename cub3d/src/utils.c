@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 17:45:19 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/02 01:41:21 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,32 @@ void		cub3d_error(char *error)
 	exit(0);
 }
 
+void		zip_set(t_zip *zip)
+{
+	zip->rot_speed = 0.03f;
+	zip->move_speed = 0.05f;
+	zip->count_sprite = 0;
+}
+
 void		check_size(t_zip *zip)
 {
 	zip->width = ft_atoi(zip->split[1]);
 	zip->height = ft_atoi(zip->split[2]);
-	if (zip->width >= 1794)
-		zip->width = 1794;
-	if (zip->height >= 1070)
-		zip->height = 1070;
+	if (zip->width >= 2048)
+		zip->width = 2048;
+	if (zip->height >= 1152)
+		zip->height = 1152;
 	if (zip->width <= 0 || zip->height <= 0)
 		cub3d_error("width / height size error!!");
 }
 
-void		zip_set(t_zip *zip)
+int			parsing_error(t_zip *zip)
 {
-	zip->up_down = 0;
-	zip->rot_speed = 0.03f;
-	zip->move_speed = 0.05f;
-	zip->count_sprite = 0;
+	if (*zip->split)
+		return (0);
+	if (!(*zip->split) && zip->check == 8 && zip->height_size > 0)
+		cub3d_error("empty line in map . . . . ? ? ? ? ? ! ! !");
+	return (1);
 }
 
 void		add_storage(t_storage *target, char *str, t_zip *zip)

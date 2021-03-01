@@ -18,21 +18,18 @@ OBJS =	./src/main.c \
 		./src/utils.c \
 		./src/ft_bitmap.c \
 		./src/key_flag.c \
-		./src/grid.c
+		./src/mini_map.c
+		# ./src/get_screen_size.c
 
 all : $(TARGET)
 
 $(TARGET) :
-	# make -C mlx
-	# make -C mlx2
-	# cp mlx2/libmlx.dylib .
+	make -C mlx
 	$(CC) $(CFLAG) $(OBJS) -o $@
 
 clean :
 	rm -rf $(TARGET)
-	# rm -rf mlx/*.o mlx/libmlx.a
-	# rm -rf mlx2/*.o mlx/libmlx.dylib
-	# rm -rf libmlx.dylib
+	rm -rf mlx/*.o mlx/libmlx.a
 
 re :
 	make clean

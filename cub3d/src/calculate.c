@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 22:13:42 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 17:58:55 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/02 05:21:25 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static void				dda(t_zip *zip, int x, int y)
 		dda_init(zip, x);
 		ray_set(zip);
 		wall_set(zip);
+		if (x == zip->width / 2)
+			printf("%f %f\n",zip->ray_dir_x, zip->ray_dir_y);
 		zip->wall -= floor(zip->wall);
 		zip->text_x = (int)(zip->wall * (double)text_width);
 		if (zip->side == 0 && zip->ray_dir_x > 0)

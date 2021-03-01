@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/01 14:51:49 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/01 21:39:03 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ static void				floor_parse(t_zip *zip)
 {
 	zip->line++;
 	zip->line++;
+	zip->check++;
 	zip->color_save = ft_split(zip->line, ", ", zip);
-	if (zip->row == 3)
-		zip->check++;
+	if (zip->row != 3)
+		cub3d_error("rgb color error! ! !");
 	zip->count = -1;
 	zip->idx = 2;
 	zip->f_color = 0;
 	while (++zip->count < 6)
 	{
 		zip->num = ft_atoi(zip->color_save[zip->idx--]);
+		if (zip->num >= 256 || zip->num < 0)
+			cub3d_error("rgb color error! ! !");
 		zip->f_color += zip->num % 16 * pow(16, zip->count++);
 		zip->f_color += zip->num / 16 * pow(16, zip->count);
 	}
@@ -64,12 +67,16 @@ static void				ceil_parse(t_zip *zip)
 	zip->line++;
 	zip->line++;
 	zip->color_save = ft_split(zip->line, ", ", zip);
+	if (zip->row != 3)
+		cub3d_error("rgb color error! ! !");
 	zip->count = -1;
 	zip->idx = 2;
 	zip->c_color = 0;
 	while (++zip->count < 6)
 	{
 		zip->num = ft_atoi(zip->color_save[zip->idx--]);
+		if (zip->num >= 256 || zip->num < 0)
+			cub3d_error("rgb color error! ! !");
 		zip->c_color += zip->num % 16 * pow(16, zip->count++);
 		zip->c_color += zip->num / 16 * pow(16, zip->count);
 	}
@@ -102,18 +109,19 @@ static void				default_parsing(t_zip *zip, t_storage *head)
 		zip->s_texture = ft_strdup(zip->split[1]);
 }
 
-void					get_map(t_zip *zip, int i, int j)
+void					get_map(t_zip *zip, int i, int j, char *str)
 {
 	t_storage *head;
 
-	zip->fd = open("./cub3d", O_RDONLY);
+	if ((zip->fd = open(str, O_RDONLY)) < 0)
+		cub3d_error("can not open. . .");
 	head = (t_storage *)malloc(sizeof(t_storage));
 	head->next = NULL;
 	while ((zip->ret = get_next_line(zip->fd, &zip->line)) > 0)
 	{
 		zip->split = ft_split(zip->line, " ", zip);
-		if (!*zip->split)
-			continue;
+		if (parsing_error(zip))
+			continue ;
 		default_parsing(zip, head);
 		if (!(ft_strcmp(zip->split[0], "C")))
 			ceil_parse(zip);
@@ -124,9 +132,6 @@ void					get_map(t_zip *zip, int i, int j)
 	zip->map = (char **)malloc(sizeof(char *) * (zip->height_size));
 	i = -1;
 	while (++i < zip->height_size)
-	{
 		zip->map[i] = (char *)malloc(sizeof(char) * (zip->width_size + 1));
-		zip->map[i][zip->width_size] = '\0';
-	}
 	fill_map(zip, head);
 }

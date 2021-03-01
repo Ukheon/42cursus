@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:43:46 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/01 14:23:57 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/01 22:38:41 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void		map_check(t_zip *zip)
 	int			j;
 
 	map_splite_check(zip, 0);
-	zip->check = 0;
 	i = -1;
 	while (++i < zip->height_size)
 	{
@@ -111,8 +110,10 @@ void		map_check(t_zip *zip)
 		{
 			if (zip->map[i][j] == '0')
 			{
-				map_row_test(i, j, zip);
+				zip->check = 0;
 				map_col_test(i, j, zip);
+				zip->check = 0;
+				map_row_test(i, j, zip);
 			}
 			if (zip->map[i][j] == 'N' || zip->map[i][j] == 'S' \
 			|| zip->map[i][j] == 'E' || zip->map[i][j] == 'W')

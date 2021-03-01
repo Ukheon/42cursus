@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_flag.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:18:49 by Ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 18:03:11 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/02 01:39:50 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,11 @@ int				key_press(int key, t_zip *zip)
 		zip->key_m = 1;
 	if (key == ESC)
 		zip->key_esc = 1;
+	return (0);
+}
+
+int			key_exit(int key, t_zip *zip)
+{
+	exit(0);
 	return (0);
 }
