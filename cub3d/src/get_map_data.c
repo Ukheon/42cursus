@@ -6,7 +6,7 @@
 /*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 02:57:46 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/01 14:51:49 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ static void				fill_map(t_zip *zip, t_storage *head)
 
 static void				floor_parse(t_zip *zip)
 {
-	zip->check++;
 	zip->line++;
 	zip->line++;
 	zip->color_save = ft_split(zip->line, ", ", zip);
+	if (zip->row == 3)
+		zip->check++;
 	zip->count = -1;
 	zip->idx = 2;
 	zip->f_color = 0;
@@ -59,6 +60,7 @@ static void				floor_parse(t_zip *zip)
 
 static void				ceil_parse(t_zip *zip)
 {
+	zip->check++;
 	zip->line++;
 	zip->line++;
 	zip->color_save = ft_split(zip->line, ", ", zip);
@@ -113,7 +115,7 @@ void					get_map(t_zip *zip, int i, int j)
 		if (!*zip->split)
 			continue;
 		default_parsing(zip, head);
-		if (!(ft_strcmp(zip->split[0], "C")) && (zip->check += 1))
+		if (!(ft_strcmp(zip->split[0], "C")))
 			ceil_parse(zip);
 		else if (!(ft_strcmp(zip->split[0], "F")))
 			floor_parse(zip);

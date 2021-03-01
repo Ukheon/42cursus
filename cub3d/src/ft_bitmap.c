@@ -6,7 +6,7 @@
 /*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 02:48:27 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 13:30:31 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void		bitmap_data(int fd, t_zip *zip, int pad)
 		x = 0;
 		while (x < zip->width)
 		{
-			// printf("%d\n",zip->buf[y][x]);
 			write(fd, &zip->buf[y][x], 3);
 			x++;
 		}
@@ -67,7 +66,8 @@ void			get_bitmap_data(t_zip *zip)
 	int				fd;
 	int				pad;
 
-	if ((fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00777)) < 0)
+	if ((fd = open("screenshot.bmp", \
+	O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00777)) < 0)
 		return ;
 	pad = (4 - (zip->width * 3) % 4) % 4;
 	filesize = 54 + (3 * zip->width + pad) * zip->height;

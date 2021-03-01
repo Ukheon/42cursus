@@ -6,7 +6,7 @@
 /*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 03:25:33 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 17:53:05 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,34 +51,6 @@
 // 		{8,8,8,8,8,8,8,8,8,8}
 // };
 
-#pragma pack(push, 1)
-
-typedef struct	s_bmp
-{
-	unsigned short	bm_number;
-	unsigned int	bm_size;
-	unsigned short	bfreserved1;
-	unsigned short	bfreserved2;
-	unsigned int	bfoffbits;
-
-	unsigned int	bi_size;
-	int				bi_width;
-	int				bi_height;
-	unsigned short	bi_planes;
-	unsigned short	bi_count;
-	unsigned int	bi_compression;
-	unsigned int	bi_size_image;
-	int				bi_w;
-	int				bi_h;
-	unsigned int	bi_use_color;
-	unsigned int	bi_need_index;
-
-	unsigned char	rgb_red;
-	unsigned char	rgb_blue;
-	unsigned char	rgb_green;
-}				t_bmp;
-
-#pragma pack(pop)
 
 typedef struct	s_img
 {
@@ -105,11 +77,27 @@ typedef struct	s_storage
 	char				*data;
 }				t_storage;
 
+typedef struct	s_grid
+{
+	int			i;
+	int			j;
+	int			x;
+	int			y;
+	double		width_size;
+	double		height_size;
+	double		width;
+	double		height;
+	double		player_x;
+	double		player_y;
+}				t_grid;
+
 typedef struct	s_zip
 {
+	int			up_down;
 	int			w;
 	int			h;
 
+	int			key_m;
 	int			key_w;
 	int			key_s;
 	int			key_a;
@@ -226,6 +214,9 @@ void			get_bitmap_data(t_zip *zip);
 void			check_player_vec(t_zip *zip);
 void			get_sprite(t_zip *zip, int x);
 void			check_size(t_zip *zip);
+void			init_game(t_zip *zip);
+
+void			draw_map(t_zip *zip);
 
 //맵체크
 

@@ -6,7 +6,7 @@
 /*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 03:22:52 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/02/28 17:45:19 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void		check_size(t_zip *zip)
 {
 	zip->width = ft_atoi(zip->split[1]);
 	zip->height = ft_atoi(zip->split[2]);
-	// mlx_get_screen_size(zip->mlx, &zip->w, &zip->h);
-	// if (zip->w < ft_atoi(zip->split[1]))
-	// 	zip->width = zip->w;
-	// if (zip->h < ft_atoi(zip->split[2]))
-	// 	zip->height = zip->h;
+	if (zip->width >= 1794)
+		zip->width = 1794;
+	if (zip->height >= 1070)
+		zip->height = 1070;
 	if (zip->width <= 0 || zip->height <= 0)
 		cub3d_error("width / height size error!!");
 }
 
 void		zip_set(t_zip *zip)
 {
+	zip->up_down = 0;
 	zip->rot_speed = 0.03f;
 	zip->move_speed = 0.05f;
 	zip->count_sprite = 0;

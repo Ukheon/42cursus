@@ -6,7 +6,7 @@
 /*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:43:46 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 02:22:02 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/01 14:23:57 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ static void	map_splite_check(t_zip *zip, int idx)
 		{
 			if (zip->map[i][j] == '2')
 			{
-				zip->map[i][j] = '0';
-				zip->sprite[idx].x = i;
-				zip->sprite[idx++].y = j;
+				zip->sprite[idx].x = i + 0.5;
+				zip->sprite[idx++].y = j + 0.5;
 			}
 		}
 	}
@@ -121,5 +120,5 @@ void		map_check(t_zip *zip)
 		}
 	}
 	if (zip->player_check != 1)
-		cub3d_error("more than two player");
+		cub3d_error("error");
 }

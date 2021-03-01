@@ -16,7 +16,9 @@ OBJS =	./src/main.c \
 		./src/player_move.c \
 		./src/get_img.c \
 		./src/utils.c \
-		./src/ft_bitmap.c
+		./src/ft_bitmap.c \
+		./src/key_flag.c \
+		./src/grid.c
 
 all : $(TARGET)
 
