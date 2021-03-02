@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:18:49 by Ukwon             #+#    #+#             */
-/*   Updated: 2021/03/02 01:39:50 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:53:35 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				key_press(int key, t_zip *zip)
 	return (0);
 }
 
-int			key_exit(int key, t_zip *zip)
+int				key_exit(void)
 {
 	exit(0);
 	return (0);

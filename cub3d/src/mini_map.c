@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:32:19 by Ukwon             #+#    #+#             */
-/*   Updated: 2021/03/01 19:58:13 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:48:09 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		draw_map(t_zip *zip)
 {
 	t_img		grid_img;
 	t_grid		grid;
+	int			i;
 
 	map_set(zip, &grid_img, &grid);
 	grid.player_x = zip->player_x * grid.height_size;
@@ -55,4 +56,9 @@ void		draw_map(t_zip *zip)
 			grid_img.data[(int)((int)((grid.player_x) + grid.i) \
 			* grid.width + (grid.player_y + grid.j))] = 0x000000;
 	mlx_put_image_to_window(zip->mlx, zip->win, grid_img.img, 0, 0);
+	i = -1;
+	while (++i < 800)
+		mlx_pixel_put(zip->mlx, zip->win, (int)(grid.player_y + \
+			(zip->dir_y * i)), (int)(grid.player_x + (zip->dir_x * i)), \
+			0xff0000);
 }

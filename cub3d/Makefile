@@ -1,4 +1,4 @@
-CC = gcc
+CC = gcc -Wall -Werror -Wextra
 CFLAG = -L ./mlx -lmlx -framework OpenGL -framework AppKit
 TARGET = cub
 
@@ -19,18 +19,26 @@ OBJS =	./src/main.c \
 		./src/ft_bitmap.c \
 		./src/key_flag.c \
 		./src/mini_map.c
-		# ./src/get_screen_size.c
 
 all : $(TARGET)
 
+.c.o :
+	$(CC) $(CFLAG) -c -o $@ $<
+
 $(TARGET) :
 	make -C mlx
-	$(CC) $(CFLAG) $(OBJS) -o $@
+	make -C mlx2
+	cp ./mlx2/libmlx.dylib .
+	$(CC) $(CFLAG) $(OBJS) -o $@ libmlx.dylib
 
 clean :
 	rm -rf $(TARGET)
+	rm -rf mlx2/*.o mlx2/libmlx.dylib
 	rm -rf mlx/*.o mlx/libmlx.a
+	rm -rf ./libmlx.dylib
+	rm -rf ./screenshot.bmp
 
-re :
-	make clean
-	make all
+fclean : clean
+	rm -rf cub
+
+re : clean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bitmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:26 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/28 13:30:31 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:37:53 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void			get_bitmap_data(t_zip *zip)
 	int				pad;
 
 	if ((fd = open("screenshot.bmp", \
-	O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00777)) < 0)
+		O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00777)) < 0)
 		return ;
 	pad = (4 - (zip->width * 3) % 4) % 4;
 	filesize = 54 + (3 * zip->width + pad) * zip->height;

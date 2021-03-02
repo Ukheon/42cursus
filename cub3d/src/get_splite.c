@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splite.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:27:45 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/27 18:18:52 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 05:16:45 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void		set_sprite(t_zip *zip, int x)
 	zip->plane_x * zip->relative_y);
 	zip->sprite_screen = (int)((zip->width / 2) * (1 + zip->transform_x \
 	/ zip->transform_y));
+	// printf("%d\n",zip->sprite_screen);
 	zip->sprite_height = (int)fabs((zip->height / zip->transform_y));
 	zip->sprite_width = (int)fabs((zip->width / zip->transform_y));
 	zip->sprite_start_x = -zip->sprite_width / 2 + zip->sprite_screen;
@@ -67,6 +68,7 @@ static void		set_sprite(t_zip *zip, int x)
 	zip->sprite_end_x = zip->sprite_width / 2 + zip->sprite_screen;
 	if (zip->sprite_end_x > zip->width)
 		zip->sprite_end_x = zip->width;
+	printf("%f\n",1 + zip->transform_x / zip->transform_y);
 	zip->sprite_end_y = zip->sprite_height / 2 + zip->height / 2;
 	if (zip->sprite_end_y >= zip->height)
 		zip->sprite_end_y = zip->height;

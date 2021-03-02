@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:45:18 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/24 19:59:39 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:48:57 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		check_sep(char const c, char *sep)
 
 	i = 0;
 	check = 0;
-	while (i < ft_strlen(sep))
+	while (i < (int)(ft_strlen(sep)))
 	{
 		if (c == sep[i])
 			check++;

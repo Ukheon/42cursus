@@ -6,13 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:57:34 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/21 18:03:23 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:35:56 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char				*ft_strjoin(char const *s1, char const *s2)
 {
 	char		*res;
 	int			s1_len;
@@ -31,11 +31,11 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char			*ft_strdup(const char *s1)
+char				*ft_strdup(const char *s1)
 {
-	int		i;
-	char	*res;
-	char	*str;
+	int			i;
+	char		*res;
+	char		*str;
 
 	str = (char *)s1;
 	i = 0;
@@ -53,10 +53,10 @@ char			*ft_strdup(const char *s1)
 	return (res);
 }
 
-size_t			ft_strlcpy(char *dst, const char *src, size_t size)
+size_t				ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t			i;
-	size_t			len;
+	size_t		i;
+	size_t		len;
 
 	len = 0;
 	if (dst == 0 && src == 0)
@@ -80,10 +80,10 @@ size_t			ft_strlcpy(char *dst, const char *src, size_t size)
 	return (len);
 }
 
-size_t			ft_strlcat(char *dst, const char *src, size_t size)
+size_t				ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t j;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
 	j = 0;
@@ -101,7 +101,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size)
 	return (i + ft_strlen(src));
 }
 
-size_t			ft_strlen(const char *str)
+size_t				ft_strlen(const char *str)
 {
 	size_t		i;
 

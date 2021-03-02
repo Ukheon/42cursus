@@ -6,13 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:24:28 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/01 21:58:28 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:52:45 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void		side_move_and_exit(t_zip *zip, double temp, double planetemp)
+static void		side_move_and_exit(t_zip *zip)
 {
 	if (zip->key_a)
 	{
@@ -74,9 +74,6 @@ void			rot_move(t_zip *zip, double temp, double planetemp)
 
 int				player_move(t_zip *zip)
 {
-	double	temp;
-	double	planetemp;
-
 	if (zip->key_w)
 	{
 		if (zip->map[(int)(zip->player_x + zip->dir_x * zip->move_speed)]\
@@ -95,7 +92,7 @@ int				player_move(t_zip *zip)
 		* zip->move_speed)] == '0')
 			zip->player_y -= zip->dir_y * zip->move_speed;
 	}
-	rot_move(zip, temp, planetemp);
-	side_move_and_exit(zip, temp, planetemp);
+	rot_move(zip, 0.0, 0.0);
+	side_move_and_exit(zip);
 	return (0);
 }

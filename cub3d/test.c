@@ -2,10 +2,18 @@
 #include <stdlib.h>
 
 
-int		main(int argc, char *argv[])
+int		main(void)
 {
-	int pad;
+	float		arr[2][2] = {
+		{1, 2},
+		{2, 3}
+	};
 
-	pad = ((4 - (atoi(argv[1])) * 3) % 4) % 4;
-	printf("%d\n", pad);
+	float det;
+	float rot;
+
+	det = 1 / arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0];
+	rot = det * (arr[1][1] - arr[0][1]);
+	printf("%f\n",det);
+
 }

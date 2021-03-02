@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/02 01:41:21 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 04:36:05 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void		check_size(t_zip *zip)
 {
 	zip->width = ft_atoi(zip->split[1]);
 	zip->height = ft_atoi(zip->split[2]);
-	if (zip->width >= 2048)
-		zip->width = 2048;
-	if (zip->height >= 1152)
-		zip->height = 1152;
+	mlx_get_screen_size(zip->mlx, &zip->w, &zip->h);
+	if (zip->width >= zip->w)
+		zip->width = zip->w;
+	if (zip->height >= zip->h)
+		zip->height = zip->h;
 	if (zip->width <= 0 || zip->height <= 0)
 		cub3d_error("width / height size error!!");
 }
@@ -53,8 +54,8 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 	new = (t_storage *)malloc(sizeof(t_storage));
 	while (target->next)
 		target = target->next;
-	if (zip->width_size < ft_strlen(str))
-		zip->width_size = ft_strlen(str);
+	if (zip->width_size < (int)(ft_strlen(str)))
+		zip->width_size = (int)(ft_strlen(str));
 	new->next = target->next;
 	new->data = str;
 	target->next = new;

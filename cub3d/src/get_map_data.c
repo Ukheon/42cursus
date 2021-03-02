@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/01 21:39:03 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:49:57 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void				fill_map(t_zip *zip, t_storage *head)
 	i = -1;
 	while (++i < zip->height_size && (j = -1))
 	{
-		while (++j < ft_strlen(check1->data))
+		while (++j < (int)(ft_strlen(check1->data)))
 			if (check1->data[j] == '1' || check1->data[j] == '0' || \
 			check1->data[j] == 'N' || check1->data[j] == 'E' || \
 			check1->data[j] == 'W' || check1->data[j] == 'S' || \
@@ -109,7 +109,7 @@ static void				default_parsing(t_zip *zip, t_storage *head)
 		zip->s_texture = ft_strdup(zip->split[1]);
 }
 
-void					get_map(t_zip *zip, int i, int j, char *str)
+void					get_map(t_zip *zip, int i, char *str)
 {
 	t_storage *head;
 

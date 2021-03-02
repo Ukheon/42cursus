@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/02 01:41:29 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:50:47 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		main_loop(t_zip *zip)
 
 void	init_game(t_zip *zip, char *str)
 {
-	get_map(zip, 0, 0, str);
+	get_map(zip, 0, str);
 	zip_set(zip);
 	map_check(zip);
 	check_player_vec(zip);
@@ -54,7 +54,6 @@ void	init_game(t_zip *zip, char *str)
 	mlx_hook(zip->win, 2, 0, &key_press, zip);
 	mlx_hook(zip->win, 3, 0, &key_release, zip);
 	mlx_hook(zip->win, 17, 0, &key_exit, zip);
-
 	mlx_loop(zip->mlx);
 }
 
@@ -66,7 +65,7 @@ int		main(int argc, char *argv[])
 		init_game(&zip, argv[1]);
 	else if (argc == 3 && !(ft_strcmp(argv[2], "--save")))
 	{
-		get_map(&zip, 0, 0, argv[1]);
+		get_map(&zip, 0, argv[1]);
 		zip_set(&zip);
 		map_check(&zip);
 		check_player_vec(&zip);

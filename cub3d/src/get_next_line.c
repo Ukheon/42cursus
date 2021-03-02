@@ -6,11 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:12:38 by ukheon            #+#    #+#             */
-/*   Updated: 2021/02/21 18:02:14 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:38:25 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
+#include "../include/cub3d.h"
 
 static int		insert_line(char **board, char **line, int index)
 {

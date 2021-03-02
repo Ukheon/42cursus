@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:43:04 by ukwon             #+#    #+#             */
-/*   Updated: 2021/02/21 18:03:06 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/03 03:33:59 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int		ft_whitespace(char str)
 
 int				ft_atoi(const char *str)
 {
-	long long int		num;
-	int					i;
-	int					sign;
+	long long int			num;
+	int						i;
+	int						sign;
 
 	sign = 1;
 	i = 0;
