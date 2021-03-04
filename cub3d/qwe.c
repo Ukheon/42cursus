@@ -6,14 +6,16 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/04 19:38:44 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/04 18:08:22 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void				fill_map(t_zip *zip, t_storage *head, int i, int j)
+static void				fill_map(t_zip *zip, t_storage *head)
 {
+	int			i;
+	int			j;
 	t_storage	*check1;
 
 	check1 = head->next;
@@ -35,7 +37,6 @@ static void				fill_map(t_zip *zip, t_storage *head, int i, int j)
 	while (head)
 	{
 		check1 = head->next;
-		free(head->data);
 		free(head);
 		head = check1;
 	}
@@ -43,14 +44,13 @@ static void				fill_map(t_zip *zip, t_storage *head, int i, int j)
 
 static void				floor_parse(t_zip *zip)
 {
-	int			i;
-
 	zip->check++;
-	zip->color_save = ft_split(zip->line + 2, ",", zip);
+	zip->color_save = ft_split(zip->line + 2, ", ", zip);
+	zip->row = 0;
 	while (zip->color_save[zip->row])
 		zip->row++;
 	if (zip->row != 3)
-		cub3d_error("floor_error");
+		cub3d_error("rgb color error! ! !");
 	zip->count = -1;
 	zip->idx = 2;
 	zip->f_color = 0;
@@ -62,7 +62,7 @@ static void				floor_parse(t_zip *zip)
 		zip->f_color += zip->num % 16 * pow(16, zip->count++);
 		zip->f_color += zip->num / 16 * pow(16, zip->count);
 	}
-	i = 0;
+	int i = 0;
 	while (zip->color_save[i])
 		free(zip->color_save[i++]);
 	free(zip->color_save);
@@ -70,15 +70,13 @@ static void				floor_parse(t_zip *zip)
 
 static void				ceil_parse(t_zip *zip)
 {
-	int			i;
-
 	zip->check++;
-	zip->color_save = ft_split(zip->line + 2, ",", zip);
+	zip->color_save = ft_split(zip->line + 2, ", ", zip);
 	zip->row = 0;
 	while (zip->color_save[zip->row])
 		zip->row++;
 	if (zip->row != 3)
-		cub3d_error("ceil_error");
+		cub3d_error("rgb color error! ! !");
 	zip->count = -1;
 	zip->idx = 2;
 	zip->c_color = 0;
@@ -90,7 +88,7 @@ static void				ceil_parse(t_zip *zip)
 		zip->c_color += zip->num % 16 * pow(16, zip->count++);
 		zip->c_color += zip->num / 16 * pow(16, zip->count);
 	}
-	i = 0;
+	int i = 0;
 	while (zip->color_save[i])
 		free(zip->color_save[i++]);
 	free(zip->color_save);
@@ -99,7 +97,7 @@ static void				ceil_parse(t_zip *zip)
 static void				default_parsing(t_zip *zip, t_storage *head)
 {
 	if (zip->check == 8 && *zip->split && (zip->height_size += 1))
-		add_storage(head, ft_strdup(zip->line), zip);
+		add_storage(head, zip->line, zip);
 	else if (!(ft_strcmp(zip->split[0], "R")) && (zip->row == 3))
 	{
 		zip->check++;
@@ -122,8 +120,10 @@ static void				default_parsing(t_zip *zip, t_storage *head)
 		zip->s_texture = ft_strdup(zip->split[1]);
 }
 
-void					get_map(t_zip *zip, int i, char *str, t_storage *head)
+void					get_map(t_zip *zip, int i, char *str)
 {
+	t_storage *head;
+	
 	if ((zip->fd = open(str, O_RDONLY)) < 0)
 		cub3d_error("can not open. . .");
 	head = (t_storage *)malloc(sizeof(t_storage));
@@ -133,7 +133,11 @@ void					get_map(t_zip *zip, int i, char *str, t_storage *head)
 		zip->split = ft_split(zip->line, " ", zip);
 		if (parsing_error(zip))
 		{
-			split_free(zip);
+			int i = 0;
+			while (zip->split[i])
+				free(zip->split[i++]);
+			free(zip->split);
+			free(zip->line);
 			continue ;
 		}
 		default_parsing(zip, head);
@@ -141,12 +145,17 @@ void					get_map(t_zip *zip, int i, char *str, t_storage *head)
 			ceil_parse(zip);
 		else if (!(ft_strcmp(zip->split[0], "F")))
 			floor_parse(zip);
-		split_free(zip);
+		free(zip->line);
+		int i = 0;
+		while (zip->split[i])
+			free(zip->split[i++]);
+		free(zip->split);
 	}
 	free(zip->line);
 	zip->map = (char **)malloc(sizeof(char *) * (zip->height_size));
 	i = -1;
 	while (++i < zip->height_size)
 		zip->map[i] = (char *)malloc(sizeof(char) * (zip->width_size + 1));
-	fill_map(zip, head, -1, -1);
+	fill_map(zip, head);
+
 }

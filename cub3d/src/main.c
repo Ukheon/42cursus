@@ -6,11 +6,22 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/03 03:50:47 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/04 19:39:51 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	split_free(t_zip *zip)
+{
+	int		i;
+
+	i = 0;
+	while (zip->split[i])
+		free(zip->split[i++]);
+	free(zip->line);
+	free(zip->split);
+}
 
 void	draw(t_zip *zip, int x, int y)
 {
@@ -40,7 +51,7 @@ int		main_loop(t_zip *zip)
 
 void	init_game(t_zip *zip, char *str)
 {
-	get_map(zip, 0, str);
+	get_map(zip, 0, str, 0);
 	zip_set(zip);
 	map_check(zip);
 	check_player_vec(zip);
@@ -57,15 +68,43 @@ void	init_game(t_zip *zip, char *str)
 	mlx_loop(zip->mlx);
 }
 
+char *ft_strnstr(const char *big, const char *little, size_t len)
+{
+	size_t l_len;
+	size_t b_len;
+	size_t size;
+
+	b_len = ft_strlen((char *)big);
+	l_len = ft_strlen((char *)little);
+	if (b_len < l_len || len < l_len)
+		return (0);
+	size = b_len > len ? len : b_len;
+	while (size-- >= l_len)
+	{
+		if (ft_strcmp(big, little) == 0)
+			return ((char *)big);
+		big++;
+	}
+	return (0);
+}
+
 int		main(int argc, char *argv[])
 {
 	t_zip	zip;
-
+	if (argc >= 2 && argc <= 3)
+	{
+		char * c = ft_strnstr(argv[1], ".cub", ft_strlen(argv[1]));
+		if (c == 0 || ft_strlen(c) != 4)
+		{	
+			printf("cub file error\n");
+			return (0);
+		}
+	}
 	if (argc == 2)
 		init_game(&zip, argv[1]);
 	else if (argc == 3 && !(ft_strcmp(argv[2], "--save")))
 	{
-		get_map(&zip, 0, argv[1]);
+		get_map(&zip, 0, argv[1], 0);
 		zip_set(&zip);
 		map_check(&zip);
 		check_player_vec(&zip);

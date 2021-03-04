@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/03 03:53:42 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/04 19:14:33 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct	s_zip
 	int			w;
 	int			h;
 	char		*file_name;
-
+	
 	int			key_m;
 	int			key_w;
 	int			key_s;
@@ -186,7 +186,7 @@ typedef struct	s_zip
 
 //main
 void			add_storage(t_storage *target, char *str, t_zip *zip);
-void			get_map(t_zip *zip, int i, char *str);
+void			get_map(t_zip *zip, int i, char *str, t_storage *head);
 void			zip_set(t_zip *zip);
 void			draw(t_zip *zip, int x, int y);
 void			calc(t_zip *zip, int x, int y);
@@ -203,6 +203,7 @@ void			check_size(t_zip *zip);
 void			init_game(t_zip *zip, char *str);
 void			draw_map(t_zip *zip);
 int				key_exit(void);
+void			split_free(t_zip *zip);
 //mapcheck
 void			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);

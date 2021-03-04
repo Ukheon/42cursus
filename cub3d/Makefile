@@ -1,6 +1,6 @@
-CC = gcc -Wall -Werror -Wextra
+CC = gcc
 CFLAG = -L ./mlx -lmlx -framework OpenGL -framework AppKit
-TARGET = cub
+TARGET = cub3D
 
 OBJS =	./src/main.c \
 		./src/ft_atoi.c \
@@ -26,19 +26,19 @@ all : $(TARGET)
 	$(CC) $(CFLAG) -c -o $@ $<
 
 $(TARGET) :
-	make -C mlx
-	make -C mlx2
-	cp ./mlx2/libmlx.dylib .
+	# make -C mlx
+	# make -C mlx2
+	# cp ./mlx2/libmlx.dylib .
 	$(CC) $(CFLAG) $(OBJS) -o $@ libmlx.dylib
 
 clean :
 	rm -rf $(TARGET)
-	rm -rf mlx2/*.o mlx2/libmlx.dylib
-	rm -rf mlx/*.o mlx/libmlx.a
-	rm -rf ./libmlx.dylib
-	rm -rf ./screenshot.bmp
+	# rm -rf mlx2/*.o mlx2/libmlx.dylib
+	# rm -rf mlx/*.o mlx/libmlx.a
+	# rm -rf ./libmlx.dylib
+	# rm -rf ./screenshot.bmp
 
 fclean : clean
-	rm -rf cub
+	rm -rf cub3D
 
 re : clean all
