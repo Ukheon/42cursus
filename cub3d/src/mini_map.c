@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:32:19 by Ukwon             #+#    #+#             */
-/*   Updated: 2021/03/03 03:48:09 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:57:34 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		draw_map(t_zip *zip)
 			* grid.width + (grid.player_y + grid.j))] = 0x000000;
 	mlx_put_image_to_window(zip->mlx, zip->win, grid_img.img, 0, 0);
 	i = -1;
-	while (++i < 800)
+	while (++i < 20)
 		mlx_pixel_put(zip->mlx, zip->win, (int)(grid.player_y + \
 			(zip->dir_y * i)), (int)(grid.player_x + (zip->dir_x * i)), \
 			0xff0000);

@@ -1,4 +1,4 @@
-CC = gcc
+CC = gcc -Wall -Wextra -Werror
 CFLAG = -L ./mlx -lmlx -framework OpenGL -framework AppKit
 TARGET = cub3D
 
@@ -18,7 +18,8 @@ OBJS =	./src/main.c \
 		./src/utils.c \
 		./src/ft_bitmap.c \
 		./src/key_flag.c \
-		./src/mini_map.c
+		./src/mini_map.c \
+		./src/cub_error.c
 
 all : $(TARGET)
 
@@ -26,17 +27,17 @@ all : $(TARGET)
 	$(CC) $(CFLAG) -c -o $@ $<
 
 $(TARGET) :
-	# make -C mlx
-	# make -C mlx2
-	# cp ./mlx2/libmlx.dylib .
+	make -C mlx
+	make -C mlx2
+	cp ./mlx2/libmlx.dylib .
 	$(CC) $(CFLAG) $(OBJS) -o $@ libmlx.dylib
 
 clean :
 	rm -rf $(TARGET)
-	# rm -rf mlx2/*.o mlx2/libmlx.dylib
-	# rm -rf mlx/*.o mlx/libmlx.a
-	# rm -rf ./libmlx.dylib
-	# rm -rf ./screenshot.bmp
+	rm -rf mlx2/*.o mlx2/libmlx.dylib
+	rm -rf mlx/*.o mlx/libmlx.a
+	rm -rf ./libmlx.dylib
+	rm -rf ./screenshot.bmp
 
 fclean : clean
 	rm -rf cub3D

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/04 18:45:49 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:50:01 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@ void		cub3d_error(char *error)
 	exit(0);
 }
 
-void		zip_set(t_zip *zip)
+void		split_free(t_zip *zip)
 {
-	zip->rot_speed = 0.03f;
-	zip->move_speed = 0.05f;
-	zip->count_sprite = 0;
+	int			i;
+
+	i = 0;
+	while (zip->split[i])
+		free(zip->split[i++]);
+	free(zip->line);
+	free(zip->split);
 }
 
 void		check_size(t_zip *zip)
@@ -38,18 +42,9 @@ void		check_size(t_zip *zip)
 		cub3d_error("width / height size error!!");
 }
 
-int			parsing_error(t_zip *zip)
-{
-	if (*zip->split)
-		return (0);
-	if (!(*zip->split) && zip->check == 8 && zip->height_size > 0)
-		cub3d_error("empty line in map . . . . ? ? ? ? ? ! ! !");
-	return (1);
-}
-
 void		add_storage(t_storage *target, char *str, t_zip *zip)
 {
-	t_storage *new;
+	t_storage	*new;
 
 	new = (t_storage *)malloc(sizeof(t_storage));
 	while (target->next)

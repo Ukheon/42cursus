@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/04 19:14:33 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:52:22 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,14 @@ void			init_game(t_zip *zip, char *str);
 void			draw_map(t_zip *zip);
 int				key_exit(void);
 void			split_free(t_zip *zip);
+char 			*ft_strnstr(const char *big, const char *little, size_t len);
 //mapcheck
-void			map_row_test(int i, int j, t_zip *zip);
+void 			map_row_test(int i, int j, t_zip *zip);
 void			map_col_test(int i, int j, t_zip *zip);
 void			map_check(t_zip *zip);
 void			cub3d_error(char *error);
 int				parsing_error(t_zip *zip);
+void			cub_file_check(int argc, char *str);
 //gnl
 int				get_next_line(int fd, char **line);
 char			*ft_strjoin(char const *s1, char const *s2);
