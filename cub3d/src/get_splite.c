@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:27:45 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/04 18:17:52 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/05 13:28:14 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ static void		sort_sprite(t_zip *zip)
 	t_sprite	tmp;
 
 	i = -1;
-	while (++i < zip->count_sprite)
+	while (++i <= zip->count_sprite)
 	{
-		j = -1;
-		while (++j < zip->count_sprite - 1)
+		j = 0;
+		while (j < zip->count_sprite - 1)
 		{
 			if (zip->sprite[j].len < zip->sprite[j + 1].len)
 			{
@@ -94,6 +94,7 @@ static void		sort_sprite(t_zip *zip)
 				zip->sprite[j].y = zip->sprite[j + 1].y;
 				zip->sprite[j + 1].y = tmp.y;
 			}
+			j++;
 		}
 	}
 }
@@ -102,10 +103,10 @@ void			get_sprite(t_zip *zip, int x)
 {
 	while (++x < zip->count_sprite)
 	{
-		zip->sprite[x].len = ((zip->player_x - zip->sprite[x].x) *\
+		zip->sprite[x].len = sqrt(((zip->player_x - zip->sprite[x].x) *\
 		(zip->player_x - zip->sprite[x].x)) +
 		((zip->player_y - zip->sprite[x].y) * (zip->player_y -\
-		zip->sprite[x].y));
+		zip->sprite[x].y)));
 	}
 	sort_sprite(zip);
 	x = -1;
