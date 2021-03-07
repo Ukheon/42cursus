@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/07 22:37:09 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/08 00:27:51 by Ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+
+// void freeList(list_h* L) {
+//     list* c;
+//     while (L->head != NULL) {
+//         c = L->head;
+//         L->head = L->head->link;
+//         free(c);
+//         c = NULL;
+//     }
+// }
 
 static void				fill_map(t_zip *zip, t_storage *head, int i, int j)
 {
@@ -128,6 +139,7 @@ void					get_map(t_zip *zip, int i, char *str, t_storage *head)
 		cub3d_error("can not open. . .");
 	head = (t_storage *)malloc(sizeof(t_storage));
 	head->next = NULL;
+	head->data = NULL;
 	while ((zip->ret = get_next_line(zip->fd, &zip->line)) > 0)
 	{
 		zip->split = ft_split(zip->line, " ", zip);
