@@ -19,7 +19,8 @@ OBJS =	./src/main.c \
 		./src/ft_bitmap.c \
 		./src/key_flag.c \
 		./src/mini_map.c \
-		./src/cub_error.c
+		./src/cub_error.c \
+		./src/textures_error.c
 
 all : $(TARGET)
 
