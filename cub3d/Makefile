@@ -29,15 +29,15 @@ all : $(TARGET)
 
 $(TARGET) :
 	make -C mlx
-	make -C mlx2
-	cp ./mlx2/libmlx.dylib .
-	$(CC) $(CFLAG) $(OBJS) -o $@ libmlx.dylib
+	# make -C mlx2
+	# cp ./mlx2/libmlx.dylib .
+	$(CC) $(CFLAG) $(OBJS) -o $@
 
 clean :
 	rm -rf $(TARGET)
-	rm -rf mlx2/*.o mlx2/libmlx.dylib
-	rm -rf mlx/*.o mlx/libmlx.a
-	rm -rf ./libmlx.dylib
+	# rm -rf mlx2/*.o mlx2/libmlx.dylib
+	# rm -rf mlx/*.o mlx/libmlx.a
+	# rm -rf ./libmlx.dylib
 	rm -rf ./screenshot.bmp
 
 fclean : clean
