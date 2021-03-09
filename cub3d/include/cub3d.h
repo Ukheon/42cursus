@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 14:37:17 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 15:59:45 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,9 +222,10 @@ char			*ft_strdup(const char *s1);
 //libft
 int				ft_atoi(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
-char			**ft_split(char const *s, char *sep, t_zip *zip);
+char			**ft_split(char const *s, char c, t_zip *zip);
+char			**change_split(char const *s, char *sep, t_zip *zip);
 
-void no_texture(t_zip *zip);
+	void no_texture(t_zip *zip);
 void we_texture(t_zip *zip);
 void ea_texture(t_zip *zip);
 void s_texture(t_zip *zip);

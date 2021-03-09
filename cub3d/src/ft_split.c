@@ -6,31 +6,13 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:45:18 by ukheon            #+#    #+#             */
-/*   Updated: 2021/03/03 03:48:57 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:15:46 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int		check_sep(char const c, char *sep)
-{
-	int		i;
-	int		check;
-
-	i = 0;
-	check = 0;
-	while (i < (int)(ft_strlen(sep)))
-	{
-		if (c == sep[i])
-			check++;
-		i++;
-	}
-	if (check >= 1)
-		return (1);
-	return (0);
-}
-
-static int		col_size(char const *s1, char *sep)
+static int		col_size(char const *s1, char c)
 {
 	char	*str;
 	int		len;
@@ -41,7 +23,7 @@ static int		col_size(char const *s1, char *sep)
 	len = 0;
 	str = (char *)s1;
 	i = 0;
-	while (!(check_sep(str[i], sep)) && str[i] != '\0')
+	while (str[i] != c && str[i] != '\0')
 	{
 		len++;
 		i++;
@@ -49,7 +31,7 @@ static int		col_size(char const *s1, char *sep)
 	return (len);
 }
 
-static int		row_size(char const *s1, char *sep)
+static int		row_size(char const *s1, char c)
 {
 	int		check;
 	int		len;
@@ -61,15 +43,15 @@ static int		row_size(char const *s1, char *sep)
 	while (s1[last])
 		last++;
 	last--;
-	while (check_sep(s1[last], sep))
+	while (s1[last] == c)
 		last--;
 	len = 0;
 	check = 0;
-	while (check_sep(s1[last], sep))
+	while (*s1 == c)
 		s1++;
 	while (*s1 && last-- != 0)
 	{
-		if (check_sep(*s1, sep) && check++ == 0)
+		if (*s1 == c && check++ == 0)
 			len++;
 		else
 			check = 0;
@@ -78,31 +60,42 @@ static int		row_size(char const *s1, char *sep)
 	return (len + 1);
 }
 
-char			**ft_split(char const *s, char *sep, t_zip *zip)
+static void		check_split(char **res, t_zip *zip)
+{
+	int			i;
+
+	i = 0;
+	zip->row = 0;
+	while (res[i])
+		i++;
+	zip->row = i;
+}
+
+char			**ft_split(char const *s, char c, t_zip *zip)
 {
 	int			len;
 	char		**res;
 	int			row;
 
 	row = 0;
-	len = row_size(s, sep);
-	zip->row = len;
+	len = row_size(s, c);
 	if (!s || !(res = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (0);
 	while (*s)
 	{
-		while (check_sep(*s, sep))
+		while (*s == c)
 			s++;
 		if (*s == '\0')
 			break ;
-		len = col_size(s, sep);
+		len = col_size(s, c);
 		if (!(res[row] = (char *)malloc(sizeof(char) * len + 1)))
 			return (0);
 		ft_strlcpy(res[row], s, len + 1);
 		row++;
-		while (!(check_sep(*s, sep)) && *s != '\0')
+		while (*s != c && *s != '\0')
 			s++;
 	}
 	res[row] = NULL;
+	check_split(res, zip);
 	return (res);
 }

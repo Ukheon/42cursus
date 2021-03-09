@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 14:37:55 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:18:46 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void				floor_parse(t_zip *zip)
 	int			i;
 
 	zip->check++;
-	zip->color_save = ft_split(zip->line + 2, ",", zip);
+	zip->color_save = ft_split(zip->line + 2, ',', zip);
 	while (zip->color_save[zip->row])
 		zip->row++;
 	if (zip->row != 3)
@@ -73,7 +73,7 @@ static void				ceil_parse(t_zip *zip)
 	int			i;
 
 	zip->check++;
-	zip->color_save = ft_split(zip->line + 2, ",", zip);
+	zip->color_save = ft_split(zip->line + 2, ',', zip);
 	zip->row = 0;
 	while (zip->color_save[zip->row])
 		zip->row++;
@@ -118,7 +118,7 @@ static void				default_parsing(t_zip *zip, t_storage *head)
 		((zip->check += 1) && (zip->row == 2)))
 		ea_texture(zip);
 	else if (!(ft_strcmp(zip->split[0], "S")) && \
-		((zip->check += 1) && (zip->row == 2)))
+			((zip->row == 2) && (zip->check += 1)))
 		s_texture(zip);
 }
 
@@ -128,19 +128,18 @@ void					get_map(t_zip *zip, int i, char *str, t_storage *head)
 		cub3d_error("can not open. . .");
 	head = (t_storage *)malloc(sizeof(t_storage));
 	head->next = NULL;
-	head->data = NULL;
 	while ((zip->ret = get_next_line(zip->fd, &zip->line)) > 0)
 	{
-		zip->split = ft_split(zip->line, " ", zip);
+		zip->split = ft_split(zip->line, ' ', zip);
 		if (parsing_error(zip))
 		{
 			split_free(zip);
 			continue ;
 		}
 		default_parsing(zip, head);
-		if (!(ft_strcmp(zip->split[0], "C")))
+		if (!(ft_strcmp(zip->split[0], "C")) && zip->row == 2)
 			ceil_parse(zip);
-		else if (!(ft_strcmp(zip->split[0], "F")))
+		else if (!(ft_strcmp(zip->split[0], "F")) && zip->row == 2)
 			floor_parse(zip);
 		split_free(zip);
 	}

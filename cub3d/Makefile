@@ -24,9 +24,6 @@ OBJS =	./src/main.c \
 
 all : $(TARGET)
 
-.c.o :
-	$(CC) $(CFLAG) -c -o $@ $<
-
 $(TARGET) :
 	make -C mlx
 	make -C mlx2

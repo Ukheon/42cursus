@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/05 11:55:47 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:25:28 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ int		main(int argc, char *argv[])
 		get_bitmap_data(&zip);
 	}
 	else
-		cub3d_error("empty parameter");
+		cub3d_error("wrong parameter");
 	return (0);
 }

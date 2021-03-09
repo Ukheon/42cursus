@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Ukwon <Ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/08 00:29:34 by Ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:18:19 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		add_storage(t_storage *target, char *str, t_zip *zip)
 {
 	t_storage	*new;
 
+	target->data = NULL;
 	new = (t_storage *)malloc(sizeof(t_storage));
 	while (target->next)
 		target = target->next;
