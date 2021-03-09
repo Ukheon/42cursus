@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:47:44 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/03 03:37:12 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/09 14:44:41 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		check_n(t_zip *zip, int i, int j)
 	zip->dir_x = -1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
-	zip->plane_y = 0.66f;
+	zip->plane_y = 0.5f;
 	zip->map[i][j] = '0';
 }
 
@@ -29,7 +29,7 @@ static void		check_w(t_zip *zip, int i, int j)
 	zip->player_y = j + 0.5;
 	zip->dir_x = 0.0f;
 	zip->dir_y = -1.0f;
-	zip->plane_x = -0.66f;
+	zip->plane_x = -0.5f;
 	zip->plane_y = 0.0f;
 	zip->map[i][j] = '0';
 }
@@ -52,7 +52,7 @@ static void		check_s(t_zip *zip, int i, int j)
 	zip->dir_x = 1.0f;
 	zip->dir_y = 0.0f;
 	zip->plane_x = 0.0f;
-	zip->plane_y = -0.66f;
+	zip->plane_y = -0.5f;
 	zip->map[i][j] = '0';
 }
 
