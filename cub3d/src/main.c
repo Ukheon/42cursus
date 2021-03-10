@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 16:25:28 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/10 13:09:10 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ void	zip_set(t_zip *zip)
 	zip->rot_speed = 0.03f;
 	zip->move_speed = 0.05f;
 	zip->count_sprite = 0;
+	zip->c_check = 0;
+	zip->r_check = 0;
+	zip->f_check = 0;
+	zip->no_check = 0;
+	zip->so_check = 0;
+	zip->ea_check = 0;
+	zip->we_check = 0;
+	zip->s_check = 0;
 }
 
 void	draw(t_zip *zip, int x, int y)
@@ -47,8 +55,8 @@ int		main_loop(t_zip *zip)
 
 void	init_game(t_zip *zip, char *str)
 {
-	get_map(zip, 0, str, 0);
 	zip_set(zip);
+	get_map(zip, 0, str, 0);
 	map_check(zip);
 	check_player_vec(zip);
 	zip->mlx = mlx_init();
@@ -73,8 +81,8 @@ int		main(int argc, char *argv[])
 		init_game(&zip, argv[1]);
 	else if (argc == 3 && !(ft_strcmp(argv[2], "--save")))
 	{
-		get_map(&zip, 0, argv[1], 0);
 		zip_set(&zip);
+		get_map(&zip, 0, argv[1], 0);
 		map_check(&zip);
 		check_player_vec(&zip);
 		zip.mlx = mlx_init();

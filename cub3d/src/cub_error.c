@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:46:53 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/05 11:52:17 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/10 13:02:33 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,14 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 			return ((char *)big);
 		big++;
 	}
+	return (0);
+}
+
+int		all_flag_check(t_zip *zip)
+{
+	if (zip->no_check && zip->we_check && zip->ea_check \
+	&& zip->s_check && zip->so_check && zip->c_check && \
+	zip->f_check && zip->r_check)
+		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 03:33:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 15:59:45 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/10 13:02:59 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ typedef struct	s_grid
 
 typedef struct	s_zip
 {
+	int			r_check;
+	int			no_check;
+	int			so_check;
+	int			we_check;
+	int			ea_check;
+	int			s_check;
+	int			c_check;
+	int			f_check;
+	
 	int			w;
 	int			h;
 	char		*file_name;
@@ -225,9 +234,10 @@ int				ft_strcmp(const char *s1, const char *s2);
 char			**ft_split(char const *s, char c, t_zip *zip);
 char			**change_split(char const *s, char *sep, t_zip *zip);
 
-	void no_texture(t_zip *zip);
-void we_texture(t_zip *zip);
-void ea_texture(t_zip *zip);
-void s_texture(t_zip *zip);
-void so_texture(t_zip *zip);
+int				all_flag_check(t_zip *zip);
+void			no_texture(t_zip *zip);
+void			we_texture(t_zip *zip);
+void			ea_texture(t_zip *zip);
+void			s_texture(t_zip *zip);
+void			so_texture(t_zip *zip);
 #endif

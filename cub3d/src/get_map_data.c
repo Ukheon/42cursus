@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:44:15 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 16:18:46 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/10 13:10:08 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void				floor_parse(t_zip *zip)
 	while (zip->color_save[i])
 		free(zip->color_save[i++]);
 	free(zip->color_save);
+	zip->f_check = 1;
 }
 
 static void				ceil_parse(t_zip *zip)
@@ -94,31 +95,30 @@ static void				ceil_parse(t_zip *zip)
 	while (zip->color_save[i])
 		free(zip->color_save[i++]);
 	free(zip->color_save);
+	zip->c_check = 1;
 }
 
 static void				default_parsing(t_zip *zip, t_storage *head)
 {
-	if (zip->check == 8 && *zip->split && (zip->height_size += 1))
+	if (all_flag_check(zip) && *zip->split && (zip->height_size += 1))
 		add_storage(head, ft_strdup(zip->line), zip);
-	else if (!(ft_strcmp(zip->split[0], "R")) && (zip->row == 3))
-	{
-		zip->check++;
+	else if (!(ft_strcmp(zip->split[0], "R")) && (zip->row == 3) && \
+	(zip->r_check == 0) && (zip->r_check += 1))
 		check_size(zip);
-	}
 	else if (!(ft_strcmp(zip->split[0], "NO")) && \
-		((zip->check += 1) && (zip->row == 2)))
+		((zip->no_check == 0) && (zip->row == 2)))
 		no_texture(zip);
 	else if (!(ft_strcmp(zip->split[0], "SO")) && \
-		((zip->check += 1) && (zip->row == 2)))
+		((zip->so_check == 0) && (zip->row == 2)))
 		so_texture(zip);
 	else if (!(ft_strcmp(zip->split[0], "WE")) && \
-		((zip->check += 1) && (zip->row == 2)))
+		((zip->we_check == 0) && (zip->row == 2)))
 		we_texture(zip);
 	else if (!(ft_strcmp(zip->split[0], "EA")) && \
-		((zip->check += 1) && (zip->row == 2)))
+		((zip->ea_check == 0) && (zip->row == 2)))
 		ea_texture(zip);
 	else if (!(ft_strcmp(zip->split[0], "S")) && \
-			((zip->row == 2) && (zip->check += 1)))
+			((zip->row == 2) && (zip->s_check == 0)))
 		s_texture(zip);
 }
 

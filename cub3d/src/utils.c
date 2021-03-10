@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:28:56 by ukwon             #+#    #+#             */
-/*   Updated: 2021/03/09 16:18:19 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/03/10 13:07:42 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void		check_size(t_zip *zip)
 		zip->height = zip->h;
 	if (zip->width <= 0 || zip->height <= 0)
 		cub3d_error("width / height size error!!");
+	zip->r_check = 1;
 }
 
 void		add_storage(t_storage *target, char *str, t_zip *zip)
