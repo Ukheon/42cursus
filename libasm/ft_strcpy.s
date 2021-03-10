@@ -1,21 +1,17 @@
-section .text
-	global	_ft_strcpy
+section		.text
+	global _ft_strcpy
 
-_ft_strcpy:
-    push	rbp
-    mov		rbp, rsp
-	push	rdi
+_ft_strcpy: ;dest rdi, src rsi
+	mov		rcx, 0
+	jmp		loop
 
-.copy:
-    cmp		byte [rsi], 0x0
-    je		.quit
-    mov		al, byte [rsi]
-    mov		byte [rdi], al
-    inc		rdi
-    inc		rsi
-	jmp		.copy
-
-.quit:
-	pop	rax
-    leave
-    retv
+loop:
+    cmp	BYTE [rsi + rcx], 0
+    je end
+    mov dl, BYTE[rsi + rcx]
+    mov BYTE[rdi + rcx], dl
+	inc	rcx
+	jmp	loop
+end:
+    mov rax, rdi
+	ret
