@@ -108,7 +108,7 @@ void		map_check(t_zip *zip)
 		j = -1;
 		while (++j < zip->width_size)
 		{
-			if (zip->map[i][j] == '0')
+			if (zip->map[i][j] == '0' || zip->map[i][j] == '2')
 			{
 				zip->check = 0;
 				map_col_test(i, j, zip);

@@ -1,4 +1,5 @@
 R 800 800
+
 NO ./textures/color1.xpm
 SO ./textures/color2.xpm
 WE ./textures/color3.xpm

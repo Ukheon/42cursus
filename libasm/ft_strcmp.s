@@ -1,12 +1,3 @@
-ft_strcmp
-s1 s2
-
-while (i)
-    s1[i] != s2[i]
-        return (s1[i] - s2[i])
-return (s1[i] - s2[i]);
-
-
 section		.text
 	global _ft_strcmp
 
@@ -26,9 +17,8 @@ loop:
     jmp loop
 calc:
     mov dl, BYTE [rdi + rcx]
-    sub dl, BYTE[rsi + rcx]
-    mov rax, dl
+    sub dl, BYTE [rsi + rcx]
+    movsx rax, dl
     jmp end
-
 end:
     ret
