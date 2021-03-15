@@ -15,6 +15,7 @@ char		*ft_strdup(const char *str);
 
 int			main(void)
 {
+
 	int		ret;
 	int		fd;
 	int		i;
@@ -26,24 +27,24 @@ int			main(void)
 	char	*cmpB = "abcdeg";
 
 	ret = ft_strlen(str);
-	printf("첫번째 파일 ft_strlen입니다. ---------\n\n");
+	printf("\n첫번째 파일 ft_strlen입니다. ---------\n");
 	printf("ft_strlen : %d\n", ret);
 	ret = strlen(str);
 	printf("strlen : %d\n", ret);
-	printf("두번째 파일 ft_strcpy입니다. ---------\n\n");
+	printf("\n두번째 파일 ft_strcpy입니다. ---------\n");
 	ft_strcpy(dest, str);
 	printf("ft_strcpy : %s\n", dest);
 	strcpy(dest, str);
 	printf("strcpy : %s\n", dest);
-	printf("세번째 파일 ft_strcmp입니다. ---------\n\n");
+	printf("\n세번째 파일 ft_strcmp입니다. ---------\n");
 	ret = ft_strcmp(cmpA, cmpB);
 	printf("ft_strcmp : %d\n", ret);
 	ret = strcmp(cmpA, cmpB);
 	printf("strcmp : %d\n", ret);
-	printf("네번째 파일 ft_write입니다. ---------\n\n");
+	printf("\n네번째 파일 ft_write입니다. ---------\n");
 	ft_write(1, "ft_write = hi\n", 14);
-	wirte(1, "write = hi\n", 11);
-	printf("다섯번째파일 ft_read입니다. ---------\n\n");
+	write(1, "write = hi\n", 11);
+	printf("\n다섯번째파일 ft_read입니다. ---------\n");
 	i = 0;
 	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	while (i < BUFFER_SIZE)
@@ -61,9 +62,13 @@ int			main(void)
 	printf("read : %s ret = %d\n",buf, ret);
 	free(buf);
 
-	// printf("마지막파일 ft_strdup입니다. ---------\n\n");
-	// buf = ft_strdup("12345");
-	// printf("%s\n",buf);
-	// printf("%d\n",ret);
-	// return (0);
+	printf("\n마지막파일 ft_strdup입니다. ---------\n");
+	buf = ft_strdup("12345");
+	printf("%s\n",buf);
+	free(buf);
+	buf = strdup("12345");
+	printf("%s\n",buf);
+	free(buf);
+	printf("끝 !\n");
+	return (0);
 }

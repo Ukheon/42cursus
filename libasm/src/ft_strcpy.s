@@ -1,7 +1,7 @@
 section		.text
 	global _ft_strcpy
 
-_ft_strcpy: ;dest rdi, src rsi
+_ft_strcpy: ;char		*ft_strcpy(char *dest, char *src)
 	mov		rcx, 0
 	jmp		loop
 
@@ -13,5 +13,6 @@ loop:
 	inc	rcx
 	jmp	loop
 end:
+	mov BYTE [rdi + rcx], 0
     mov rax, rdi
 	ret

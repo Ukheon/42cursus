@@ -1,7 +1,8 @@
 section		.text
 	global _ft_strcmp
 
-_ft_strcmp:
+
+_ft_strcmp: ;int			ft_strcmp(char *src1, char *src2)
 	mov		rcx, 0
 	jmp		loop
 

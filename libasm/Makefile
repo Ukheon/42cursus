@@ -1,30 +1,27 @@
-CC = gcc
-FLAG = nasm -f macho64
-NAME = libasma.asm
-CFILE = ./src/main.c
+NAME = libasm.a
 
-OFILE = ./src/*.o
-
-SFILE = ./src/ft_strlen.s \
+SRCS =	./src/ft_strlen.s \
 		./src/ft_strcpy.s \
 		./src/ft_strcmp.s \
 		./src/ft_write.s \
+		./src/ft_strdup.s \
 		./src/ft_read.s
-		# ./src/ft_strdup.s
+
+OBJS = $(SRCS:.s=.o)
+
+%.o : %.s
+	nasm -f macho64 $<
+
+
+$(NAME): $(OBJS)
+	ar r $(NAME) $(OBJS)
 
 all: $(NAME)
 
-$(NAME) :
-	ar r $(FLAG) $(SFILE)
-	ranlib $(CC) $(CFILE) $(OFILE)
-
 clean:
-	rm -rf ./src/*.o
+	rm -rf $(NAME)
 
-fclean:
-	clean
-	rm -rf LIBASM
+fclean: clean
+	rm -rf $(NAME)
 
-re:
-	clean
-	all
+re: fclean all

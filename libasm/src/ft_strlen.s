@@ -1,7 +1,8 @@
 section		.text
 	global _ft_strlen
 
-_ft_strlen:
+
+_ft_strlen: ;int			ft_strlen(char *str)
 	mov		rax, 0
 	jmp		check
 

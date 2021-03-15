@@ -1,8 +1,9 @@
 section		.text
 	global _ft_read
     extern ___error
-    
-_ft_read: ;dest rdi, src rsi
+
+
+_ft_read: ;int			ft_read(int fd, char *str, int len)
 	jmp		loop
 
 loop:
