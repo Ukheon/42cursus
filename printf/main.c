@@ -13,8 +13,6 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-// d_main
-
 int			main(void)
 {
 	int i;
