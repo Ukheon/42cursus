@@ -32,7 +32,7 @@ $(TARGET) : $(OBJS)
 
 clean :
 	rm -rf $(TARGET)
-	 rm -rf mlx2/*.o mlx2/libmlx.dylib
+	rm -rf mlx2/*.o mlx2/libmlx.dylib
 	rm -rf mlx/*.o mlx/libmlx.a
 	rm -rf ./libmlx.dylib
 	rm -rf ./screenshot.bmp
