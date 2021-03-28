@@ -29,8 +29,27 @@ void		split_free(t_zip *zip)
 	free(zip->split);
 }
 
+static void	num_check(char *str)
+{
+	int			len;
+	int			i;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (str[i])
+	{
+		if (!(i >= 0 && i <= 9))
+			break ;
+		i++;
+	}
+	if (len != i)
+		cub3d_error("please put num");
+}
+
 void		check_size(t_zip *zip)
 {
+	num_check(zip->split[1]);
+	num_check(zip->split[2]);
 	zip->width = ft_atoi(zip->split[1]);
 	zip->height = ft_atoi(zip->split[2]);
 	mlx_get_screen_size(zip->mlx, &zip->w, &zip->h);

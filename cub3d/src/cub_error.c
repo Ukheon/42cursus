@@ -16,7 +16,7 @@ int		parsing_error(t_zip *zip)
 {
 	if (*zip->split)
 		return (0);
-	if (!(*zip->split) && zip->check == 8 && zip->height_size > 0)
+	if (!(*zip->split) && all_flag_check(zip) == 1 && zip->height_size > 0)
 		cub3d_error("empty line in map . . . . ? ? ? ? ? ! ! !");
 	return (1);
 }
