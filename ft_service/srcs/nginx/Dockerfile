@@ -1,14 +1,14 @@
-FROM alpine:3.12.0
+FROM alpine:latest
 
 RUN apk update \
 	&& apk --update --no-cache add \
 	nginx \
 	openssl
 
-COPY ./set.sh /usr/sbin/set.sh
-RUN chmod 777 /usr/sbin/set.sh
-COPY ./default.conf /etc/nginx/conf.d/
+COPY ./run.sh ./
+RUN chmod 777 ./run.sh
+COPY ./default /etc/nginx/conf.d/
 
 EXPOSE 80 443
 
-ENTRYPOINT ["/usr/sbin/set.sh"]
+ENTRYPOINT bash

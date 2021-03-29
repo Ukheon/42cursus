@@ -8,4 +8,6 @@ mv localhost-nginx.crt /etc/nginx/ssl
 mkdir -p /run/nginx
 echo "<h1>Thank you for your ft_services evaluation! -hyeonski- </h1>" >> /var/www/index.html
 
-/usr/sbin/nginx -g "daemon off;"
+#/usr/sbin/nginx -g "daemon off;"
+
+

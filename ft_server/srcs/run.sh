@@ -1,7 +1,4 @@
-#/!bin/bash
-
-#chown -R www-data:www-data /var/www/html
-
+#/bin/bash
 openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Lee/CN=localhost" -keyout localhost.dev.key -out localhost.dev.crt
 mv localhost.dev.crt etc/ssl/certs/
 mv localhost.dev.key etc/ssl/private/
