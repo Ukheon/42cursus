@@ -1,9 +1,12 @@
-CC = gcc
-TARGET = a.out
+CC = gcc -lncurses
+TARGET = minishell
 
-OBJS =	get_next_line.c \
-		get_next_line_utils.c \
-		main.c
+OBJS =	./gnl/get_next_line.c \
+		./gnl/get_next_line_utils.c \
+		./srcs/uk_minishell.c \
+		./srcs/uk_init_path.c \
+		./srcs/uk_parsing.c
+		# ./srcs/main.c 
 		
 
 all : $(TARGET)
@@ -16,6 +19,7 @@ $(TARGET) : $(OBJS)
 clean :
 	rm -rf $(TARGET)
 	rm -rf libft.a
+	rm -rf ./libft/libft.a
 
 fclean : clean
 	rm -rf $(TARGET)

@@ -16,6 +16,13 @@ void			ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (!lst || !new)
 		return ;
+	if (!*lst)
+	{
+		(*lst) = new;
+		return ;
+	}
+	new->prev = NULL;
+	(*lst)->prev = new;
 	new->next = *lst;
 	*lst = new;
 }

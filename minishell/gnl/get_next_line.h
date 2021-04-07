@@ -19,7 +19,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE		100
+#  define BUFFER_SIZE		1
 # endif
 # define _ERROR				-1
 # define _ENDFILE			0
