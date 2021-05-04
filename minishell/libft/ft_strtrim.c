@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 16:46:31 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/25 16:37:28 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/04/26 11:21:23 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 		return (0);
 	start = getstart(s1, set);
 	end = getend(s1, set);
-	if (start >= end)
+	if (start > end)
 		return (ft_strdup(""));
 	if (!(res = (char *)malloc(sizeof(char) * end - start + 2)))
 		return (0);

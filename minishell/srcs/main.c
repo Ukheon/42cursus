@@ -1,247 +1,134 @@
-#include "../include/hyeolee_minishell.h"
-#include <string.h>
-char		*find_path(t_list **head)
-{
-	t_list *temp;
-	char	*buf;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/24 17:50:22 by ukwon             #+#    #+#             */
+/*   Updated: 2021/05/02 18:05:56 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	temp = *head;
-	while (temp)
+#include "../include/minishell.h"
+
+int				loop_read_check(t_list **history, t_list **temp, \
+t_list **head, char *new_line)
+{
+	new_line = NULL;
+	if (g_info.history_flag)
 	{
-	
-		if (ft_strncmp(temp->key, "PATH", 4) == 0)
+		*temp = (*history)->next;
+		free((*history)->history);
+		free(*history);
+		(*history) = *temp;
+	}
+	if (g_info.c == 4)
+		exit(0);
+	if (!*g_info.buf)
+	{
+		ft_putstr_fd("$> ", 1);
+		return (0);
+	}
+	ft_lstadd_front(history, new_history(g_info.buf));
+	new_line = ft_strdup(g_info.buf);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_info.default_term);
+	ft_memset(g_info.buf, 0, 4096);
+	g_info.status = parse_minishell(new_line, head);
+	free(new_line);
+	ft_putstr_fd("$> ", 1);
+	return (0);
+}
+
+int				check_char(long long int num, t_list **history)
+{
+	get_cursor_position(&g_info.col, &g_info.row, 1, 0);
+	g_info.check2 = 0;
+	if (num == 4 || num == LEFT_ARROW || num == RIGHT_ARROW || num == 9)
+	{
+		if (num == 4)
+			if (!g_info.buf[0])
+				exit(0);
+		g_info.c = 0;
+		return (1);
+	}
+	if (num == BACKSPACE)
+	{
+		delete_end();
+		return (1);
+	}
+	else if (g_info.c == UP_ARROW || g_info.c == DOWN_ARROW)
+	{
+		if (g_info.c == UP_ARROW)
+			g_info.his_idx++;
+		else
+			g_info.his_idx--;
+		call_history(history);
+		return (1);
+	}
+	return (0);
+}
+
+int				push_num(char *str)
+{
+	int			len;
+	int			res;
+
+	len = (int)ft_strlen(str) - 1;
+	res = 0;
+	while (len >= 0)
+	{
+		res = res * 256 + str[len];
+		len--;
+	}
+	return (res);
+}
+
+void			minishell_start(t_list **head, t_list **history, t_list **temp)
+{
+	char		*new_line;
+
+	new_line = NULL;
+	while (read(0, &g_info.c, sizeof(g_info.c)) > 0)
+	{
+		*temp = *history;
+		if (check_char(g_info.c, history))
+			continue ;
+		else
 		{
-			return (temp->value);
+			g_info.write_flag = 1;
+			write(0, &g_info.c, 1);
 		}
-		temp = temp->next;
+		if (g_info.c == 10)
+			break ;
+		g_info.buf[g_info.idx] = g_info.c;
+		g_info.idx++;
+		g_info.c = 0;
 	}
-	return (NULL);
+	loop_read_check(history, temp, head, new_line);
 }
 
-void	unset_list(t_list **head, char *str)
+int				main(int argc, char *argv[], char *envp[])
 {
-	t_list *temp;
-	t_list *temp2;
-	t_list *prev;
+	t_list		*head;
+	t_list		*history;
+	t_list		*temp;
 
-	temp = *head;
-	while (temp)
+	wellcome_massage();
+	argc = 0;
+	argv = (void *)0;
+	init_term();
+	head = NULL;
+	history = NULL;
+	init_list(&head, envp);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
+	ft_putstr_fd("$> ", 1);
+	while (1)
 	{
-		if ((ft_strncmp(temp->key, str, ft_strlen(temp->key)) == 0))
-		{
-			temp2 = temp->next;
-			prev->next = temp2;
-			ft_lstdelone(temp, free);
-		}
-		prev = temp;
-		temp = temp->next;
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_info.term);
+		init_info(0);
+		minishell_start(&head, &history, &temp);
 	}
+	return (0);
 }
-
-void	check_list(t_list *head)
-{
-	t_list *temp;
-
-	while (head)
-	{
-		if (head->key)
-		{
-			printf("%s%c%s\n",head->key, '=', head->value);
-		}
-		head = (head)->next;
-	}
-}
-
-void	init_list(t_list **head, char *envp[])
-{
-	int			i;
-
-	i = 0;
-	while (envp[i])
-	{
-		ft_lstadd_back(head, ft_lstnew(envp[i]));
-		i++;
-	}
-}
-
-void	export_list(t_list **head, char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[0] != '=' && str[i] == '=')
-		{
-			ft_lstadd_back(head, ft_lstnew(str));
-			printf("here?\n");
-			return ;
-		}
-		i++;
-	}
-}
-
-// int main(int argc, char *argv[], char *envp[])
-// {
-// 	t_list *head;
-// 	int len;
-// 	char *str;
-// 	str = "key=value";
-	
-// 	head = NULL;
-// 	init_list(&head, envp);
-
-// 	check_list(head);
-	
-// 	export_list(&head, str);
-
-// 	unset_list(&head, "hi1");
-
-// 	check_list(head);
-// // 
-// 	int fd;
-// 	char *line;
-// 	int id;
-// 	int stay;
-// 	int i = 0;
-// 	fd = 0;
-// 	int ret;
-// 	(void)argv;
-
-// 	write(1, "$>", 2);
-// 	while ((ret = get_next_line(fd, &line)) > 0)
-// 	{
-// 		if (strncmp(line, "ls", 2) == 0)
-// 		{
-// 			id = fork();
-// 			if (id != 0)
-// 			{
-// 				wait(&id);
-// 			}
-// 			else if (id == 0)
-// 			{
-// 				char *path_str;
-// 				char **split;
-// 				char *arge[] = {"ls", NULL};
-// 				int idx;
-// 				char *joinstr;
-// 				idx = 0;
-// 				path_str = find_path(&head);
-// 				split = ft_split(path_str, ':');
-// 				chdir("srcs");
-// 				while (split[idx])
-// 				{
-// 					// printf("%s\n",split[idx]);
-					
-// 					joinstr = ft_strjoin(split[idx], "/a.out");
-// 					printf("%s\n", joinstr);
-// 					execve(joinstr ,arge, NULL);
-// 					idx++;
-// 				}
-// 				execve("a.out", NULL, NULL);
-// 				printf("$> command not found: %s\n", "asdqwd");
-// 				exit(0);
-// 			}
-// 		}
-
-// 		if (strncmp(line, "cat ", 4) == 0)
-// 		{
-// 			char *str;
-// 			int a;
-// 			char *l;
-// 			str = strchr(line, ' ');
-// 			a = open(str + 1, O_RDONLY);
-// 			while (get_next_line(a, &l) > 0)
-// 			{
-// 				printf("%s\n", l);
-// 			}
-// 			printf("%s\n", l);
-// 		}
-// 		write(1, "$>", 2);
-// 	}
-// 	return (0);
-// }
-
-
-
-
-// #include <stdio.h>
-// #include <string.h>
-// #include <errno.h>
-// #include <dirent.h>
-// #include <unistd.h>
- 
-// # define DIRTYPE_TO_STRING(X)                        \
-//                 ((X) == DT_DIR ? "directory" :        \
-//                  (X) == DT_REG ? "regular file" :    \
-//                                   "unknown file")
- 
-// int main(void)
-// {
-//     char path[256];
-//     memset(path, 0, 256);
-//     if (getcwd(path, 256) == NULL)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-//     printf("Before chdir, current path : %s\n", path);
- 
-//     if (chdir("..") == -1)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-//     if (getcwd(path, 256) == NULL)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-//     printf("after chdir, current path : %s\n", path);
-// 	if (chdir("..") == -1)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-// 	if (getcwd(path, 256) == NULL)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-// 	printf("after chdir, current path : %s\n", path);
-// 	if (chdir("/bin") == -1)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-// 	if (getcwd(path, 256) == NULL)
-//     {
-//         printf("%s", strerror(errno));
-//         return (-1);
-//     }
-// 	printf("after chdir, current path : %s\n", path);
- 
-//     DIR *p_dir;
-//     if ((p_dir = opendir(path)) == NULL)
-//     {
-//         printf("fail opendir()\n");
-//         return (-1);
-//     }
- 
-//     struct dirent *dir_ent;
-//     while ((dir_ent = readdir(p_dir)) != NULL)
-//     {
-//         printf("*****************************************\n");
-//         printf("d_name : %s\n", dir_ent->d_name);
-//         printf("d_type : %s\n", DIRTYPE_TO_STRING(dir_ent->d_type));
-//         printf("*****************************************\n");
-//     }
- 
-//     if (closedir(p_dir) == -1)
-//     {
-//         printf("fail closedir()\n");
-//         return (-1);
-//     }
- 
-//     return (0);
-// }

@@ -1,9 +1,0 @@
-Makefile
-a
-b
-echo
-include
-libdir
-main.c
-minishell
-srcs

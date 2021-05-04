@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ukheon <ukheon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 03:40:50 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/14 03:14:10 by ukheon           ###   ########.fr       */
+/*   Updated: 2021/04/26 15:42:56 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ char			**ft_split(char const *s, char c);
 typedef struct	s_list
 {
 	void			*content;
+	int				flag;
 	struct s_list	*next;
-	struct s_list	*prev;
 	char			*key;
 	char			*value;
 	char			*history;
+	char			*filename;
+	char			*redir;
 }				t_list;
 
 t_list			*ft_lstnew(char *str);

@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 20:14:09 by ukwon             #+#    #+#             */
-/*   Updated: 2020/10/10 20:34:17 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/04/27 15:57:59 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int				ft_isalnum(int c)
 	else if (c >= 'a' && c <= 'z')
 		return (1);
 	else if (c >= 'A' && c <= 'Z')
+		return (1);
+	else if (c == '_')
 		return (1);
 	return (0);
 }

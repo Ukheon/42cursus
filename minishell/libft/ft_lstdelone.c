@@ -16,9 +16,17 @@ void				ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	if (!lst)
 		return ;
-	(*del)(lst->key);
+	if (lst->key)
+		(*del)(lst->key);
 	lst->key = NULL;
-	(*del)(lst->value);
+	if (lst->value)
+		(*del)(lst->value);
 	lst->value = NULL;
+	if (lst->redir)
+		(*del)(lst->redir);
+	lst->redir = NULL;
+	if (lst->filename)
+		(*del)(lst->filename);
+	lst->filename = NULL;
 	free(lst);
 }
