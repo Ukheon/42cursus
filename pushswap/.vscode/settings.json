@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"stdlib.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"stdio.h": "c",
+		"push_swap.h": "c",
+		"algorithm": "c",
+		"checker.h": "c"
 	}
 }
