@@ -20,7 +20,7 @@ typedef struct	s_info
 	int			argc;
 	int			max_argument;
 	int			not_found;
-	int			remain_arr[500];
+	int			remain_arr_count[100];
 	int			remain_idx;
 	int			last_remain_count;
 	int			pivot;

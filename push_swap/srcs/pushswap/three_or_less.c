@@ -4,7 +4,7 @@ void			case_a_three(t_info *info)
 {
 	if (info->check_arr[0] < info->check_arr[1] && info->check_arr[1] < info->check_arr[2])
 	{
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 3, "ra\n");
 	}
 	else if (info->check_arr[0] < info->check_arr[1] && info->check_arr[1] > \
@@ -12,14 +12,14 @@ void			case_a_three(t_info *info)
 	{
 		run_cmd(info, "ra\n");
 		run_cmd(info, "sa\n");
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 2, "ra\n");
 	}
 	else if (info->check_arr[0] > info->check_arr[1] && info->check_arr[1] < \
 	info->check_arr[2] && info->check_arr[2] > info->check_arr[0])
 	{
 		run_cmd(info, "sa\n");
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 3, "ra\n");
 	}
 	else if (info->check_arr[0] < info->check_arr[1] && info->check_arr[1] > \
@@ -29,7 +29,7 @@ void			case_a_three(t_info *info)
 		run_cmd(info, "sa\n");
 		run_cmd(info, "rra\n");
 		run_cmd(info, "sa\n");
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 3, "ra\n");
 	}
 	else if (info->check_arr[0] > info->check_arr[1] && info->check_arr[1] < \
@@ -38,7 +38,7 @@ void			case_a_three(t_info *info)
 		run_cmd(info, "sa\n");
 		run_cmd(info, "ra\n");
 		run_cmd(info, "sa\n");
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 2, "ra\n");
 	}
 	else
@@ -48,7 +48,7 @@ void			case_a_three(t_info *info)
 		run_cmd(info, "sa\n");
 		run_cmd(info, "rra\n");
 		run_cmd(info, "sa\n");
-		if (info->remain_idx != 0)
+		if (!(check_finish(info, info->stack_a, info->a_size) && info->b_size == 0))
 			repeat_cmd(info, 3, "ra\n");
 	}
 }
@@ -82,9 +82,7 @@ void			case_b_three(t_info *info)
 	else if (info->check_arr[0] < info->check_arr[1] && info->check_arr[1] > \
 	info->check_arr[2] && info->check_arr[2] < info->check_arr[0])
 	{
-		run_cmd(info, "rb\n");
 		run_cmd(info, "sb\n");
-		run_cmd(info, "rrb\n");
 	}
 	else if (info->check_arr[0] > info->check_arr[1] && info->check_arr[1] < \
 	info->check_arr[2] && info->check_arr[2] < info->check_arr[0])
@@ -99,7 +97,6 @@ void			find_case_a(t_info *info)
 {
 	if (info->remain_arr_count[info->remain_idx] == 3)
 	{
-		printf("check = %d\n", g_check);
 		case_a_three(info);
 		// if (info->remain_idx != 0)
 		// 	repeat_cmd(info, 3, "ra\n");

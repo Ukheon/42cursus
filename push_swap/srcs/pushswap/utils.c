@@ -1,13 +1,13 @@
 #include "../../include/push_swap.h"
 
-void			numcpy(t_info *info, int **arr, int save)
+void			numcpy(t_info *info, int **arr, int save, int *src)
 {
 	int			i;
 
 	i = 0;
 	while (i < save)
 	{
-		(*arr)[i] = info->stack_b[i];
+		(*arr)[i] = src[i];
 		i++;
 	}
 }
@@ -18,21 +18,45 @@ int				bubble_sort(t_info *info, int **arr, int save)
 	int			j;
 	int			temp;
 
-	i = 0;
-	while (i < save)
+	if (info->flag == 0) // A일때
 	{
-		j = 0;
-		while (j < save - 1)
+		numcpy(info, arr, save, info->stack_a);
+		i = 0;
+		while (i < save)
 		{
-			if ((*arr)[j] > (*arr)[j + 1])
+			j = 0;
+			while (j < save - 1)
 			{
-				temp = (*arr)[j];
-				(*arr)[j] = (*arr)[j + 1];
-				(*arr)[j + 1] = temp;
+				if ((*arr)[j] > (*arr)[j + 1])
+				{
+					temp = (*arr)[j];
+					(*arr)[j] = (*arr)[j + 1];
+					(*arr)[j + 1] = temp;
+				}
+				j++;
 			}
-			j++;
+			i++;
 		}
-		i++;
+	}
+	else
+	{
+		numcpy(info, arr, save, info->stack_b);
+		i = 0;
+		while (i < save)
+		{
+			j = 0;
+			while (j < save - 1)
+			{
+				if ((*arr)[j] > (*arr)[j + 1])
+				{
+					temp = (*arr)[j];
+					(*arr)[j] = (*arr)[j + 1];
+					(*arr)[j + 1] = temp;
+				}
+				j++;
+			}
+			i++;
+		}
 	}
 	return (0);
 }
@@ -48,6 +72,7 @@ void			set_info(t_info *info, int argc)
 	info->not_found = 0;
 	info->remain_idx = 0;
 	info->loop_count = 1;
+	info->remain_arr_count[0] = info->a_size;
 	info->max_argument = info->a_size;
 }
 
