@@ -6,40 +6,11 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:14:06 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/06 20:16:24 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/07 14:01:26 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
-
-// void			move_arr(t_info *info)
-// {
-// 	int			check;
-// 	int			count;
-
-// 	count = info->max_argument / 5;
-// 	check = 0;
-// 	info->pivot = (info->max_argument / 5) * info->loop_count;
-// 	info->center_value = info->check_arr[info->pivot];
-// 	while (count--)
-// 	{
-// 		if (info->center_value > info->stack_a[0])
-// 		{
-// 			run_cmd(info, "pb\n");
-// 			continue ;
-// 		}
-// 		else
-// 		{
-// 			run_cmd(info, "ra\n");
-// 			check++;
-// 		}
-// 		count++;
-// 	}
-// 	if (info->loop_count != 1)
-// 		repeat_cmd(info, check, "rra\n");
-// 	info->loop_count++;
-// }
-
 
 void			div_half(t_info *info)
 {
