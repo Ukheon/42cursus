@@ -6,8 +6,8 @@ mv localhost-nginx.key /etc/nginx/ssl
 mv localhost-nginx.crt /etc/nginx/ssl
 
 mkdir -p /run/nginx
-echo "<h1>Thank you for your ft_services evaluation! -hyeonski- </h1>" >> /var/www/index.html
-
+echo "<h1>Hi, hello !!!!!!!!!!!!!!!!!!!!  </h1>" >> /var/www/index.html
+cd /usr/sbin/nginx
+nginx
 #/usr/sbin/nginx -g "daemon off;"
-
 

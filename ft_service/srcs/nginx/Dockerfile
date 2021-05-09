@@ -7,8 +7,8 @@ RUN apk update \
 
 COPY ./run.sh ./
 RUN chmod 777 ./run.sh
-COPY ./default /etc/nginx/conf.d/
+COPY ./default.conf /etc/nginx/conf.d/
 
 EXPOSE 80 443
-
-ENTRYPOINT bash
+RUN ./run.sh
+RUN ./usr/sbin/nginx
