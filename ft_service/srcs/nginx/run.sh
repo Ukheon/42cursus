@@ -6,8 +6,8 @@ mv localhost-nginx.key /etc/nginx/ssl
 mv localhost-nginx.crt /etc/nginx/ssl
 
 mkdir -p /run/nginx
-echo "<h1>Hi, hello !!!!!!!!!!!!!!!!!!!!  </h1>" >> /var/www/index.html
-cd /usr/sbin/nginx
-nginx
-#/usr/sbin/nginx -g "daemon off;"
-
+echo "<h1>!!!!!!!!!!1 Hi, hello !!!!!!!!!!!!!!!!!!!!  </h1>" >> /var/www/index.html
+#cd /usr/sbin/nginx
+#nginx
+/usr/sbin/nginx -g "daemon off;"
+#sh
