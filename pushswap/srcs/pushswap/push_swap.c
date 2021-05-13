@@ -167,7 +167,7 @@ int			g_check;
 
 // void			five_or_less(info)
 // {
-	
+
 // }
 
 // void			move_half_arr(t_info *info)
@@ -205,7 +205,7 @@ void			numcpy(t_info *info, int **temp_arr)
 
 	i = 0;
 	j = info->start_idx;
-	printf("check3! = %d \n", info->start_idx);
+	// printf("check3! = %d \n", info->start_idx);
 	while (i < (int)info->pivot)
 	{
 		(*temp_arr)[i] = info->check_arr[j];
@@ -285,20 +285,20 @@ void			check_fast_road_b(t_info *info)
 	info->rr_count = 0;
 	if (info->b_size % 2 == 1)
 		remain = 1;
-	while (++i < center)
+	while (++i < (center * 2 + remain))
 	{
-		if (info->pivot_value >= info->stack_b[i])
+		if (info->pivot_value == info->stack_b[i])
 			break ;
 		info->r_count++;
 	}
 	i = (center * 2 + remain);
-	while (--i >= center)
+	while (--i >= 0)
 	{
-		if (info->pivot_value >= info->stack_b[i])
+		if (info->pivot_value == info->stack_b[i])
 			break;
 		info->rr_count++;
 	}
-	printf("%d\nr = %d vs rr = %d\n",info->pivot_value, info->r_count, info->rr_count);
+	// printf("%d\nr = %d vs rr = %d\n",info->pivot_value, info->r_count, info->rr_count);
 }
 
 void			check_fast_road(t_info *info)
@@ -404,6 +404,7 @@ void			sort_arr(t_info *info, t_arr **head)
 	// printf("\n");
 	count = 5;
 	// exit (0);
+	// exit(0);
 	while (*head)
 	{
 		idx = (*head)->count;
@@ -419,16 +420,20 @@ void			sort_arr(t_info *info, t_arr **head)
 					run_cmd(info, "pa\n");
 					break ;
 				}
-				if (info->r_count <= info->rr_count)
+				if (info->r_count < info->rr_count)
 				{
 					run_cmd(info, "rb\n");
 				}
 				else
 				{
-					run_cmd(info, "rrb\n");			
+					run_cmd(info, "rrb\n");
 				}
 			}
 		}
+		// for (int i = 0; i < info->a_size; i++)
+		// 	printf("%d ", info->stack_a[i]);
+		// printf("end .. .. ..\n");
+
 		*head = (*head)->next;
 	}
 }

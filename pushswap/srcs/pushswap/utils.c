@@ -1,4 +1,5 @@
 #include "../../include/push_swap.h"
+#include "../../libft/libft.h"
 
 void			show_stack(t_info *info)
 {
