@@ -36,6 +36,9 @@ void			rotate_b(t_info *info)
 		i++;
 	}
 	info->stack_b[i] = temp;
+	// for(int i = 0; i < info->b_size; i++)
+	// 	printf("%d ", info->stack_b[i]);
+	// printf("\n");
 }
 
 void			reverse_rotate_a(t_info *info)
@@ -63,6 +66,9 @@ void			reverse_rotate_b(t_info *info)
 	int			temp;
 	int			len;
 
+	// for(int i = 0; i < info->b_size; i++)
+	// 	printf("%d ", info->stack_b[i]);
+	// printf("\n");
 	len = info->b_size;
 	if (len < 2)
 		return ;
@@ -74,4 +80,8 @@ void			reverse_rotate_b(t_info *info)
 		i--;
 	}
 	info->stack_b[i] = temp;
+	// for(int i = 0; i < info->b_size; i++)
+	// 	printf("%d ", info->stack_b[i]);
+	// printf("\n");
+	// exit(0);
 }

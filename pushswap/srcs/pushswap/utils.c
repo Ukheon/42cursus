@@ -1,80 +1,105 @@
 #include "../../include/push_swap.h"
 
-void			numcpy(t_info *info, int **arr)
-{
-	int			i;
-
-	i = 0;
-	if (info->flag == 0)
-	{
-		while (i < info->a_size)
-		{
-			(*arr)[i] = info->stack_a[i];
-			i++;
-		}
-	}
-	else
-	{
-		while (i < info->b_size)
-		{
-			(*arr)[i] = info->stack_b[i];
-			i++;
-		}
-	}
-}
-
-int				bubble_sort(t_info *info, int **arr)
+void			show_stack(t_info *info)
 {
 	int			i;
 	int			j;
 	int			temp;
 
-	if (info->flag == 0)
+	i = 0;
+	temp = info->a_size;
+	if (temp < info->b_size)
+		temp = info->b_size;
+	while (i < temp)
 	{
-		numcpy(info, arr);
-		i = 0;
-		while (i < info->a_size)
-		{
-			j = 0;
-			while (j < info->a_size - 1)
-			{
-				if ((*arr)[j] > (*arr)[j + 1])
-				{
-					temp = (*arr)[j];
-					(*arr)[j] = (*arr)[j + 1];
-					(*arr)[j + 1] = temp;
-				}
-				j++;
-			}
-			i++;
-		}
-		i = info->a_size / 2;
-		return (i);
+		printf(" %d  |", i);
+		if (info->a_size > i)
+			printf("  %d|", info->stack_a[i]);
+		else
+			printf("    |");
+		if (info->b_size > i)
+			printf("   %d|", info->stack_b[i]);
+		printf("\n");
+		i++;
 	}
-	else
-	{
-		i = 0;
-		numcpy(info, arr);
-		while (i < info->b_size)
-		{
-			j = 0;
-			while (j < info->b_size - 1)
-			{
-				if ((*arr)[j] > (*arr)[j + 1])
-				{
-					temp = (*arr)[j];
-					(*arr)[j] = (*arr)[j + 1];
-					(*arr)[j + 1] = temp;
-				}
-				j++;
-			}
-			i++;
-		}
-		i = info->b_size / 2;
-		return (i);
-	}
-	return (0);
+	printf("\nidx |  A  |  B  |\n");
 }
+
+// void			numcpy(t_info *info, int **arr)
+// {
+// 	int			i;
+
+// 	i = 0;
+// 	if (info->flag == 0)
+// 	{
+// 		while (i < info->a_size)
+// 		{
+// 			(*arr)[i] = info->stack_a[i];
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (i < info->b_size)
+// 		{
+// 			(*arr)[i] = info->stack_b[i];
+// 			i++;
+// 		}
+// 	}
+// }
+
+// int				bubble_sort(t_info *info, int **arr)
+// {
+// 	int			i;
+// 	int			j;
+// 	int			temp;
+
+// 	if (info->flag == 0)
+// 	{
+// 		numcpy(info, arr);
+// 		i = 0;
+// 		while (i < info->a_size)
+// 		{
+// 			j = 0;
+// 			while (j < info->a_size - 1)
+// 			{
+// 				if ((*arr)[j] > (*arr)[j + 1])
+// 				{
+// 					temp = (*arr)[j];
+// 					(*arr)[j] = (*arr)[j + 1];
+// 					(*arr)[j + 1] = temp;
+// 				}
+// 				j++;
+// 			}
+// 			i++;
+// 		}
+// 		i = info->a_size / 2;
+// 		return (i);
+// 	}
+// 	else
+// 	{
+// 		i = 0;
+// 		numcpy(info, arr);
+// 		while (i < info->b_size)
+// 		{
+// 			j = 0;
+// 			while (j < info->b_size - 1)
+// 			{
+// 				if ((*arr)[j] > (*arr)[j + 1])
+// 				{
+// 					temp = (*arr)[j];
+// 					(*arr)[j] = (*arr)[j + 1];
+// 					(*arr)[j + 1] = temp;
+// 				}
+// 				j++;
+// 			}
+// 			i++;
+// 		}
+// 		i = info->b_size / 2;
+// 		return (i);
+// 	}
+// 	return (0);
+// }
 
 void			set_info(t_info *info, int argc)
 {
