@@ -4,31 +4,6 @@
 #include <string.h>
 #include "../../include/checker.h"
 
-void			show_stack(t_info *info)
-{
-	int			i;
-	int			j;
-	int			temp;
-
-	i = 0;
-	temp = info->a_size;
-	if (temp < info->b_size)
-		temp = info->b_size;
-	while (i < temp)
-	{
-		printf(" %d  |", i);
-		if (info->a_size > i)
-			printf("  %d  |", info->stack_a[i]);
-		else
-			printf("     |");
-		if (info->b_size > i)
-			printf("  %d  |", info->stack_b[i]);
-		printf("\n");
-		i++;
-	}
-	printf("\nidx |  A  |  B  |\n");
-}
-
 void			start_pushswap(t_info *info)
 {
 	char		buf[20];
@@ -37,15 +12,37 @@ void			start_pushswap(t_info *info)
 	ft_memset(buf, 0, 20);
 	while (read(0, buf, 20))
 	{
-		run_cmd(info, buf);
-		show_stack(info);
 		if (check_finish(info, info->stack_a) && info->b_size == 0)
 		{
 			write(1, "OK\n", 3);
-			exit(0);
 		}
+		run_cmd(info, buf);
 		ft_memset(buf, 0, 20);
 	}
+	write(1, "KO\n", 3);
+}
+
+int				check_error(t_info *info)
+{
+	int			i;
+	int			j;
+
+	i = 0;
+	while (i < info->a_size)
+	{
+		j = i + 1;
+		while (j < info->a_size)
+		{
+			if (info->stack_a[i] == info->stack_a[j])
+			{
+				write(2, "Error\n", 6);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int			main(int argc, char *argv[])
@@ -59,6 +56,8 @@ int			main(int argc, char *argv[])
 	info.max_argument = argc - 1;
 	set_info(&info, argc);
 	if (get_argv_data(&info, argv))
+		return (0);
+	if (check_error(&info))
 		return (0);
 	info.center_idx = bubble_sort(&info, info.check_arr);
 	info.center_value = info.check_arr[info.center_idx];

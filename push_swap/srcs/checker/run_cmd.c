@@ -41,8 +41,8 @@ void			run_cmd(t_info *info, char *buf)
 		push_b(info);
 	else
 		remain_run_cmd(info, buf);
-	if (info->not_found != 1)
-		write(1, buf, ft_strlen(buf));
-	else
-		info->not_found = 0;
+	// if (info->not_found != 1)
+	// 	write(1, buf, ft_strlen(buf));
+	// else
+	// 	info->not_found = 0;
 }

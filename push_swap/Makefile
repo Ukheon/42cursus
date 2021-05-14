@@ -8,9 +8,7 @@ OBJS =	./srcs/pushswap/push_swap.c \
 		./srcs/pushswap/sort_type1.c \
 		./srcs/pushswap/sort_type2.c \
 		./srcs/pushswap/utils.c \
-		./srcs/pushswap/run_cmd.c \
-		./srcs/pushswap/three_or_less.c \
-		./srcs/pushswap/five_or_less.c
+		./srcs/pushswap/run_cmd.c
 
 COBJS = ./srcs/checker/checker.c \
 		./srcs/checker/error_check.c \
@@ -27,7 +25,7 @@ $(PUSH) : $(OBJS)
 	cp ./libft/libft.a .
 	$(CC) $(OBJS) -o $@ libft.a
 
-checker : $(CHECK)
+bonus : $(CHECK)
 
 $(CHECK) : $(COBJS)
 	make -C libft
@@ -42,6 +40,7 @@ clean :
 
 
 fclean : clean
+	rm -rf ./libft/*.o
 	rm -rf $(CHECK)
 	rm -rf $(PUSH)
 

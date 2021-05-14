@@ -49,11 +49,16 @@ int				get_argv_data(t_info *info, char *argv[])
 	{
 		if (argv_check(argv[j]))
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			return (1);
 		}
-		info->check_arr[i] = ft_atoi(argv[j]);
-		info->stack_a[i] = ft_atoi(argv[j++]);
+		info->stack_a[i] = ft_atoi(argv[j]);
+		if ((info->stack_a[i] == 0 || info->stack_a[i] == -1) && ft_strlen(argv[j]) >= 3)
+		{
+			write(2, "Error\n", 6);
+			return (1);
+		}
+		info->check_arr[i] = ft_atoi(argv[j++]);
 	}
 	return (0);
 }
