@@ -15,7 +15,9 @@ COBJS = ./srcs/checker/checker.c \
 		./srcs/checker/sort_type1.c \
 		./srcs/checker/sort_type2.c \
 		./srcs/checker/utils.c \
-		./srcs/checker/run_cmd.c
+		./srcs/checker/run_cmd.c \
+		./get_next_line/get_next_line.c \
+		./get_next_line/get_next_line_utils.c
 
 
 all : $(PUSH)

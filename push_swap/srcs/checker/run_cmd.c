@@ -2,20 +2,20 @@
 
 void			remain_run_cmd(t_info *info, char *buf)
 {
-	if (ft_strcmp(buf, "ra") == 10)
+	if (ft_strcmp(buf, "ra") == 0)
 		rotate_a(info);
-	else if (ft_strcmp(buf, "rb") == 10)
+	else if (ft_strcmp(buf, "rb") == 0)
 		rotate_b(info);
-	else if (ft_strcmp(buf, "rr") == 10)
+	else if (ft_strcmp(buf, "rr") == 0)
 	{
 		rotate_a(info);
 		rotate_b(info);
 	}
-	else if (ft_strcmp(buf, "rra") == 10)
+	else if (ft_strcmp(buf, "rra") == 0)
 		reverse_rotate_a(info);
-	else if (ft_strcmp(buf, "rrb") == 10)
+	else if (ft_strcmp(buf, "rrb") == 0)
 		reverse_rotate_b(info);
-	else if (ft_strcmp(buf, "rrr") == 10)
+	else if (ft_strcmp(buf, "rrr") == 0)
 	{
 		reverse_rotate_a(info);
 		reverse_rotate_b(info);
@@ -26,18 +26,18 @@ void			remain_run_cmd(t_info *info, char *buf)
 
 void			run_cmd(t_info *info, char *buf)
 {
-	if (ft_strcmp(buf, "sa") == 10)
+	if (ft_strcmp(buf, "sa") == 0)
 		swap_a(info);
-	else if (ft_strcmp(buf, "sb") == 10)
+	else if (ft_strcmp(buf, "sb") == 0)
 		swap_b(info);
-	else if (ft_strcmp(buf, "ss") == 10)
+	else if (ft_strcmp(buf, "ss") == 0)
 	{
 		swap_a(info);
 		swap_b(info);
 	}
-	else if (ft_strcmp(buf, "pa") == 10)
+	else if (ft_strcmp(buf, "pa") == 0)
 		push_a(info);
-	else if (ft_strcmp(buf, "pb") == 10)
+	else if (ft_strcmp(buf, "pb") == 0)
 		push_b(info);
 	else
 		remain_run_cmd(info, buf);

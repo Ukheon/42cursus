@@ -6,20 +6,29 @@
 
 void			start_pushswap(t_info *info)
 {
-	char		buf[20];
+	char		buf[100];
 	int			res;
-
-	ft_memset(buf, 0, 20);
-	while (read(0, buf, 20))
+	char		*line;
+	ft_memset(buf, 0, 100);
+	while (get_next_line(0, &line) > 0)
 	{
-		if (check_finish(info, info->stack_a) && info->b_size == 0)
-		{
-			write(1, "OK\n", 3);
-		}
-		run_cmd(info, buf);
-		ft_memset(buf, 0, 20);
+		// printf("why!!!!!!!!%s\n", line);
+		run_cmd(info, line);
+		ft_memset(buf, 0, 100);
 	}
-	write(1, "KO\n", 3);
+	// printf("why!!!!!!!!%s\n", line);
+	run_cmd(info, line);
+	if (check_finish(info, info->stack_a) && info->b_size == 0)
+	{
+		write(1, "OK\n", 3);
+	}
+	else
+	{
+		for (int i = 0; i < info->a_size; i++)
+			printf("%d ", info->stack_a[i]);
+		printf("\n");
+		write(1, "KO\n", 3);
+	}
 }
 
 int				check_error(t_info *info)
