@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 14:14:37 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/15 16:13:39 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/15 16:38:08 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void			start_pushswap(t_info *info)
 	head = NULL;
 	info->move_loop = 0;
 	bubble(info, &info->check_arr);
+	if (check_finish(info, info->stack_a) && info->b_size == 0)
+		return ;
 	if (info->max_argument <= 5)
 	{
 		if (info->max_argument <= 3)
