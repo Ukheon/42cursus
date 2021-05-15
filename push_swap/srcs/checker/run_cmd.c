@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_cmd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/15 14:32:04 by ukwon             #+#    #+#             */
+/*   Updated: 2021/05/15 14:32:05 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/checker.h"
 
 void			remain_run_cmd(t_info *info, char *buf)
@@ -41,8 +53,4 @@ void			run_cmd(t_info *info, char *buf)
 		push_b(info);
 	else
 		remain_run_cmd(info, buf);
-	// if (info->not_found != 1)
-	// 	write(1, buf, ft_strlen(buf));
-	// else
-	// 	info->not_found = 0;
 }

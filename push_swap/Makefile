@@ -1,4 +1,4 @@
-CC = gcc
+CC = gcc -Wall -Wextra -Werror
 
 PUSH = push_swap
 CHECK = checker
@@ -8,7 +8,11 @@ OBJS =	./srcs/pushswap/push_swap.c \
 		./srcs/pushswap/sort_type1.c \
 		./srcs/pushswap/sort_type2.c \
 		./srcs/pushswap/utils.c \
-		./srcs/pushswap/run_cmd.c
+		./srcs/pushswap/utils2.c \
+		./srcs/pushswap/run_cmd.c \
+		./srcs/pushswap/optimization.c \
+		./srcs/pushswap/list.c \
+		./srcs/pushswap/less_than_five.c
 
 COBJS = ./srcs/checker/checker.c \
 		./srcs/checker/error_check.c \

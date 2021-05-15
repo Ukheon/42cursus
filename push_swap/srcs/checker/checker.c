@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/15 14:32:07 by ukwon             #+#    #+#             */
+/*   Updated: 2021/05/15 16:09:07 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,27 +18,21 @@
 
 void			start_pushswap(t_info *info)
 {
-	char		buf[100];
-	int			res;
 	char		*line;
-	ft_memset(buf, 0, 100);
+
 	while (get_next_line(0, &line) > 0)
 	{
-		// printf("why!!!!!!!!%s\n", line);
 		run_cmd(info, line);
-		ft_memset(buf, 0, 100);
+		free(line);
 	}
-	// printf("why!!!!!!!!%s\n", line);
 	run_cmd(info, line);
+	free(line);
 	if (check_finish(info, info->stack_a) && info->b_size == 0)
 	{
 		write(1, "OK\n", 3);
 	}
 	else
 	{
-		for (int i = 0; i < info->a_size; i++)
-			printf("%d ", info->stack_a[i]);
-		printf("\n");
 		write(1, "KO\n", 3);
 	}
 }
@@ -54,11 +60,9 @@ int				check_error(t_info *info)
 	return (0);
 }
 
-int			main(int argc, char *argv[])
+int				main(int argc, char *argv[])
 {
 	t_info		info;
-	int			i;
-	int			j;
 
 	if (argc == 1)
 		return (0);

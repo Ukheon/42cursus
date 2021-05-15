@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/15 14:31:55 by ukwon             #+#    #+#             */
+/*   Updated: 2021/05/15 15:34:25 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/checker.h"
 
 int				bubble_sort(t_info *info, int *arr)
@@ -53,7 +65,8 @@ int				get_argv_data(t_info *info, char *argv[])
 			return (1);
 		}
 		info->stack_a[i] = ft_atoi(argv[j]);
-		if ((info->stack_a[i] == 0 || info->stack_a[i] == -1) && ft_strlen(argv[j]) >= 3)
+		if ((info->stack_a[i] == 0 || info->stack_a[i] == -1) \
+		&& ft_strlen(argv[j]) >= 3)
 		{
 			write(2, "Error\n", 6);
 			return (1);

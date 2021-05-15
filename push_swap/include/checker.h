@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/15 15:59:14 by ukwon             #+#    #+#             */
+/*   Updated: 2021/05/15 16:01:39 by ukwon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CHECKER_H
 # define CHECKER_H
 # include <stdio.h>
@@ -7,7 +19,7 @@
 # include "../libft/libft.h"
 # include "../get_next_line/get_next_line.h"
 
-typedef struct	s_info 
+typedef struct	s_info
 {
 	int			a_size;
 	int			b_size;
