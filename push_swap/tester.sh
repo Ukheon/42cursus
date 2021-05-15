@@ -1,5 +1,5 @@
 #! /bin/bash #shebang
-ARG=$(./random_numbers 100 1)
+ARG=$(./random_numbers 5 1)
 ./push_swap $ARG
 #| ./checker $ARG
 # echo $ARG > b
