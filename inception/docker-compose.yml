@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+    nginx:
+        build: ./srcs/nginx/
+        ports:
+            - 443:443
+    mysql:
+        build: ./srcs/mysql/
+    wordpress:
+        build: ./srcs/wordpress/
+        ports:
+            - 9000:9000
