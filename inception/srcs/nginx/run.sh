@@ -12,5 +12,9 @@ echo "<h1>!!!!!!!!! Hi, hello !!!!!!!!!!!!!!!!!!!!  </h1>" >> /var/www/html/inde
 echo "<h1> Welcome Ukwon.42.kr  </h1>" >> /var/www/html/index2.html
 service nginx start
 
-sleep 10000000
+while : true
+do
+	sleep 1
+done
+
 /bin/bash

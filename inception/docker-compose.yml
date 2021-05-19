@@ -1,12 +1,42 @@
 version: "3.3"
 services:
     nginx:
-        build: ./srcs/nginx/
+        build: ./srcs/nginx/.
+        restart: always
         ports:
-            - 443:443
+            - "443:443"
+        networks:
+            - webnet
     mysql:
-        build: ./srcs/mysql/
-    wordpress:
-        build: ./srcs/wordpress/
+        build: ./srcs/mysql/.
         ports:
-            - 9000:9000
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: wordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        networks:
+            - webnet
+        volumes:
+            - ./database:/etc/mysql
+    wordpress:
+        depends_on:
+            - mysql
+        build: ./srcs/wordpress/.
+        restart: always
+        ports:
+            - "9000:9000"
+        environment:
+            WORDPRESS_DB_HOST: mysql:3306 // mysql 기본 설정
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+            WORDPRESS_DB_NAME: wordpress
+        networks:
+            - webnet
+        volumes:
+            - ./wordpress:/var/www/html
+
+networks:
+    webnet:
+        driver: bridge

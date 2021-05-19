@@ -4,11 +4,15 @@ LABEL		maintainer="ukwon@student.42seoul.kr"
 
 RUN			apt-get update && apt-get -y upgrade && apt-get -y install \
 			vim \
+			nginx \
+			wget \
 			php7.3-fpm \
-			php-mbstring 
+			php-mbstring \
+			php-mysql
 
 COPY		./run.sh ./
-COPY		./wp-config.php ./tmp
+COPY		./wp-config.php ./tmp/
+COPY 		./default ./tmp/
 
 EXPOSE		9000
 
