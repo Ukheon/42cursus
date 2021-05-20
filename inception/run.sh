@@ -34,3 +34,48 @@ chown -R www-data:www-data /var/www/html/wordpress
 cp -rp ./tmp/wp-config.php var/www/html/wordpress/wp_config.php
 
 bash
+
+
+
+server	{
+	listen 443;
+
+	#include    /etc/nginx/fastcgi.conf;
+
+	server_name _;
+	ssl on;
+	ssl_certificate /etc/ssl/certs/localhost.dev.crt;
+	ssl_certificate_key /etc/ssl/private/localhost.dev.key;
+	ssl_protocols TLSv1.2 TLSv1.3;
+	ssl_ciphers "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384";
+
+	root /var/www/html;
+
+	index index.html;
+
+	location /wordpress {
+		proxy_pass http://$host:9000;
+	}
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+
+
+
+server  {
+        listen 9000;
+
+        server_name _;
+
+        root /var/www/html/wordpress;
+        index index.php;
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+        }
+        location /wordpress {
+                return 307 http://$host:9000;
+        }
+}

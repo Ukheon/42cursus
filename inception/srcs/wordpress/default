@@ -24,12 +24,8 @@ server  {
         root /var/www/html/wordpress;
         index index.php;
 
-
         location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
                 fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
-        }
-        location /wordpress {
-                return 307 http://$host:9000;
         }
 }
