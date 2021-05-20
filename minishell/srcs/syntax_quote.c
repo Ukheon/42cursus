@@ -6,38 +6,47 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:14:10 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/01 12:39:53 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/20 16:57:19 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void			backslash_check(char ch, t_quote *quote)
+int				backslash_check(char ch, t_quote *quote)
 {
 	if (ch != '\\')
-		return ;
+	{
+		return (0);
+	}
 	else if (quote->quote == '\'')
 	{
 		quote->backslash = 0;
-		return ;
+		return (0);
 	}
 	else if (quote->backslash == 1)
 	{
 		quote->backslash = 0;
-		return ;
+		return (0);
 	}
 	else
 		quote->backslash = 1;
+	return (1);
 }
 
 int				double_quote_condition_check(char ch, t_quote *quote)
 {
 	if (ch != '\"')
+	{
 		return (0);
+	}
 	if (quote->backslash)
+	{
 		return (0);
+	}
 	if (quote->quote != ch)
+	{
 		return (0);
+	}
 	return (1);
 }
 
@@ -48,7 +57,8 @@ void			quote_check(char ch, t_quote *quote)
 		quote->backslash = 0;
 		return ;
 	}
-	backslash_check(ch, quote);
+	if (backslash_check(ch, quote))
+		return ;
 	if (quote->quote == '\'' && ch == quote->quote)
 	{
 		quote->quote = 0;
@@ -58,9 +68,14 @@ void			quote_check(char ch, t_quote *quote)
 	{
 		quote->quote = 0;
 		quote->quote_end = 1;
+		quote->backslash = 0;
 	}
 	else if (!quote->quote && quote->backslash == 0)
 		quote->quote = ch;
+	else
+	{
+		quote->backslash = 0;
+	}
 }
 
 void			quote_off_check(char ch, t_quote *quote)

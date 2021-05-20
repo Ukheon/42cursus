@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 17:50:29 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/01 12:39:21 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/20 16:58:01 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				parse_minishell(char *line, t_list **head)
 	if (check_syntax_error(line))
 	{
 		g_info.error = 258;
-		return (-1);
+		return (0);
 	}
 	big_tokenizer(line, &tokens, head);
 	get_cmdline(&tokens, head);

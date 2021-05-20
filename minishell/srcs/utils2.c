@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 17:50:44 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/02 14:46:15 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/17 16:21:35 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void			change_value(t_list **head, char *str, int flag, char *value)
 {
 	t_list		*temp;
+
 
 	temp = *head;
 	while (temp)

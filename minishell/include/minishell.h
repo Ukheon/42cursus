@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:02:26 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/02 18:05:14 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/05/20 16:51:12 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_info					g_info;
 void					syntax_quote_check(char ch, t_quote *quote, \
 int *i, char *str);
 int						double_quote_condition_check(char ch, t_quote *quote);
-void					backslash_check(char ch, t_quote *quote);
+int						backslash_check(char ch, t_quote *quote);
 void					quote_off_check(char ch, t_quote *quote);
 void					set_child_dup(void);
 int						arr_row_check(char **split);
