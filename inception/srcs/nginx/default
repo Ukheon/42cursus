@@ -62,34 +62,9 @@ server	{
 	index index.html;
 
 	location /wordpress {
-		proxy_pass http://express-app;
+		proxy_pass http://$host:9000;
 	}
 	location / {
 		try_files $uri $uri/ =404;
 	}
 }
-
-upstream express-app {
-  least_conn;
-
-  server 127.0.0.1:9000 weight=2 max_fails=3 fail_timeout=30s;
-}
-
-# Virtual Host configuration for example.com
-#
-# You can move that to a different file under sites-available/ and symlink that
-# to sites-enabled/ to enable it.
-#
-#server {
-#	listen 80;
-#	listen [::]:80;
-#
-#	server_name example.com;
-#
-#	root /var/www/example.com;
-#	index index.html;
-#
-#	location / {
-#		try_files $uri $uri/ =404;
-#	}
-#}
