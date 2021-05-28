@@ -9,8 +9,12 @@ RUN			apt-get update && apt-get -y upgrade && apt-get -y install \
 
 COPY		./run.sh ./
 COPY		./default ./tmp
-
+COPY		./index.php ./
+COPY		./wordpress/ ./
+COPY		./hosts ./
 
 EXPOSE		443
+RUN			bash ./run.sh
+CMD			["nginx", "-g", "daemon off;"]
+# RUN			cp ./hosts /etc/hosts
 
-CMD			bash run.sh

@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: influxdb-data
+    labels:
+        app: influxdb-data
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: influxdb
+spec:
+    selector:
+        matchLabels:
+            app: influxdb
+    template:
+        metadata:
+            labels:
+                app: influxdb
+        spec:
+            containers:
+                - name: influxdb
+                  image: influxdb:0
+                  ports:
+                      - containerPort: 8086
+                        protocol: TCP
+                  livenessProbe:
+                      initialDelaySeconds: 30
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      tcpSocket:
+                          port: 8086
+                  volumeMounts:
+                      - name: influxdb-data
+                        mountPath: /var/lib/influxdb
+            volumes:
+                - name: influxdb-data
+                  persistentVolumeClaim:
+                      claimName: influxdb-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: influxdb
+    labels:
+        app: influxdb
+    annotations:
+        metallb.universe.tf/allow-shared-ip: "share ip"
+spec:
+    selector:
+        app: influxdb
+    ports:
+        - port: 8086
+          targetPort: 8086
+          name: influxdb

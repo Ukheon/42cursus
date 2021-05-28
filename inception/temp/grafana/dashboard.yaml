@@ -1,0 +1,15 @@
+# # config file version
+apiVersion: 1
+
+providers:
+ - name: 'ft_service'
+   orgId: 1
+   folder: ''
+   folderUid: ''
+   type: file
+   disableDeletion: false
+   editable: true
+   updateIntervalSeconds: 10
+   allowUiUpdates: true
+   options:
+     path: /var/lib/grafana/dashboards

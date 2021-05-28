@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: mysql
+    labels:
+        app: mysql
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mysql
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mysql
+    template:
+        metadata:
+            labels:
+                app: mysql
+        spec:
+            containers:
+                - name: mysql
+                  image: mysql:0
+                  ports:
+                      - containerPort: 3306
+                        protocol: TCP
+                  volumeMounts:
+                      - name: mysql
+                        mountPath: /var/lib/mysql
+                  livenessProbe:
+                      initialDelaySeconds: 30
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      tcpSocket:
+                          port: 3306
+            volumes:
+                - name: mysql
+                  persistentVolumeClaim:
+                      claimName: mysql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql
+    annotations:
+        metallb.universe.tf/allow-shared-ip: "share ip"
+spec:
+    ports:
+        - port: 3306
+          protocol: TCP
+    selector:
+        app: mysql
+

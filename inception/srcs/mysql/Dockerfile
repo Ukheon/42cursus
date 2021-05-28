@@ -9,4 +9,4 @@ RUN			apt-get update && apt-get -y upgrade && apt-get -y install \
 COPY		./my.cnf ./
 COPY		./run.sh ./
 EXPOSE		3306
-CMD			bash run.sh
+CMD			bash ./run.sh

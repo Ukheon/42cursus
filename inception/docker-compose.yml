@@ -10,34 +10,86 @@ services:
             - webnet
     mysql:
         build: ./srcs/mysql/.
-        ports:
-            - "3306:3306"
+        restart: always
+        expose:
+            - "3306"
         environment:
             MYSQL_ROOT_PASSWORD: wordpress
             MYSQL_DATABASE: wordpress
             MYSQL_USER: ukwon
             MYSQL_PASSWORD: "1234"
+            #MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            #MYSQL_DATABASE: ${MYSQL_DATABASE}
+            #MYSQL_USER: ${MYSQL_USER}
+            #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             - webnet
         # volumes:
-        #     - ./database:/etc/mysql
+        #      - ./database:/var/lib/mysql
     wordpress:
         depends_on:
             - mysql
         build: ./srcs/wordpress/.
         restart: always
-        ports:
-            - "9000:9000"
+        expose:
+            - "9000"
         environment:
             WORDPRESS_DB_HOST: mysql:3306 // mysql 기본 설정
             WORDPRESS_DB_USER: ukwon
             WORDPRESS_DB_PASSWORD: "1234"
             WORDPRESS_DB_NAME: wordpress
+            #WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+            #WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+            #WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+            #WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
         networks:
             - webnet
         # volumes:
-        #     - ./wordpress:/var/www/html
+        #      - ./wordpress:/var/www/html/.
 
 networks:
     webnet:
         driver: bridge
+# version: "3.3"
+
+# services:
+#     nginx:
+#         build: ./srcs/nginx/.
+#         restart: always
+#         ports:
+#             - "443:443"
+#         networks:
+#             - webnet
+#     mysql:
+#         build: ./srcs/mysql/.
+#         ports:
+#             - "3306:3306"
+#         environment:
+#             MYSQL_ROOT_PASSWORD: wordpress
+#             MYSQL_DATABASE: wordpress
+#             MYSQL_USER: ukwon
+#             MYSQL_PASSWORD: "1234"
+#         networks:
+#             - webnet
+#         # volumes:
+#         #     - ./database:/etc/mysql
+#     wordpress:
+#         depends_on:
+#             - mysql
+#         build: ./srcs/wordpress/.
+#         restart: always
+#         expose:
+#             - "9000"
+#         environment:
+#             WORDPRESS_DB_HOST: mysql:3306 // mysql 기본 설정
+#             WORDPRESS_DB_USER: ukwon
+#             WORDPRESS_DB_PASSWORD: "1234"
+#             WORDPRESS_DB_NAME: wordpress
+#         networks:
+#             - webnet
+#         # volumes:
+#         #     - ./wordpress:/var/www/html
+
+# networks:
+#     webnet:
+#         driver: bridge
