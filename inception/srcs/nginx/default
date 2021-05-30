@@ -11,7 +11,7 @@ server	{
 	ssl_protocols TLSv1.2 TLSv1.3;
 	ssl_ciphers "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384";
 
-	root /var/www/html/;
+	root /var/www/html;
 
 	index index.php index2.html;
 

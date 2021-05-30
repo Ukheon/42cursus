@@ -8,8 +8,8 @@ chmod 600 etc/ssl/certs/localhost.dev.crt etc/ssl/private/localhost.dev.key
 cp -rp ./tmp/default /etc/nginx/sites-available/default
 mkdir -p /var/www/html/
 mv wordpress /var/www/html/
-# mkdir -p /var/www/html/wordpress
+mkdir -p /var/www/html/wordpress
 cp -rp ./index.php /var/www/html/wordpress/index.php
 cp -rp ./hosts /etc/hosts
 echo "<h1>!!!!!!!!! Hi, hello !!!!!!!!!!!!!!!!!!!!  </h1>" >> /var/www/html/wordpress/index.html
-echo "<h1> Welcome Ukwon.42.kr  </h1>" >> /var/www/html/index2.html
+echo "<h1> Welcome Ukwon.42.kr  </h1>" >> /var/www/html/wordpress/index2.html

@@ -16,5 +16,4 @@ COPY		./hosts ./
 EXPOSE		443
 RUN			bash ./run.sh
 CMD			["nginx", "-g", "daemon off;"]
-# RUN			cp ./hosts /etc/hosts
 

@@ -2,6 +2,8 @@
 
 chmod 644 ./my.cnf
 cp ./my.cnf ./etc/mysql/my.cnf
+chown -R mysql:mysql /var/log/mysql
+chown -R mysql:mysql /var/lib/mysql
 service mysql start
 
 echo "CREATE DATABASE wordpress;" \
@@ -14,12 +16,7 @@ echo "FLUSH PRIVILEGES;" \
 	| mysql -u root --skip-password
 service mysql stop
 /usr/bin/mysqld_safe --user=root
-# /usr/bin/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data
-# /usr/share/mysql/mysql.server start
-# mysql –user=root –pass=password –database=db_name –host=localhost < background_proc.sql > output.out &
 # while : true
 # do
 # 	sleep 1
 # done
-
-# /bin/bash
