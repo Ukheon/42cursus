@@ -4,11 +4,12 @@ LABEL		maintainer="ukwon@student.42seoul.kr"
 
 RUN			apt-get update && apt-get -y upgrade && apt-get -y install \
 			mariadb-server \
-			vim
+			vim \
+			procps
 
 COPY		./my.cnf ./
 COPY		./run.sh ./
-COPY		./.env ./
+COPY		./.sql ./
+COPY		./data.sql ./
 EXPOSE		3306
 CMD			bash ./run.sh
-# CMD			["/usr/bin/mysqld_safe", "--user=root"]

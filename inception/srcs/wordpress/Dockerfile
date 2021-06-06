@@ -9,10 +9,11 @@ RUN			apt-get update && apt-get -y upgrade && apt-get -y install \
 			php-mbstring \
 			php-mysql
 
-RUN			mkdir -p /var/www/html/
+RUN			mkdir -p /var/www/
 COPY		./run.sh ./
-COPY		./wp-config.php ./tmp/
+COPY		./wp-config ./
 COPY		./www.conf ./
+COPY		./wordpress ./wordpress
 
 EXPOSE		9000
 CMD			bash ./run.sh

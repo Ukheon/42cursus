@@ -1,0 +1,78 @@
+version: "3.3"
+
+services:
+    wordpress:
+        depends_on:
+            - mysql
+        build: ./wordpress/.
+        image: wordpress
+        restart: always
+        expose:
+            - "9000"
+        environment:
+            WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+            WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+            WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+            WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+        networks:
+            - webnet
+        volumes:
+             - wp:/var/www/.
+    nginx:
+        depends_on:
+            - wordpress
+        build: ./nginx/.
+        image: nginx
+        restart: always
+        ports:
+            - "443:443"
+        networks:
+            - webnet
+        volumes:
+            - wp:/var/www/.
+
+    mysql:
+        build: ./mysql/.
+        image: mysql
+        restart: always
+        expose:
+            - "3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        networks:
+            - webnet
+        volumes:
+             - db:/var/lib/mysql
+
+volumes:
+    db:
+        driver_opts:
+            type: none
+            device: /Users/ukwon/42cursus/inception/db
+            o: bind
+    wp:
+        driver_opts:
+            type: none
+            device: /Users/ukwon/42cursus/inception/wp
+            o: bind
+
+# volumes:
+#     db:
+#         driver: local
+#         driver_opts:
+#             type: none
+#             device: /home/ukwon/data/db
+#             o: bind
+#     wp:
+#         driver_opts:
+#             type: none
+#             device: /home/ukwon/data/wp
+#             o: bind
+
+    
+networks:
+    webnet:
+        driver: bridge
