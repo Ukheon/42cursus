@@ -1,24 +1,23 @@
-#include "ZombieEvent.hpp"
+#include "ZombieHorde.hpp"
 
-Zombie	*ZombieEvent::newZombie(std::string name)
+Zombie	*ZombieHorde::newZombie(std::string name)
 {
 	Zombie *res;
-
 	res = new Zombie(name, this->type);
 	return (res);
 }
 
-std::string ZombieEvent::getZombieType()
+std::string ZombieHorde::getZombieType()
 {
 	return (this->type);
 }
 
-void	ZombieEvent::setZombieType(std::string type)
+void	ZombieHorde::setZombieType(std::string input)
 {
-	this->type = type;
+	this->type = input;
 }
 
-std::string ZombieEvent::randomChump()
+std::string ZombieHorde::randomChump()
 {
 	std::string name_pool[10] = {"Marin", "Medic", "Firebat", "Zealot", "Dragon", "Darktemplar", "Zergling", "Hydralisk", "Mutalisk", "Human"};
 	std::string type;
@@ -34,4 +33,24 @@ std::string ZombieEvent::randomChump()
 	else if (res == "Human")
 		this->setZombieType("Human");
 	return (res);
+}
+
+void			ZombieHorde::announce()
+{
+	int i = 0;
+	while (i < this->size)
+		this->Unit[i++]->announce();
+}
+
+ZombieHorde::ZombieHorde(int n)
+{
+	int i = 0;
+	std::cout << "Create Unit" << std::endl;
+	this->size = n;
+	this->Unit = new Zombie*[n];
+	while (i < n)
+	{
+		this->Unit[i] = this->newZombie(this->randomChump());
+		i++;
+	}
 }

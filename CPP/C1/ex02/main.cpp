@@ -4,7 +4,7 @@ int			main(void)
 {
 	Zombie		*Unit[5];
 	ZombieEvent create_zombie;
-	//Zombie		zom(create_zombie.randomChump(), create_zombie.getZombieType());
+
 	int i = 0;
 	srand(time(NULL));
 	std::cout << "Create Unit" << std::endl;
@@ -24,6 +24,5 @@ int			main(void)
 	i = 0;
 	while (i < 5)
 		delete Unit[i++];
-	i = 0;
 	return (0);
 }

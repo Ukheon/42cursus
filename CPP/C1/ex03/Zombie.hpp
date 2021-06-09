@@ -2,9 +2,8 @@
 # define ZOMBIE_HPP
 # include <iostream>
 # include <time.h>
+#include <string.h>
 # include <unistd.h>
-# include <algorithm>
-
 class Zombie {
 	private:
 		std::string name;
