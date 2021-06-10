@@ -3,10 +3,11 @@
 # include "Weapon.hpp"
 class HumanB {
 	private:
-		Weapon			Soard;
+		Weapon			*Soard;
 		std::string		name;
 	public:
 		void attack();
-		HumanB();
+		HumanB(std::string name);
+		void setWeapon(Weapon str);
 };
 #endif

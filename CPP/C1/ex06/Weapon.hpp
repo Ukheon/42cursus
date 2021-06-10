@@ -5,9 +5,10 @@ class Weapon {
 	private:
 		std::string 		Type;
 	public:
+		Weapon(std::string &str);
 		Weapon();
 		const std::string	&getType();
-		void				setType();
+		void				setType(std::string type);
 		Weapon(std::string club);
 };
 #endif
