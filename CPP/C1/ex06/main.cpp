@@ -2,7 +2,7 @@
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
-void	test1()
+void	case1()
 {
 	Weapon club = Weapon("crude spiked club");
 	HumanA bob("Bob", club);
@@ -11,7 +11,7 @@ void	test1()
 	bob.attack();
 }
 
-void	test2()
+void	case2()
 {
 	Weapon club = Weapon("crude spiked club");
 	HumanB jim("Jim");
@@ -23,18 +23,7 @@ void	test2()
 
 int main()
 {
-	test1();
-	test2();
-	// Weapon club = Weapon("crude spiked club");
-	// HumanA bob("Bob", club);
-	// bob.attack();
-	// club.setType("some other type of club");
-	// bob.attack();
-	// Weapon club = Weapon("crude spiked club");
-	// HumanB jim("Jim");
-	// jim.setWeapon(club);
-	// jim.attack();
-	// club.setType("some other type of club");
-	// jim.attack();
+	case1();
+	case2();
 	return (0);
 }
