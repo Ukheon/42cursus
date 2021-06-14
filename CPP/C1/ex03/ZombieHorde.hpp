@@ -10,8 +10,9 @@ class ZombieHorde {
 		Zombie	*newZombie(std::string name);
 		void	setZombieType(std::string input);
 		void	announce();
-		void	clear_Unit();
 		ZombieHorde(int n);
+		ZombieHorde() {}
+		~ZombieHorde();
 		std::string getZombieType();
 		std::string randomChump();
 };

@@ -10,6 +10,6 @@ void memoryLeak()
 int				main(void)
 {
 	memoryLeak();
-	system("leaks ex01");
+	system("leaks a.out");
 	return (0);
 }

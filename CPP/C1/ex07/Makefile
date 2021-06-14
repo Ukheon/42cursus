@@ -13,7 +13,6 @@ clean :
 	rm -rf $(TARGET)
 
 fclean : clean
-	rm -rf $(TARGET)
 	rm -rf txt.replace
 
 re : clean all

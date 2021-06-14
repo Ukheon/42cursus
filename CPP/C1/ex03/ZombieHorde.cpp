@@ -12,6 +12,13 @@ std::string ZombieHorde::getZombieType()
 	return (this->type);
 }
 
+void			ZombieHorde::announce()
+{
+	int i = 0;
+	while (i < this->size)
+		this->Unit[i++]->announce();
+}
+
 void	ZombieHorde::setZombieType(std::string input)
 {
 	this->type = input;
@@ -35,11 +42,20 @@ std::string ZombieHorde::randomChump()
 	return (res);
 }
 
-void			ZombieHorde::announce()
+ZombieHorde::~ZombieHorde()
 {
-	int i = 0;
+	int i = 3;
+	std::cout << "Nuclear Launch detected" << std::endl;
+	while (i > 0)
+	{
+		sleep(1);
+		std::cout << i-- << std::endl;
+	}
+	sleep(1);
+	i = 0;
 	while (i < this->size)
-		this->Unit[i++]->announce();
+		delete this->Unit[i++];
+	delete[] this->Unit;
 }
 
 ZombieHorde::ZombieHorde(int n)
