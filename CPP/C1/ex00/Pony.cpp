@@ -1,10 +1,17 @@
 #include "Pony.hpp"
-void		Pony::insert_index(int input)
+
+void ponyOnTheHeap()
 {
-	index = input;
+	std::cout << "Heap에 할당하겠습니다." << std::endl;
+	Pony *hi;
+	hi = new Pony;
+
+	delete hi;
+	std::cout << "Heap에 할당된 Class가 모두 소멸되었습니다!" << std::endl;
 }
 
-int		Pony::get_index()
+void ponyOnTheStack()
 {
-	return (this->index);
+	std::cout << "Stack에 할당하겠습니다." << std::endl;
+	Pony hi[1];
 }

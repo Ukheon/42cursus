@@ -24,39 +24,21 @@ Fixed &Fixed::operator=(const Fixed &fix)
 	return (*this);
 }
 
-
 int		Fixed::getRawBits() const
 {
 	std::cout << "getRawBits member function called" << std::endl;
 	return (this->value);
 }
 
-const int  &Fixed::test()
-{
-	int *a;
-	int temp = 10;
-	a = &temp;
-	return (*a);
-}
-
 int					main(void)
 {
-	// Fixed a;
-	// Fixed b( a );
+	Fixed a;
+	Fixed b( a );
 	Fixed c;
 
-	int test;
-
-
-	test = c.test();
-	std::cout << test << std::endl;
-	test = 122;
-	std::cout << test << std::endl;
-
-
-	// c = b;
-	// std::cout << a.getRawBits() << std::endl;
-	// std::cout << b.getRawBits() << std::endl;
-	// std::cout << c.getRawBits() << std::endl;
+	c = b;
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
 	return (0);
 }
