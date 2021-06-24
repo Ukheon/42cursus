@@ -3,7 +3,16 @@
 # include <iostream>
 class FragTrap {
 private:
-	int hit;
+	int hitPoint;
+	int maxHitPoint;
+	int energy;
+	int maxEnergy;
+	int level;
+	int melle;
+	int range;
+	int armor;
+
+	std::string name;
 	// Max hit points (100)
 	// Energy points (100)
 	// Max energy points (100)
@@ -15,12 +24,14 @@ private:
 public:
 	FragTrap();
 	~FragTrap();
+	FragTrap(const std::string name);
 	FragTrap(const FragTrap &Trap);
 	FragTrap		&operator = (const FragTrap &Trap);
 
-	int				rangedAttack(std::string const & target);
-	int				meleeAttack(std::string const & target);
-	int				takeDamage(unsigned int amount);
-	int				beRepaired(unsigned int amount);
+	void			rangedAttack(std::string const & target);
+	void			meleeAttack(std::string const & target);
+	void			takeDamage(unsigned int amount);
+	void			beRepaired(unsigned int amount);
+	void			vaulthunter_dot_exe(std::string const & target);
 };
 #endif
