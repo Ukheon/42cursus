@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 17:50:41 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/02 18:07:43 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/06/17 20:42:32 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void			signal_handler(int signo)
 	{
 		if (g_info.signal_flag == 0)
 		{
-			ft_putstr_fd("\n$> ", 1);
+			if (g_info.pid != 0)
+				ft_putstr_fd("\n$> ", 1);
 			init_info(0);
 		}
 		else

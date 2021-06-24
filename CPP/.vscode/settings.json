@@ -59,6 +59,18 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "iomanip": "cpp",
+        "types.h": "c",
+        "wait.h": "c",
+        "deque": "cpp",
+        "fstream": "cpp",
+        "stack": "cpp",
+        "list": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "map": "cpp",
+        "__tree": "cpp",
+        "filesystem": "cpp"
     }
 }

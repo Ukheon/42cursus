@@ -6,7 +6,7 @@
 /*   By: ukwon <ukwon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:02:26 by ukwon             #+#    #+#             */
-/*   Updated: 2021/05/20 16:51:12 by ukwon            ###   ########.fr       */
+/*   Updated: 2021/06/17 20:12:12 by ukwon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct			s_info
 	int					check;
 	struct termios		term;
 	struct termios		default_term;
+	char				*tttt;
 }						t_info;
 
 t_info					g_info;
