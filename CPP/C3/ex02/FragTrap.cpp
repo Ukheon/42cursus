@@ -1,4 +1,5 @@
 #include "FragTrap.hpp"
+#include "ClapTrap.hpp"
 
 FragTrap::FragTrap()
 {
@@ -57,29 +58,6 @@ void			FragTrap::rangedAttack(std::string const & target)
 void			FragTrap::meleeAttack(std::string const & target)
 {
 	std::cout << "FR4G-TP <" << this->name << "> attacks <" << target << "> at range, causing <" << this->melle << "> points of damage!" << std::endl;
-}
-
-void			FragTrap::takeDamage(unsigned int amount)
-{
-	if ((int)amount < this->armor)
-		amount = 0;
-	else
-		amount -= this->armor;
-	std::cout << "FR4G take " << amount << " points of damage!" << std::endl;
-	this->hitPoint -= amount;
-	if (this->hitPoint < 0)
-		this->hitPoint = 0;
-}
-
-void			FragTrap::beRepaired(unsigned int amount)
-{
-	std::cout << "FR4G is repaired for " << amount << "!" << std::endl;
-	this->hitPoint += amount;
-	this->energy += amount;
-	if (this->hitPoint >= this->maxHitPoint)
-		this->hitPoint = this->maxHitPoint;
-	if (this->energy >= this->maxEnergy)
-		this->energy = this->maxEnergy;
 }
 
 void			FragTrap::vaulthunter_dot_exe(std::string const & target)
