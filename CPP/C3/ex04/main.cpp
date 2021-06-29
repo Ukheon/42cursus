@@ -1,6 +1,4 @@
-#include "NinjaTrap.hpp"
-#include "FragTrap.hpp"
-#include "ScavTrap.hpp"
+#include "SuperTrap.hpp"
 int main(void)
 {
 	ClapTrap clap("Kadet");
@@ -57,7 +55,23 @@ int main(void)
 	naruto->beRepaired(100);
 	naruto->ninjaShoebox(*player);
 	naruto->ninjaShoebox(*player);
+	std::cout << "-----------------------------------" << std::endl;
+	SuperTrap *allTrap = new SuperTrap("All");
+	allTrap->rangedAttack("target");
+	allTrap->meleeAttack("target");
+	allTrap->takeDamage(100);
+	allTrap->takeDamage(20);
+	allTrap->beRepaired(20);
+	allTrap->ninjaShoebox(*naruto);
+	allTrap->ninjaShoebox(*scv);
+	allTrap->ninjaShoebox(*player);
+	allTrap->ninjaShoebox(clap);
+	allTrap->beRepaired(30);
+	allTrap->vaulthunter_dot_exe("target");
+	allTrap->vaulthunter_dot_exe("target");
+	allTrap->vaulthunter_dot_exe("target");
 	delete player;
 	delete scv;
 	delete naruto;
+	delete allTrap;
 }
