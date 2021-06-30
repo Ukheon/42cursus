@@ -32,7 +32,7 @@ void		ScavTrap::initPlayer()
 	this->level = 1;
 	this->melle = 20;
 	this->range = 15;
-	this->armor = 5;
+	this->armor = 3;
 }
 
 void		ScavTrap::rangedAttack(std::string const & target)

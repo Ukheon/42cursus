@@ -14,7 +14,8 @@ int				main(int argc, char **argv)
 		std::string::size_type pos = 0;
 		std::string s1(argv[2]);
 		std::string s2(argv[3]);
-
+		if (!s1.size())
+			return (0);
 		re_file.append(".replace");
 		res.open(re_file, std::ios::out);
 		file.open(argv[1], std::ios::in);

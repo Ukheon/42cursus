@@ -16,5 +16,3 @@ Brain &Human::getBrain()
 {
 	return (this->brain);
 }
-
-
