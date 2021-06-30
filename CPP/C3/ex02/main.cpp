@@ -38,4 +38,5 @@ int main(void)
     scv->challengeNewcomer();
     scv->challengeNewcomer();
     delete scv;
+    system("leaks a.out");
 }

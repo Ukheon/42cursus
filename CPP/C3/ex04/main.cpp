@@ -65,6 +65,12 @@ int main(void)
 	allTrap->ninjaShoebox(*naruto);
 	allTrap->ninjaShoebox(*scv);
 	allTrap->ninjaShoebox(*player);
+	allTrap->ninjaShoebox(*naruto);
+	allTrap->ninjaShoebox(*scv);
+	allTrap->ninjaShoebox(*naruto);
+	allTrap->ninjaShoebox(*scv);
+	allTrap->ninjaShoebox(*naruto);
+	allTrap->ninjaShoebox(*scv);
 	allTrap->ninjaShoebox(clap);
 	allTrap->beRepaired(30);
 	allTrap->vaulthunter_dot_exe("target");
