@@ -12,7 +12,7 @@ Sorcerer::Sorcerer(const Sorcerer &type)
 
 Sorcerer::~Sorcerer()
 {
-	
+	std::cout << this->name + ", " << this->title << ", is dead. Consequences will never be the same!" << std::endl;
 }
 
 Sorcerer &Sorcerer::operator=(const Sorcerer &type)
@@ -22,4 +22,31 @@ Sorcerer &Sorcerer::operator=(const Sorcerer &type)
 	this->name = type.name;
 	this->title = type.title;
 	return (*this);
+}
+
+std::ostream		&operator << (std::ostream &out, const Sorcerer &type)
+{
+	out << type.callText();
+	return (out);
+}
+
+void				Sorcerer::polymorph(Victim const &type) const
+{
+	type.getPolymorphed();
+}
+
+void				Sorcerer::polymorph(Peon const &type) const
+{
+	type.getPolymorphed();
+}
+
+void				Sorcerer::polymorph(child const &type) const
+{
+	type.getPolymorphed();
+}
+
+std::string			Sorcerer::callText() const
+{
+	std::string message = "I am" + this->name + ", " + this->title + ", and I like ponies!";
+	return (message);
 }
