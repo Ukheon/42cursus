@@ -1,9 +1,10 @@
 #include "Peon.hpp"
 
 Peon::Peon(std::string name)
+:Victim(name)
 {
 	this->name = name;
-	std::cout << "Some random victim called " + this->name + " just apperared!" << std::endl;
+	std::cout << "Zog zog" << std::endl;
 }
 
 Peon::Peon(const Peon &type)
@@ -19,6 +20,7 @@ void	Peon::getPolymorphed() const
 
 Peon::~Peon()
 {
+	std::cout << "Bleuark..." << std::endl;
 	std::cout << "Victim " + this->name + " just died for no apparent reason!";
 }
 
@@ -29,3 +31,17 @@ Peon &Peon::operator=(const Peon &type)
 	this->name = type.name;
 	return (*this);
 }
+
+std::string Peon::callText() const
+{
+	std::string message = "I'm " + this->name + " and I like otters!";
+	return (message);
+}
+
+std::ostream &operator << (std::ostream &out, const Peon &type)
+{
+	out << type.callText() << std::endl;
+	return (out);
+}
+
+

@@ -31,7 +31,7 @@ Victim &Victim::operator=(const Victim &type)
 
 std::string Victim::callText() const
 {
-	std::string message = "I'm " + this->name + "and I like otters!";
+	std::string message = "I'm " + this->name + " and I like otters!";
 	return (message);
 }
 

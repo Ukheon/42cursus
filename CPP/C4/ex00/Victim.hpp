@@ -11,10 +11,9 @@ public:
 	Victim(const Victim &type);
 	~Victim();
 	Victim &operator=(const Victim &type);
-	void	getPolymorphed() const;
+	virtual void	getPolymorphed() const;
 	std::string callText() const;
 };
-
 std::ostream		&operator << (std::ostream &out, const Victim &type);
 
 #endif

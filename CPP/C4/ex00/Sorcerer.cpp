@@ -1,4 +1,5 @@
 #include "Sorcerer.hpp"
+
 Sorcerer::Sorcerer(const std::string name, const std::string title)
 {
 	std::cout << name + ", " << title + ", is born!" << std::endl;
@@ -26,21 +27,11 @@ Sorcerer &Sorcerer::operator=(const Sorcerer &type)
 
 std::ostream		&operator << (std::ostream &out, const Sorcerer &type)
 {
-	out << type.callText();
+	out << type.callText() << std::endl;
 	return (out);
 }
 
 void				Sorcerer::polymorph(Victim const &type) const
-{
-	type.getPolymorphed();
-}
-
-void				Sorcerer::polymorph(Peon const &type) const
-{
-	type.getPolymorphed();
-}
-
-void				Sorcerer::polymorph(child const &type) const
 {
 	type.getPolymorphed();
 }

@@ -18,8 +18,6 @@ public:
 	Sorcerer &operator=(const Sorcerer &type);
 	std::string	callText() const;
 	void polymorph(Victim const &) const;
-	void polymorph(Peon const &type) const;
-	void polymorph(child const &type) const;
 };
 
 std::ostream		&operator << (std::ostream &out, const Sorcerer &type);
