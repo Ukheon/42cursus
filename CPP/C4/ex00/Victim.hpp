@@ -9,7 +9,7 @@ protected:
 public:
 	Victim(std::string name);
 	Victim(const Victim &type);
-	~Victim();
+	virtual ~Victim();
 	Victim &operator=(const Victim &type);
 	virtual void	getPolymorphed() const;
 	std::string callText() const;

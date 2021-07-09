@@ -3,7 +3,7 @@
 Squad::Squad()
 {
 	this->count = 0;
-	units = NULL;
+	this->units = NULL;
 }
 
 Squad::~Squad()
@@ -18,6 +18,8 @@ Squad::~Squad()
 
 Squad::Squad(const Squad &type)
 {
+	this->count = 0;
+	this->units = NULL;
 	*this = type;
 }
 
@@ -25,7 +27,17 @@ Squad &Squad::operator=(const Squad &type)
 {
 	if (this == &type)
 		return (*this);
-	this->units = type.units;
+	if (this->units)
+	{
+		for (int i = 0; i < this->count; i++)
+			delete this->units[i];
+		delete[] this->units;
+	}
+	this->units = new ISpaceMarine*[type.count + 1];
+	for (int i = 0; i < type.count; i++)
+	{
+		this->units[i] = type.units[i]->clone();
+	}
 	this->count = type.count;
 	return (*this);
 }
@@ -59,7 +71,6 @@ int Squad::push(ISpaceMarine *type)
 		{
 			if (this->units[i] == type)
 			{
-				std::cout << "Same unit . . . . . . go back." << std::endl;
 				return (this->count);
 			}
 		}

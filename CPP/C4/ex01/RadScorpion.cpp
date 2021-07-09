@@ -5,6 +5,7 @@ RadScorpion::RadScorpion()
 	std::cout << "* click click click *" << std::endl;
 	this->hp = 80;
 	this->type = "RadScorpion";
+	this->flag = 0;
 }
 
 RadScorpion::RadScorpion(const RadScorpion &type)
@@ -17,17 +18,6 @@ RadScorpion::~RadScorpion()
 {
 	std::cout << "* SPROTCH *" << std::endl;
 }
-
-// std::string const &RadScorpion::getType() const
-// {
-// 	return (this->type);
-// }
-
-// int			RadScorpion::getHP() const
-// {
-// 	return (this->hp);
-// }
-
 
 RadScorpion &RadScorpion::operator=(RadScorpion const &type)
 {

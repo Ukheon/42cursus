@@ -7,6 +7,7 @@ protected:
 	int			hp;
 	std::string	type;
 public:
+	int			flag;
 	Enemy(const Enemy &type);
 	virtual ~Enemy();
 	Enemy &operator=(Enemy const &);

@@ -5,6 +5,7 @@ SuperMutant::SuperMutant()
 	std::cout << "Gaaah. Me want smash heads!" << std::endl;
 	this->hp = 170;
 	this->type = "SuperMutant";
+	this->flag = 0;
 }
 
 SuperMutant::SuperMutant(const SuperMutant &type)
@@ -17,16 +18,6 @@ SuperMutant::~SuperMutant()
 {
 	std::cout << "Aaargh..." << std::endl;
 }
-
-// std::string const &SuperMutant::getType() const
-// {
-// 	return (this->type);
-// }
-
-// int			SuperMutant::getHP() const
-// {
-// 	return (this->hp);
-// }
 
 SuperMutant &SuperMutant::operator=(SuperMutant const &type)
 {

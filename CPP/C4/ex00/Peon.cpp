@@ -21,7 +21,6 @@ void	Peon::getPolymorphed() const
 Peon::~Peon()
 {
 	std::cout << "Bleuark..." << std::endl;
-	std::cout << "Victim " + this->name + " just died for no apparent reason!";
 }
 
 Peon &Peon::operator=(const Peon &type)

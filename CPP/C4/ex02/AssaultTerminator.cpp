@@ -18,7 +18,6 @@ AssaultTerminator::AssaultTerminator(const AssaultTerminator &type)
 
 AssaultTerminator &AssaultTerminator::operator=(const AssaultTerminator &type)
 {
-	std::cout << " here?\n";
 	if (this == &type)
 		return (*this);
 	return (*this);

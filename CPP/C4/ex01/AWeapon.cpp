@@ -5,6 +5,11 @@ AWeapon::AWeapon()
 	;
 }
 
+void AWeapon::attack() const
+{
+;
+}
+
 AWeapon::AWeapon(const AWeapon &type)
 {
 	*this = type;
@@ -19,7 +24,7 @@ AWeapon::AWeapon(std::string const & name, int apcost, int damage)
 
 AWeapon::~AWeapon()
 {
-	std::cout << "success" << std::endl;
+	std::cout << "Weapon delete success" << std::endl;
 }
 
 AWeapon &AWeapon::operator=(const AWeapon &type)

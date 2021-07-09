@@ -10,8 +10,10 @@ public:
 	child(const child &type);
 	~child();
 	child &operator=(const child &type);
-
+	std::string callText() const;
 	void	getPolymorphed() const;
 };
 
+
+std::ostream		&operator << (std::ostream &out, const child &type);
 #endif
