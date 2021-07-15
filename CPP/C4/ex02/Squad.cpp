@@ -71,6 +71,7 @@ int Squad::push(ISpaceMarine *type)
 		{
 			if (this->units[i] == type)
 			{
+				std::cout << "Error : Same Unit, go back. . ." << std::endl;
 				return (this->count);
 			}
 		}
