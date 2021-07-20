@@ -2,7 +2,6 @@
 
 AMateria::AMateria()
 {
-	std::cout << "here" << std::endl;
 }
 
 AMateria::AMateria(std::string const & type)
@@ -26,9 +25,9 @@ unsigned int AMateria::getXP() const
 
 void AMateria::use(ICharacter& target)
 {
-	if (target.getName() == )
 	this->_xp += 10;
 }
 AMateria &AMateria::operator=(const AMateria &type)
 {
+	return (*this);
 }

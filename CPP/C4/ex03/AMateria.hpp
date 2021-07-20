@@ -6,10 +6,10 @@
 class AMateria
 {
 protected:
+	AMateria();
 	unsigned int _xp;
 	std::string type;
 public:
-	AMateria();
 	AMateria(std::string const & type);
 	virtual ~AMateria();
 	std::string const & getType() const;
