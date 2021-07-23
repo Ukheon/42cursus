@@ -1,35 +1,23 @@
-#include "AssaultTerminator.hpp"
-#include "TacticalMarine.hpp"
-#include "Squad.hpp"
+#include "cat.hpp"
+#include "dog.hpp"
 
-int main()
+int main(void)
 {
-	ISpaceMarine* bob = new TacticalMarine;
-	ISpaceMarine* jim = new AssaultTerminator;
-	ISpaceMarine* tt = new AssaultTerminator;
-	ISquad *vlc = new Squad;
-	ISquad *temp = new Squad;
+	const Animal* j = new Dog();
+	const Animal* i = new Cat();
+	Cat test;
+	Cat test2(test);
+	const Animal* cuteDog = new Dog();
+	const Animal* cuteCat = new Cat();
+	cuteDog->makeSound();
+	cuteCat->makeSound();
 
-
-	vlc->push(bob);
-	vlc->push(jim);
-	vlc->push(tt);
-	*(Squad *)temp = *(Squad *)vlc;
-	vlc->push(tt);
-	for (int i = 0; i < vlc->getCount(); ++i)
-	{
-		ISpaceMarine* cur = vlc->getUnit(i);
-		cur->battleCry();
-		cur->rangedAttack();
-		cur->meleeAttack();
-	}
-	for (int i = 0; i < temp->getCount(); ++i)
-	{
-		ISpaceMarine* cur = temp->getUnit(i);
-		cur->battleCry();
-		cur->rangedAttack();
-		cur->meleeAttack();
-	}
-	delete vlc;
-	return 0;
+	std::cout << "============= deep copy check ==============" << std::endl;
+	std::cout << &test.tmp << std::endl;
+	std::cout << &test2.tmp << std::endl;
+	delete j;
+	delete i;
+	delete cuteDog;
+	delete cuteCat;
+	return (0);
 }
