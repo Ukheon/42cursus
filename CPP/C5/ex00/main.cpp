@@ -9,7 +9,7 @@ int	main(void)
 	}
 	catch (std::exception & e)
 	{
-		std::cout << "Exception: wrong grade ! ! ! " << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	try
 	{
