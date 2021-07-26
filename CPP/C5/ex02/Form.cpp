@@ -1,4 +1,5 @@
 #include "Form.hpp"
+
 Form::Form()
 :name("nothing"), signGrade(150), executeGrade(1), sign(false)
 {
@@ -42,6 +43,12 @@ const char *Form::SignCheck::what() const throw()
 {
 
 	return ("FormException: Already sign OK");
+}
+
+const char *Form::ExecuteSignCheck::what() const throw()
+{
+
+	return ("FormException: be not signed");
 }
 
 Form &Form::operator=(Form const &type)
@@ -89,4 +96,12 @@ std::ostream &operator<<(std::ostream &out, Form const &type)
 	out << type.getName() + " " + temp + " signGrade : " << type.getSignGrade()
 	<< " executeGrade : " << type.getExecuteGrade();
 	return (out);
+}
+
+void Form::execute(const Bureaucrat &type) const
+{
+	if (type.getGrade() > this->executeGrade)
+		throw Form::GradeTooLowException();
+	if (!this->sign)
+		throw Form::ExecuteSignCheck();
 }

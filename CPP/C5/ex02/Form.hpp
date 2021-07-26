@@ -8,6 +8,7 @@ class Form;
 
 class Form
 {
+
 private:
 	Form();
 	std::string const &name;
@@ -27,12 +28,16 @@ public:
 	class SignCheck: public std::exception {
 		virtual const char* what() const throw();
 	};
+	class ExecuteSignCheck: public std::exception {
+		virtual const char* what() const throw();
+	};
 	Form &operator=(Form const &type);
 	std::string const &getName(void) const;
 	bool isSigned(void) const;
 	int getSignGrade(void) const;
 	int getExecuteGrade(void) const;
 	void beSigned(Bureaucrat const &bureaucrat);
+	virtual void execute(Bureaucrat const &type) const = 0;
 };
 
 std::ostream &operator<<(std::ostream &out, Form const &form);

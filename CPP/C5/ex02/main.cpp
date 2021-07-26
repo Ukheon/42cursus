@@ -1,89 +1,66 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 int	main(void)
 {
+	srand(time(NULL));
+	Form *tree = new ShrubberyCreationForm("tree");
+	Form *robot = new RobotomyRequestForm("Robot");
+	Form *president = new PresidentialPardonForm("honor");
 	try
 	{
-		Form		check("ukwon", 100, 50);
-		Bureaucrat person("ukwon", 50);
-		std::cout << check.isSigned() << std::endl;
-		check.beSigned(person);
+		Bureaucrat person("person", 123);
 		std::cout << person << std::endl;
-		std::cout << check << std::endl;
+		std::cout << "==========================" << std::endl;
+		tree->beSigned(person);
+		std::cout << *tree << std::endl;
+		tree->execute(person);
+		std::cout << *tree << std::endl;
+		std::cout << "==========================" << std::endl;
 	}
 	catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
+		std::cout << "==========================" << std::endl;
 	}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 1);
-	//	person.decrement();
-	//	person.increment();
-	//	person.decrement();
-	//	std::cout << person << std::endl;
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 150);
-	//	person.increment();
-	//	person.increment();
-	//	person.decrement();
-	//	std::cout << person << std::endl;
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 150);
-	//	person.increment();
-	//	person.decrement();
-	//	person.decrement();
-	//	std::cout << person << std::endl;
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 200);
-	//	person.increment();
-	//	person.decrement();
-	//	person.decrement();
-	//	std::cout << person << std::endl;
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 0);
-	//	person.increment();
-	//	person.decrement();
-	//	person.decrement();
-	//	std::cout << person << std::endl;
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
-	//try
-	//{
-	//	Bureaucrat person("ukwon", 1);
-	//	std::cout << person << std::endl;
-	//	person.increment();
-	//}
-	//catch (std::exception & e)
-	//{
-	//	std::cout << e.what() << std::endl;
-	//}
+	try
+	{
+		Bureaucrat person("person", 45);
+		std::cout << person << std::endl;
+		std::cout << "==========================" << std::endl;
+		robot->beSigned(person);
+		std::cout << *robot << std::endl;
+		robot->execute(person);
+		robot->execute(person);
+		robot->execute(person);
+		robot->beSigned(person);
+		std::cout << *robot << std::endl;
+		std::cout << "==========================" << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+		std::cout << "==========================" << std::endl;
+	}
+	try
+	{
+		Bureaucrat person("SuperPerson", 20);
+		std::cout << person << std::endl;
+		std::cout << "==========================" << std::endl;
+		president->beSigned(person);
+		std::cout << *president << std::endl;
+		president->execute(person);
+		std::cout << "==========================" << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+		std::cout << "==========================" << std::endl;
+	}
+	delete tree;
+	delete robot;
+	delete president;
 	return (0);
 }
