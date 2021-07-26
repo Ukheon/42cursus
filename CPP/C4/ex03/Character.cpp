@@ -49,7 +49,10 @@ void Character::unequip(int idx)
 {
 	if (idx < 0 || idx >= this->limit)
 		return ;
-	for (int i = 0; i < this->limit - 1 ; i++)
+	if (this->slot[idx] == NULL)
+		return ;
+	delete this->slot[idx];
+	for (int i = idx; i < this->limit - 1 ; i++)
 	{
 		this->slot[i] = this->slot[i + 1];
 		this->slot[i + 1] = NULL;

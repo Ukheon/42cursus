@@ -39,11 +39,13 @@ int main()
 	me->use(2, *bob);
 	me->use(3, *bob);
 	me->use(4, *bob);
-
+	std::cout << " ========= " << std::endl;
 	me->unequip(0);
+	me->use(2, *bob);
+	me->unequip(0);
+	me->use(2, *bob);
 	me->use(0, *bob);
 	std::cout << "materia exp: " << tmp->getXP() << std::endl;
-	std::cout << "materia exp: " << temp->getXP() << std::endl;
 	me->use(3, *bob);
 	me->unequip(-1);
 	me->equip(tmp);
