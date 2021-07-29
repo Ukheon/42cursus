@@ -23,7 +23,6 @@ int main()
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
 	ICharacter* bob = new Character("bob");
-	std::cout << "start !!! " << std::endl;
 	me->use(-1, *bob);
 	std::cout << "materia exp: " << tmp->getXP() << std::endl;
 	me->use(0, *bob);
@@ -49,7 +48,6 @@ int main()
 	me->use(3, *bob);
 	me->unequip(-1);
 	me->equip(tmp);
-
 	delete bob;
 	delete me;
 	delete src;

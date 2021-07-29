@@ -25,9 +25,10 @@ Character::Character(const Character &type)
 }
 Character::~Character()
 {
-	for (int i = 0; i < this->limit ; i++)
+	for (int i = 0; i < 4 ; i++)
 	{
-		delete this->slot[i];
+		if (this->slot[i] != NULL)
+			delete this->slot[i];
 	}
 }
 std::string const & Character::getName() const
@@ -39,9 +40,12 @@ void Character::equip(AMateria* m)
 {
 	if (this->limit >= 4 || m == NULL)
 		return ;
-	for (int i = 0; i < this->limit; i++)
+	int i = 0;
+	for (i = 0; i < this->limit; i++)
+	{
 		if (this->slot[i] == m)
 			return ;
+	}
 	this->slot[this->limit] = m;
 	this->limit++;
 }
@@ -51,8 +55,7 @@ void Character::unequip(int idx)
 		return ;
 	if (this->slot[idx] == NULL)
 		return ;
-	delete this->slot[idx];
-	for (int i = idx; i < this->limit - 1 ; i++)
+	for (int i = idx; i < 3; i++)
 	{
 		this->slot[i] = this->slot[i + 1];
 		this->slot[i + 1] = NULL;
