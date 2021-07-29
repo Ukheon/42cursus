@@ -2,16 +2,19 @@
 
 Cat::Cat()
 {
+	std::cout << "Consturctor Cat" << std::endl;
 	this->type = "Cat";
 }
 
 Cat::~Cat()
 {
-	;
+	std::cout << "desturctor Cat" << std::endl;
+
 }
 
 Cat::Cat(Cat const &type)
 {
+	std::cout << "CopyConsturctor Cat" << std::endl;
 	*this = type;
 }
 

@@ -2,11 +2,13 @@
 
 Dog::Dog()
 {
+	std::cout << "Consturctor Dog" << std::endl;
 	this->type = "Dog";
 }
 
 Dog::~Dog()
 {
+	std::cout << "desturctor Dog" << std::endl;
 	;
 }
 
@@ -17,6 +19,7 @@ std::string Dog::getType() const
 
 Dog::Dog(Dog const &type)
 {
+	std::cout << "CopyConsturctor dog" << std::endl;
 	*this = type;
 }
 

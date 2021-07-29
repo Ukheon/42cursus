@@ -5,28 +5,26 @@ Brain::Brain()
 	this->idea = new std::string[100];
 	for (int i = 0; i < 100; i++)
 	{
-		this->idea[i] = i;
+		if (i % 2 == 0)
+			this->idea[i] == "Cat";
+		else
+			this->idea[i] == "Dog";
 	}
-	std::cout << "Constructor Brain" << std::endl;
+	std::cout << "create Brain" << std::endl;
 }
 
 Brain::~Brain()
 {
 	delete[] this->idea;
-	std::cout << "Destructors Brain" << std::endl;
+	std::cout << "deideauctor Brain" << std::endl;
 }
 
 Brain::Brain(Brain const &type)
 {
-	this->idea = new std::string[100];
-	*this = type;
+	;
 }
 
 Brain &Brain::operator=(Brain const &type)
 {
-	for (int i = 0; i < 100; i++)
-	{
-		this->idea[i] = type.idea[i];
-	}
 	return (*this);
 }

@@ -4,7 +4,7 @@
 class WrongCat : public WrongAnimal{
 public:
 	WrongCat();
-	~WrongCat();
+	virtual ~WrongCat();
 	WrongCat(WrongCat const &type);
 	std::string getType() const;
 	WrongCat &operator=(WrongCat const &type);

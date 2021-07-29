@@ -20,12 +20,14 @@ std::string Dog::getType() const
 
 Dog::Dog(Dog const &type)
 {
+	std::cout << "Copyconsturctor Dog" << std::endl;
 	this->tmp = new Brain();
-	this->type = type.type;
+	*this = type;
 }
 
 Dog &Dog::operator=(Dog const &type)
 {
+	std::cout << "Dog operator called" << std::endl;
 	for (int i = 0; i < 100; i++)
 	{
 		this->tmp->idea[i] = type.tmp->idea[i];

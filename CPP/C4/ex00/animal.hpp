@@ -6,7 +6,7 @@ protected:
 	std::string type;
 public:
 	Animal();
-	~Animal();
+	virtual ~Animal();
 	Animal(Animal const &type);
 	virtual std::string getType() const;
 	Animal &operator=(Animal const &type);

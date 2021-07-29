@@ -1,18 +1,16 @@
 #include "animal.hpp"
 Animal::Animal()
 {
-	std::cout << "constructor Animal" << std::endl;
 	this->type = "nothing";
 }
 
 Animal::~Animal()
 {
-	std::cout << "destructor Animal" << std::endl;
+	;
 }
 
 Animal::Animal(Animal const &type)
 {
-	std::cout << "CopyConstructor Animal" << std::endl;
 	*this = type;
 }
 
