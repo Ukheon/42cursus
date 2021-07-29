@@ -3,7 +3,12 @@ FLAG = -Wall -Wextra -Werror
 TARGET = a.out
 
 OBJS =	main.cpp \
-		Bureaucrat.cpp
+		Bureaucrat.cpp \
+		Form.cpp \
+		PresidentialPardonForm.cpp \
+		RobotomyRequestForm.cpp \
+		ShrubberyCreationForm.cpp \
+		Intern.cpp
 
 all : $(TARGET)
 

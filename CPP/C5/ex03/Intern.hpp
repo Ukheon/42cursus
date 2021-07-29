@@ -15,6 +15,5 @@ public:
 	Intern(Intern const &type);
 	Intern &operator=(Intern const &type);
 	Form *makeForm(std::string const formName, std::string const target);
-	Form *clone(int idx);
 };
 #endif
