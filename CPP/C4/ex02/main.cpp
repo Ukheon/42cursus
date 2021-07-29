@@ -4,20 +4,18 @@
 int main(void)
 {
 	const Animal* j = new Dog();
+	std::cout << " =========================== " << std::endl;
 	const Animal* i = new Cat();
+	std::cout << " =========================== " << std::endl;
 	Cat test;
 	Cat test2(test);
-	const Animal* cuteDog = new Dog();
-	const Animal* cuteCat = new Cat();
-	cuteDog->makeSound();
-	cuteCat->makeSound();
-
+	j->makeSound();
+	i->makeSound();
 	std::cout << "============= deep copy check ==============" << std::endl;
 	std::cout << &test.tmp << std::endl;
 	std::cout << &test2.tmp << std::endl;
 	delete j;
 	delete i;
-	delete cuteDog;
-	delete cuteCat;
+	std::cout << " ptr delete success ! " << std::endl;
 	return (0);
 }
