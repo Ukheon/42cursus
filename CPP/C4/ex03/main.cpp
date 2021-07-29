@@ -43,11 +43,9 @@ int main()
 	me->use(2, *bob);
 	me->unequip(0);
 	me->use(2, *bob);
-	me->use(0, *bob);
 	std::cout << "materia exp: " << tmp->getXP() << std::endl;
 	me->use(3, *bob);
 	me->unequip(-1);
-	me->equip(tmp);
 	delete bob;
 	delete me;
 	delete src;

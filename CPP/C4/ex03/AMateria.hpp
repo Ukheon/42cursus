@@ -11,6 +11,7 @@ protected:
 	std::string type;
 public:
 	AMateria(std::string const & type);
+	AMateria(AMateria const &type);
 	virtual ~AMateria();
 	std::string const & getType() const;
 	unsigned int getXP() const;
