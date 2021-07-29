@@ -1,8 +1,4 @@
 #include "Form.hpp"
-Form::Form()
-:name("nothing"), signGrade(150), executeGrade(1), sign(false)
-{
-}
 
 Form::Form(std::string const &name, int const signGrade, int const executeGrade)
 :name(name),signGrade(signGrade), executeGrade(executeGrade)
@@ -30,18 +26,18 @@ Form::~Form()
 
 const char *Form::GradeTooHighException::what() const throw()
 {
-	return ("FormException: Grade too high");
+	return ("Grade too high");
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return ("FormException: Grade too Low");
+	return ("Grade too Low");
 }
 
 const char *Form::SignCheck::what() const throw()
 {
 
-	return ("FormException: Already sign OK");
+	return ("Already sign OK");
 }
 
 Form &Form::operator=(Form const &type)
@@ -50,7 +46,7 @@ Form &Form::operator=(Form const &type)
 	return (*this);
 }
 
-std::string const &Form::getName(void) const
+const std::string &Form::getName(void) const
 {
 	return (this->name);
 }

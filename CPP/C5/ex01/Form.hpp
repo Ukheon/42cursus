@@ -3,9 +3,9 @@
 
 # include <iostream>
 # include <string>
-class Form;
 # include "Bureaucrat.hpp"
 
+//class Bureaucrat;
 class Form
 {
 private:
@@ -28,7 +28,7 @@ public:
 		virtual const char* what() const throw();
 	};
 	Form &operator=(Form const &type);
-	std::string const &getName(void) const;
+	const std::string &getName(void) const;
 	bool isSigned(void) const;
 	int getSignGrade(void) const;
 	int getExecuteGrade(void) const;
