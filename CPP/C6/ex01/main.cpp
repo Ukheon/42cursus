@@ -1,36 +1,64 @@
 #include <iostream>
 #include <stdint.h>
-uintptr_t how()
+struct Data
 {
-	unsigned int qq;
-	qq = 123123123;
-	unsigned int *test = &qq;
-	char arr[40];
+	std::string s1;
+	int	n;
+	std::string s2;
+};
+
+uintptr_t serialize(Data *data)
+{
+	std::string source = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char str[40];
+	char *div;
+	int len = source.length();
+	int *integer = new int(rand() % 2102030405);
+	div = reinterpret_cast<char *>(integer);
 	for (int i = 0; i < 40; i++)
-		arr[i] = i;
-	uintptr_t a;
-	std::string str = "str";
-	std::string temp;
-	a = reinterpret_cast<unsigned int>(qq);
-	temp = std::string(static_cast<char *>(a));
-	std::cout << a << std::endl;
-	//std::cout << a << std::endl;
-	return (a);
+	{
+		if (!(i >= 20 && i <= 23))
+			str[i] = source[rand() % len];
+		else
+			str[i] = *(div++);
+	}
+	data->s1 = std::string(str, 20);
+	data->s2 = std::string(str + 24, 16);
+	uintptr_t res = reinterpret_cast<uintptr_t>(str);
+	data->n = *reinterpret_cast<int *>(res + 20);
+	std::cout << res << std::endl;
+	std::cout << " =========== " << std::endl;
+	return (res);
+}
+
+Data* deserialize(uintptr_t raw)
+{
+	Data *res = new Data;
+
+	char *str = reinterpret_cast<char *>(raw);
+	std::cout << raw << std::endl;
+
+	res->s1 = std::string(reinterpret_cast<char *>(raw + 4), 20);
+	res->n = *reinterpret_cast<int *>(raw + 20);
+	res->s2 = std::string(reinterpret_cast<char *>(raw + 24), 16);
+	std::cout << sizeof(res->s1) << std::endl;
+	std::cout << &res->n << std::endl;
+	std::cout << &res->s2 << std::endl;
+	return (res);
 }
 
 int		main(void)
 {
+	Data *before = new Data;
+	uintptr_t raw;
+	raw = serialize(before);
+	Data *after = deserialize(raw);
+	std::cout << "before s1 : " << before->s1 << std::endl;
+	std::cout << "before n : " << before->n << std::endl;
+	std::cout << "before s1 : " << before->s2 << std::endl;
+	std::cout << "after s1 : " << after->s1 << std::endl;
+	std::cout << "after n : " << after->s1 << std::endl;
+	std::cout << "after s2 : " << after->s2 << std::endl;
 
-	//	d->s1 = std::string(static_cast<char*>(raw), 8);
-	//d->n = *reinterpret_cast<int*>(static_cast<char*>(raw) + 8);
-	//d->s2 = std::string(static_cast<char*>(raw) + 12, 8);
-	std::string *temp;
-	unsigned int gete;
-	gete = how();
-	char str = static_cast<char>(gete);
-	temp = reinterpret_cast<std::string *>(str, 130);
-	std::cout << str << std::endl;
-	std::cout << temp << std::endl;
-	//std::cout << *temp << std::endl;
 	return (0);
 }
