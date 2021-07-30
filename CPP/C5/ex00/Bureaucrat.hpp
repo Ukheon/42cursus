@@ -24,7 +24,6 @@ public:
 	void		decrement();
 };
 
-
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &type);
 
 #endif

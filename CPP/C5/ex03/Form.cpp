@@ -1,10 +1,5 @@
 #include "Form.hpp"
 
-Form::Form()
-:name("nothing"), signGrade(150), executeGrade(1), sign(false)
-{
-}
-
 Form::Form(std::string const &name, int const signGrade, int const executeGrade)
 :name(name),signGrade(signGrade), executeGrade(executeGrade)
 {
@@ -29,31 +24,26 @@ Form::~Form()
 	;
 }
 
-Form *Form::clone(std::string const &target)
-{
-	return (0);
-}
-
 const char *Form::GradeTooHighException::what() const throw()
 {
-	return ("FormException: Grade too high");
+	return ("Grade too high");
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return ("FormException: Grade too Low");
+	return ("Grade too Low");
 }
 
 const char *Form::SignCheck::what() const throw()
 {
 
-	return ("FormException: Already sign OK");
+	return ("Already sign OK");
 }
 
 const char *Form::ExecuteSignCheck::what() const throw()
 {
 
-	return ("FormException: be not signed");
+	return ("be not signed");
 }
 
 Form &Form::operator=(Form const &type)

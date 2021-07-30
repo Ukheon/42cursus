@@ -3,6 +3,12 @@
 # include "ShrubberyCreationForm.hpp"
 # include "PresidentialPardonForm.hpp"
 # include "RobotomyRequestForm.hpp"
+class Form;
+class Bureaucrat;
+class RobotomyRequestForm;
+class ShrubberyCreationForm;
+class PresidentialPardonForm;
+
 class Intern {
 private:
 	Form *slot[3];

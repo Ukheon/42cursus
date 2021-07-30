@@ -5,12 +5,13 @@
 # include <string>
 # include "Bureaucrat.hpp"
 
-//class Bureaucrat;
+class Bureaucrat;
+
 class Form
 {
 private:
 	Form();
-	std::string const &name;
+	std::string const name;
 	bool sign;
 	int const signGrade;
 	int const executeGrade;

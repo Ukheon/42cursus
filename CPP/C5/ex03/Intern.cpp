@@ -34,7 +34,7 @@ Form *Intern::makeForm(std::string const formName, std::string const target)
 	{
 		if (this->slot[i]->getName() == formName)
 		{
-			std::cout << "Intern Create" << std::endl;
+			std::cout << "Intern Create " << this->slot[i]->getName() << std::endl;
 			ret = this->slot[i]->clone(target);
 			return (ret);
 		}

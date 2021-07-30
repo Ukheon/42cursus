@@ -2,6 +2,7 @@
 # define PRESIDENTIALPARDONFORM_HPP
 # include "Form.hpp"
 
+class Bureaucrat;
 class Form;
 
 class PresidentialPardonForm : public Form

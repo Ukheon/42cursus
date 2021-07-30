@@ -12,11 +12,10 @@ int	main(void)
 	try
 	{
 		Bureaucrat person("person", 123);
-		std::cout << person << std::endl;
 		std::cout << "==========================" << std::endl;
-		tree->beSigned(person);
-		std::cout << *tree << std::endl;
-		tree->execute(person);
+		std::cout << person << std::endl;
+		person.signForm(*tree);
+		person.excuteForm(*tree);
 		std::cout << *tree << std::endl;
 		std::cout << "==========================" << std::endl;
 	}
@@ -28,8 +27,8 @@ int	main(void)
 	try
 	{
 		Bureaucrat person("person", 45);
-		std::cout << person << std::endl;
 		std::cout << "==========================" << std::endl;
+		std::cout << person << std::endl;
 		robot->beSigned(person);
 		std::cout << *robot << std::endl;
 		robot->execute(person);
@@ -46,9 +45,9 @@ int	main(void)
 	}
 	try
 	{
-		Bureaucrat person("SuperPerson", 20);
-		std::cout << person << std::endl;
+		Bureaucrat person("SuperPerson", 4);
 		std::cout << "==========================" << std::endl;
+		std::cout << person << std::endl;
 		president->beSigned(person);
 		std::cout << *president << std::endl;
 		president->execute(person);

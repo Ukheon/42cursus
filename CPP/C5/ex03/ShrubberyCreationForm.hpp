@@ -4,6 +4,7 @@
 # include <fstream>
 
 class Form;
+class Bureaucrat;
 
 class ShrubberyCreationForm : public Form
 {

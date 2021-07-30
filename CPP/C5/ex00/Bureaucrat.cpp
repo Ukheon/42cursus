@@ -12,12 +12,12 @@ Bureaucrat::~Bureaucrat()
 
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Exception: Grade too high");
+	return ("Grade too high");
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Exception: Grade too low");
+	return ("Grade too low");
 }
 
 Bureaucrat::Bureaucrat(std::string name, int grade):

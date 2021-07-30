@@ -2,14 +2,14 @@
 # define BUREAUCRAT_HPP
 # include <iostream>
 # include <exception>
-//# include "Form.hpp"
+# include "Form.hpp"
 
-//class Form;
+class Form;
 
 class Bureaucrat {
 private:
 	Bureaucrat();
-	std::string const name;
+	std::string name;
 	int			grade;
 public:
 	class GradeTooHighException : public std::exception{
@@ -26,7 +26,7 @@ public:
 	int			getGrade() const;
 	void		increment();
 	void		decrement();
-	//void		signForm(Form &type);
+	void		signForm(Form &type);
 };
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &type);
 

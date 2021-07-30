@@ -3,15 +3,15 @@
 
 # include <iostream>
 # include <string>
-class Form;
 # include "Bureaucrat.hpp"
+class Bureaucrat;
 
 class Form
 {
 
 private:
 	Form();
-	std::string const &name;
+	std::string const name;
 	bool sign;
 	int const signGrade;
 	int const executeGrade;
@@ -37,7 +37,7 @@ public:
 	int getSignGrade(void) const;
 	int getExecuteGrade(void) const;
 	void beSigned(Bureaucrat const &bureaucrat);
-	virtual Form *clone(std::string const &target);
+	virtual Form *clone(std::string const &target) = 0;
 	virtual void execute(Bureaucrat const &type) const = 0;
 };
 

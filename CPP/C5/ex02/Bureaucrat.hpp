@@ -2,6 +2,10 @@
 # define BUREAUCRAT_HPP
 # include <iostream>
 # include <exception>
+# include "Form.hpp"
+
+class Form;
+
 class Bureaucrat {
 private:
 	Bureaucrat();
@@ -22,6 +26,8 @@ public:
 	int			getGrade() const;
 	void		increment();
 	void		decrement();
+	void		signForm(Form &type);
+	void		excuteForm(Form &type);
 };
 
 

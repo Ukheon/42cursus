@@ -1,13 +1,12 @@
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+//#include "Bureaucrat.hpp"
+//#include "Form.hpp"
+//#include "ShrubberyCreationForm.hpp"
+//#include "RobotomyRequestForm.hpp"
+//#include "PresidentialPardonForm.hpp"
 #include "Intern.hpp"
 int	main(void)
 {
 	srand(time(NULL));
-
 	Intern newbie;
 	Form *test;
 	try
@@ -16,6 +15,8 @@ int	main(void)
 		Bureaucrat person("person", 130);
 		test->beSigned(person);
 		test->execute(person);
+		person.signForm(*test);
+		person.excuteForm(*test);
 		std::cout << *test << std::endl;
 	}
 	catch (std::exception &e)
@@ -29,7 +30,7 @@ int	main(void)
 		test = newbie.makeForm("RobotomyRequest", "Optimus");
 		Bureaucrat person("person", 30);
 		test->beSigned(person);
-		test->execute(person);
+		person.excuteForm(*test);
 		test->execute(person);
 		test->execute(person);
 		std::cout << *test << std::endl;
@@ -56,10 +57,10 @@ int	main(void)
 	try
 	{
 		test = newbie.makeForm("PresidentialPardon", "President");
-		Bureaucrat person("person", 20);
+		Bureaucrat person("person", 28);
 		std:: cout << *test << std::endl;
+		person.excuteForm(*test);
 		test->beSigned(person);
-		std::cout << "Success sign" << std::endl;
 		test->execute(person);
 		std::cout << *test << std::endl;
 	}
@@ -74,8 +75,8 @@ int	main(void)
 		test = newbie.makeForm("PresidentialPardon", "President");
 		Bureaucrat person("person", 3);
 		std:: cout << *test << std::endl;
-		test->beSigned(person);
-		std::cout << "Success sign" << std::endl;
+		person.signForm(*test);
+		person.excuteForm(*test);
 		test->execute(person);
 	}
 	catch (std::exception &e)

@@ -3,15 +3,14 @@
 
 # include <iostream>
 # include <string>
-class Form;
 # include "Bureaucrat.hpp"
-
+class Bureaucrat;
 class Form
 {
 
 private:
 	Form();
-	std::string const &name;
+	std::string const name;
 	bool sign;
 	int const signGrade;
 	int const executeGrade;

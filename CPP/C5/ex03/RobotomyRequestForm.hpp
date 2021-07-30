@@ -3,6 +3,7 @@
 # include "Form.hpp"
 
 class Form;
+class Bureaucrat;
 
 class RobotomyRequestForm : public Form
 {

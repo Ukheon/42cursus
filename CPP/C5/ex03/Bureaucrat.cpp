@@ -12,12 +12,12 @@ Bureaucrat::~Bureaucrat()
 
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Exception: Grade too high");
+	return ("Grade too high");
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Exception: Grade too low");
+	return ("Grade too low");
 }
 
 Bureaucrat::Bureaucrat(std::string name, int grade):
@@ -72,6 +72,44 @@ void		Bureaucrat::decrement()
 	if (this->grade > 150)
 	{
 		throw (Bureaucrat::GradeTooLowException());
+	}
+}
+
+void Bureaucrat::signForm(Form &type)
+{
+	if (type.isSigned())
+		std::cout << this->name << " can not sign " << type.getName() << " because it`s form is already signed!" << std::endl;
+	else
+	{
+		try
+		{
+			type.beSigned(*this);
+			std::cout << this->name << " signs " << type.getName() << std::endl;
+		}
+		catch (std::exception &e)
+		{
+			std::cout << this->name << " can not signs " << type.getName() << " because " << e.what() << std::endl;
+		}
+	}
+}
+
+void Bureaucrat::excuteForm(Form &type)
+{
+	if (type.isSigned())
+	{
+		try
+		{
+			type.execute(*this);
+			std::cout << this->getName() << " excute success " << type.getName() << std::endl;
+		}
+		catch (std::exception &e)
+		{
+			std::cout << this->getName() << " excute failed because " << e.what() << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << this->getName() << " excute failed because " << "be not signed" << std::endl;
 	}
 }
 
