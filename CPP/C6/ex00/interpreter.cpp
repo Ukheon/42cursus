@@ -10,7 +10,7 @@ interpreter::~interpreter()
 
 }
 interpreter::interpreter(interpreter const &copy)
-:intV(copy.intV), floatV(copy.floatV), doubleV(copy.doubleV), _case(copy._case), str(copy.str)
+:intV(copy.intV), doubleV(copy.doubleV), floatV(copy.floatV), _case(copy._case), str(copy.str)
 {
 	for (int i = 0; i < 4; i++)
 		this->typeName[i] = copy.typeName[i];
@@ -32,16 +32,16 @@ interpreter &interpreter::operator=(interpreter const &copy)
 int		interpreter::ValidParamCheck()
 {
 	int check = 0;
-	for (int i = 0; i < this->str.length(); i++)
+	for (int i = 0; i < static_cast<int>(this->str.length()); i++)
 	{
 		if (!(this->str[i] >= '0' && this->str[i] <= '9'))
 		{
-			if (check == 0 && this->str[i] == '.' && i + 1 != this->str.length())
+			if (check == 0 && this->str[i] == '.' && i + 1 != static_cast<int>(this->str.length()))
 			{
 				check++;
 				continue ;
 			}
-			if (i == 0 && str[i] == '-' || (i + 1 == this->str.length() && str[i] == 'f'))
+			if ((i == 0 && str[i] == '-') || (i + 1 == static_cast<int>(this->str.length()) && str[i] == 'f'))
 				continue ;
 			return (1);
 		}
@@ -70,7 +70,7 @@ void	interpreter::print()
 		std::stringstream temp;
 		temp << this->floatV;
 		this->str = temp.str();
-		if (this->str.find("nan", 0) != -1)
+		if (static_cast<int>(this->str.find("nan", 0)) != -1)
 		{
 			this->_case = -1;
 			this->print();
@@ -85,11 +85,11 @@ void	interpreter::print()
 		else
 			std::cout << this->typeName[1] << this->intV << std::endl;
 
-		if (this->str.find("inf", 0) != -1 || this->str.find("nan", 0) != -1)
+		if (static_cast<int>(this->str.find("inf", 0)) != -1 || static_cast<int>(this->str.find("nan", 0)) != -1)
 		{
 			std::cout << this->typeName[2] << this->floatV << "f" << std::endl;
 		}
-		else if (this->str.find(".", 0) == -1)
+		else if (static_cast<int>(this->str.find(".", 0)) == -1)
 			std::cout << this->typeName[2] << this->floatV << ".0f" << std::endl;
 		else
 			std::cout << this->typeName[2] << this->floatV << "f" << std::endl;
@@ -97,9 +97,9 @@ void	interpreter::print()
 		temp.str().clear();
 		temp << this->doubleV;
 		this->str = temp.str();
-		if (this->str.find("inf", 0) != -1 || this->str.find("nan", 0) != -1)
+		if (static_cast<int>(this->str.find("inf", 0)) != -1 || static_cast<int>(this->str.find("nan", 0)) != -1)
 			std::cout << this->typeName[3] << this->doubleV << std::endl;
-		else if (this->str.find(".", 0) == -1)
+		else if (static_cast<int>(this->str.find(".", 0)) == -1)
 			std::cout << this->typeName[3] << this->doubleV << ".0" << std::endl;
 		else
 			std::cout << this->typeName[3] << this->doubleV << "" << std::endl;
