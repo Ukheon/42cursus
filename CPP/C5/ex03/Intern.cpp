@@ -6,6 +6,7 @@ Intern::Intern()
 	this->slot[1] = new RobotomyRequestForm("RobotomyRequest");
 	this->slot[2] = new PresidentialPardonForm("PresidentialPardon");
 }
+
 Intern::~Intern()
 {
 	for (int i = 0; i < 3; i++)

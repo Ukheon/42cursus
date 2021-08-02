@@ -15,8 +15,6 @@ int	main(void)
 	{
 		Bureaucrat person("ukwon", 1);
 		person.decrement();
-		person.increment();
-		person.decrement();
 		std::cout << person << std::endl;
 	}
 	catch (std::exception & e)
@@ -26,8 +24,6 @@ int	main(void)
 	try
 	{
 		Bureaucrat person("ukwon", 150);
-		person.increment();
-		person.increment();
 		person.decrement();
 		std::cout << person << std::endl;
 	}
@@ -37,10 +33,7 @@ int	main(void)
 	}
 	try
 	{
-		Bureaucrat person("ukwon", 150);
-		person.increment();
-		person.decrement();
-		person.decrement();
+		Bureaucrat person("ukwon", 0);
 		std::cout << person << std::endl;
 	}
 	catch (std::exception & e)
@@ -54,28 +47,6 @@ int	main(void)
 		person.decrement();
 		person.decrement();
 		std::cout << person << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat person("ukwon", 0);
-		person.increment();
-		person.decrement();
-		person.decrement();
-		std::cout << person << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat person("ukwon", 1);
-		std::cout << person << std::endl;
-		person.increment();
 	}
 	catch (std::exception & e)
 	{
