@@ -67,7 +67,6 @@ void	interpreter::print()
 	}
 	else
 	{
-
 		std::stringstream temp;
 		temp << this->floatV;
 		this->str = temp.str();
@@ -113,6 +112,13 @@ interpreter::interpreter(char *str)
 	this->typeName[1] = "int: ";
 	this->typeName[2] = "float: ";
 	this->typeName[3] = "double: ";
+	if (str == NULL)
+	{
+		for (int i = 0; i < 4; i++)
+			std::cout << this->typeName[i] << "impossible";
+		this->_case = 0;
+		return ;
+	}
 	std::string temp(str);
 	this->str = temp;
 	this->_case = -1;

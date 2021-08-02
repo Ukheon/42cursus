@@ -8,9 +8,6 @@ int main(int argc, char *argv[])
 		return (0);
 	}
 	interpreter startProgram(argv[1]);
-	//interpreter copy;
-	//copy = startProgram;
 	startProgram.print();
-	//copy.print();
 	return (0);
 }

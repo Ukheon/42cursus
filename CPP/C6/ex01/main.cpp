@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdint.h>
+
 struct Data
 {
 	std::string s1;
@@ -7,13 +7,14 @@ struct Data
 	std::string s2;
 };
 
-uintptr_t serialize(Data *data)
+uintptr_t serialize(Data *d)
 {
 	std::string source = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char str[40];
-	char *div;
+	char *str, *div;
+	int *integer = new int();
+	str = new char[40];
 	int len = source.length();
-	int *integer = new int(rand() % 2102030405);
+	*integer = rand() % 2102030405;
 	div = reinterpret_cast<char *>(integer);
 	for (int i = 0; i < 40; i++)
 	{
@@ -22,29 +23,23 @@ uintptr_t serialize(Data *data)
 		else
 			str[i] = *(div++);
 	}
-	data->s1 = std::string(str, 20);
-	data->s2 = std::string(str + 24, 16);
 	uintptr_t res = reinterpret_cast<uintptr_t>(str);
-	data->n = *reinterpret_cast<int *>(res + 20);
-	std::cout << res << std::endl;
-	std::cout << " =========== " << std::endl;
+	d->s1 = std::string(str, 20);
+	d->n = *integer;
+	d->s2 = std::string(str + 24, 16);
+	delete integer;
 	return (res);
 }
 
 Data* deserialize(uintptr_t raw)
 {
-	Data *res = new Data;
-
-	char *str = reinterpret_cast<char *>(raw);
-	std::cout << raw << std::endl;
-
-	res->s1 = std::string(reinterpret_cast<char *>(raw + 4), 20);
-	res->n = *reinterpret_cast<int *>(raw + 20);
-	res->s2 = std::string(reinterpret_cast<char *>(raw + 24), 16);
-	std::cout << sizeof(res->s1) << std::endl;
-	std::cout << &res->n << std::endl;
-	std::cout << &res->s2 << std::endl;
-	return (res);
+	Data *after = new Data;
+	after->s1 = std::string(reinterpret_cast<char *>(raw), 20);
+	after->n = *reinterpret_cast<int *>(raw + 20);
+	after->s2 = std::string(reinterpret_cast<char *>(raw + 24), 16);
+	char *del = reinterpret_cast<char *>(raw);
+	delete del;
+	return (after);
 }
 
 int		main(void)
@@ -57,8 +52,9 @@ int		main(void)
 	std::cout << "before n : " << before->n << std::endl;
 	std::cout << "before s1 : " << before->s2 << std::endl;
 	std::cout << "after s1 : " << after->s1 << std::endl;
-	std::cout << "after n : " << after->s1 << std::endl;
+	std::cout << "after n : " << after->n << std::endl;
 	std::cout << "after s2 : " << after->s2 << std::endl;
-
+	delete before;
+	delete after;
 	return (0);
 }
