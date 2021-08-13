@@ -51,7 +51,6 @@ public:
 	};
 	T &operator[](unsigned idx)
 	{
-		std::cout << "call?" << std::endl;
 		if (idx >= this->n || idx < 0)
 			throw Array::idxError();
 		return (this->tarr[idx]);
