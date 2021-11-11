@@ -12,8 +12,7 @@ int main(void)
 	j->makeSound();
 	i->makeSound();
 	std::cout << "============= deep copy check ==============" << std::endl;
-	std::cout << &test.tmp << std::endl;
-	std::cout << &test2.tmp << std::endl;
+
 	delete j;
 	delete i;
 	std::cout << " ptr delete success ! " << std::endl;

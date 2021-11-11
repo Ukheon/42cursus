@@ -9,10 +9,14 @@ public:
 };
 
 class A : public Base {
+public:
+	A() { };
 	~A() { };
 };
 
 class B : public Base {
+public:
+	B() { };
 	~B() { };
 };
 
@@ -46,8 +50,15 @@ void identify(Base* p)
 
 void identify(Base &p)
 {
-	if (&p == NULL)
-		return ;
+	try
+	{
+		A *p = new A;
+		B &temp = dynamic_cast<B &>(*p);
+	}
+	catch (std::bad_cast &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	if (dynamic_cast<A *>(&p))
 		std::cout << "A" << std::endl;
 	else if (dynamic_cast<B *>(&p))

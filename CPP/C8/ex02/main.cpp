@@ -1,7 +1,6 @@
 #include "mutantstack.hpp"
 #include <vector>
 
-
 void subjectTest()
 {
 	MutantStack<int> mstack;
@@ -54,8 +53,9 @@ void myTest()
 
 int main()
 {
+	std::stack<int> p;
+	MutantStack<int> q;
 	subjectTest();
 	std::cout << " ========================== " << std::endl;
 	myTest();
 }
-

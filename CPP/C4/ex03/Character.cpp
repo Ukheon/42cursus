@@ -23,6 +23,7 @@ Character::Character(const Character &type)
 		this->slot[i] = type.slot[i]->clone();
 	}
 }
+
 Character::~Character()
 {
 	for (int i = 0; i < 4 ; i++)

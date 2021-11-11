@@ -4,7 +4,6 @@
 int main(void)
 {
 	std::cout << "======== vector ========" << std::endl;
-
 	std::vector<int> vec(10, 100);
 	std::vector<int>::iterator iterV;
 	iterV = easyfind(vec, 100);
@@ -38,7 +37,6 @@ int main(void)
 		std::cout << "not found" << std::endl;
 
 	std::cout << "======== map ========" << std::endl;
-
 	std::map<int, int> first;
 	std::map<int, int>::iterator iterM;
 	first[0] = 10;

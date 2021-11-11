@@ -32,6 +32,8 @@ public:
 
 std::ostream &operator<<(std::ostream &out, practice const &type);
 
+
+
 template <typename T>
 void iter(T *arr, int limit, void (*f)(T value))
 {

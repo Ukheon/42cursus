@@ -2,6 +2,7 @@
 
 std::string		 Human::identify()
 {
+	std::cout << "first here" << std::endl;
 	std::stringstream	itohex;
 	std::string			res;
 	std::string			temp;

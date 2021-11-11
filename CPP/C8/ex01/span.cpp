@@ -75,6 +75,7 @@ long Span::shortestSpan()
 	return (res);
 }
 
+
 long Span::longestSpan()
 {
 	if (this->arrV.size() <= 1)

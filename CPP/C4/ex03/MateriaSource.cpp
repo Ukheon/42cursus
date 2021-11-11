@@ -17,11 +17,8 @@ MateriaSource::MateriaSource(MateriaSource const &type)
 
 MateriaSource::~MateriaSource()
 {
-	if (this->sources)
-	{
-		for (int i = 0; i < this->idx ; i++)
-			delete this->sources[i];
-	}
+	for (int i = 0; i < this->idx ; i++)
+		delete this->sources[i];
 }
 
 MateriaSource &MateriaSource::operator=(MateriaSource const &type)

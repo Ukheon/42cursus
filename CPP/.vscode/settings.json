@@ -71,6 +71,12 @@
         "random": "cpp",
         "map": "cpp",
         "__tree": "cpp",
-        "filesystem": "cpp"
-    }
+        "filesystem": "cpp",
+        "*.tcc": "cpp",
+        "clocale": "cpp",
+        "memory_resource": "cpp",
+        "set": "cpp",
+        "*.ipp": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -1,15 +1,20 @@
 #include "Array.hpp"
 #include <exception>
+#include <typeinfo>
+
+
 
 int main(void)
 {
 	Array<int> intR;
-
 	Array<int> intRR(5);
 	intR = intRR;
 	for (unsigned int i = 0; i < intR.size(); i++)
 	{
 		intR[i] = i;
+
+		//intR[i]  == arr int*
+		//std::cout  << std::endl;
 		std::cout << intR[i] << " ";
 	}
 	std::cout << std::endl;
@@ -46,7 +51,7 @@ int main(void)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
+	std::cout << " ======================= " << std::endl;
 	try
 	{
 		intR[10];
@@ -55,7 +60,6 @@ int main(void)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
 	try
 	{
 		intRR[5] = 2;
