@@ -94,19 +94,21 @@ namespace ft
 }
 
 
-template <class T>
-class slist {
-	struct Node {
-		T data;
-		Node *next;
-		Node(T d, Node *n):data(d), next(n) {}
-	};
-	Node *head;
-
+namespace ft
+{
+	template <class Category, class T, class Distance = ptrdiff_t,
+          class Pointer = T*, class Reference = T&>
+	class iterator {
 	public:
-		slist(): head(0) {}
-
-};
+    	typedef T         value_type;
+    	typedef Distance  difference_type;
+    	typedef Pointer   pointer;
+    	typedef Reference reference;
+    	typedef Category  iterator_category;
+	private:
+		pointer ptr;
+	};
+}
 
 void check()
 {
@@ -144,6 +146,23 @@ void check()
 	// for (int i = 0;i<5;i++)
 	// 	std::cout << num[i] << std::endl;
 
+
+	for(int i = 0; i < 10; i++)
+		vec.push_back(i);
+	
+	std::vector<int>::iterator start;
+
+	start = vec.begin();
+	for (; start != vec.end(); ++start)
+	{
+		if (*start == 5)
+			vec.erase(start);
+	}
+
+	start = vec.begin();
+
+	for (; start !=vec.end();++start)
+		std::cout << *start << std::endl;
 	
 	ft::vector<int> my;
 	ft::vector<int> temp;
