@@ -1,119 +1,171 @@
 #include <iostream>
 #include <vector>
-template <typename T>
-class ft_vector {
-	private:
-	public:
-		T *arr;
-		size_t size;
-		size_t cap;
-		ft_vector()
-		{
-			this->size = 0;
-			this->cap = 1;
-			this->arr = new T[this->cap];
-		}
-		~ft_vector()
-		{
-			delete [] arr;
-		}
-		void push_back(const T &res)
-		{
-			if (this->size >= this->cap)
-				this->cap = this->cap * 2;
-			T *temp = new T[this->cap];
-			for (size_t i = 0; i < this->size; i++)
-				temp[i] = this->arr[i];
-			temp[this->size] = res;
-			delete [] this->arr;
-			this->arr = new T[this->cap];
-			for (size_t i = 0; i < this->size; i++)
-				this->arr[i] = temp[i];
-			this->arr[this->size] = temp[this->size];
-			this->size = this->size + 1;
-		}
-		void print()
-		{
-			for (int i = 0; i < this->size; i++)
+
+template <class Category,              // iterator::iterator_category
+          class T,					   // iterator::value_type
+          class Distance = ptrdiff_t,  // iterator::difference_type
+          class Pointer = T*,          // iterator::pointer
+          class Reference = T&         // iterator::reference
+          > class iterator;
+
+namespace ft
+{
+	template <class T, class Alloc = std::allocator<T> >
+	class vector {
+		public:
+			typedef T value_type;
+			// typedef std::allocate<T>::pointer pointer;
+			typedef Alloc allocator_type;
+			typedef size_t size_type;
+		private:
+			size_type	len;
+			size_type	cap;
+			value_type	*arr;
+			int n;
+			allocator_type allocType; // Alloc allocType;
+
+		public:
+			explicit vector (const allocator_type& alloc = allocator_type())
+			:len(0), cap(0), arr(0), allocType(alloc)
 			{
-				std::cout << this->arr[i] << "kk" << std::endl;
+				this->arr = allocType.allocate(0);
+			}; // defalut;
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+			:len(n), cap(n), arr(0), allocType(alloc) //  n 갯수만큼 0으로 초기화
+			{
+				this->arr = allocType.allocate(cap);
+				for (int i = 0; i < n; i++)
+				{
+					this->arr[i] = T();
+				}
 			}
-		}
-		size_t capacity() { return (this->cap); }
 
-};
+			// template <class InputIterator>
+         	// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()); // range만큼 복사?
+			vector (const vector& x); // copy
+			~vector()
+			{
+				allocType.deallocate(this->arr, this->cap);
+			}
 
-class test {
+			vector& operator= (const vector& x)
+			{
+				this->allocType.deallocate(this->arr, this->cap);
+				this->len = x.len;
+				this->cap = x.cap;
+				this->arr = this->allocType.allocate(x.cap);
+
+				for (size_type i = 0; i < x.len; i++)
+					this->arr[i] = x.arr[i];
+				return (*this);
+			}
+			size_type size() const { return (this->len); }
+			size_type capacity() const { return (this->cap); }
+			void push_back (const value_type& val)
+			{
+				if (this->len >= this->cap)
+				{
+					size_type prevSize = this->cap;
+					this->cap *= 2;
+					if (this->len == 0)
+					{
+						this->cap = 1;
+					}
+					value_type *temp = allocType.allocate(this->cap);
+					for (size_type i = 0; i < this->len; i++)
+						temp[i] = this->arr[i];
+					this->allocType.deallocate(this->arr, prevSize);
+					this->arr = allocType.allocate(this->cap);
+					for (size_type i = 0; i < this->len; i++)
+						this->arr[i] = temp[i];
+					this->allocType.deallocate(temp, this->cap);
+				}
+				this->arr[len] = val;
+				this->len += 1;
+			}
+
+			// void assign (InputIterator first, InputIterator last);
+			void assign (size_type n, const value_type& val);
+			T &operator[](unsigned idx)
+			{	
+				return (this->arr[idx]);
+			}
+	};
+}
+
+
+template <class T>
+class slist {
+	struct Node {
+		T data;
+		Node *next;
+		Node(T d, Node *n):data(d), next(n) {}
+	};
+	Node *head;
+
 	public:
-		int *i;
-		test() {
-			std::cout << "construct" << std::endl;
-		}
-		test(int num)
-		{
-			i = new int(num);
-		}
-		~test()
-		{
-			delete this->i;
-			std::cout << "destruct" << std::endl;
-		}
+		slist(): head(0) {}
+
 };
 
 void check()
 {
-	// std::allocator<int> alloc;
-	// test *c = new test(5);
-	// test *cd = new test[10];
+	std::vector<int> vec;
+	// // vec.push_back(1);
+	// vec.assign(100, 7);
+
+	// std::cout << vec.size() << "vs" << vec.capacity() << std::endl;
+
+	// // ft::vector<int> my(100);
 
 
 
 
-	// int *a = alloc.allocate(100);
-	// for (int i = 0; i < 100; i++)
+	// std::allocator<char> alloc;
+
+	// char *num;
+
+	// num = alloc.allocate(5);
+
+
+	// for (int i = 0; i < 5; i++)
 	// {
-	// 	a[i] = i;
-	// 	std::cout << a[i] << "숫자" << std::endl;
+	// 	num[i] = 'a';
 	// }
-	// delete [] a;
 
-	// int *b = new int();
-	// delete b;
-	// delete c;
-
-	// delete [] cd;
-
-	test *c = new test[2];
-	c[0].i = new int(10);
-	c[1].i = new int(20);
+	// for (int i = 0;i<5;i++)
+	// {
+	// 	std::cout << num[i] << std::endl;
+	// }
 	
-	// char **split = new char*[5];
-	// split[0] = new char[10];
-	// split[0][0] = '1';
+	// alloc.destroy(num);
+	// alloc.deallocate(num, 5);
 
-	// delete [] split;
-	// delete *split;
-	// delete split;
+	// for (int i = 0;i<5;i++)
+	// 	std::cout << num[i] << std::endl;
 
+	
+	ft::vector<int> my;
+	ft::vector<int> temp;
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(1);
+	my.push_back(2);
+
+	temp = my;
+	std::cout << my.size() << "vs" << my.capacity() << std::endl;
+	std::cout << my.size() << "vs" << my.capacity() << std::endl;
 }
 
 int main(void)
 {
-	// ft_vector<int> myvec;
-	// std::vector<int> vec;
-	// for (int i = 0; i < 16; i++)
-	// 	myvec.push_back(i);
-	// for (int i = 0; i < 16; i++)
-	// 	vec.push_back(i);
+	std::vector<int>::iterator it;
 	check();
-	// // for (int i = 0 ; i < 130; i++)
-	// // 	test.push_back(1);
-	// // std::cout << test.capacity() << std::endl;
-	// // std::cout << myvec.arr[0] << std::endl;
-	// // std::cout << myvec.arr[1] << "size :" << myvec.size <<  std::endl;
-	// myvec.print();
-	// std::cout << myvec.capacity() << std::endl;
-	// std::cout << vec.capacity() << std::endl;
-	system("leaks a.out");
+	// system("leaks a.out");
 	return (0);
 }
